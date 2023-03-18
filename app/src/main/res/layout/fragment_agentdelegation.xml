@@ -45,11 +45,11 @@
         android:text=" 간략한 정보"
         android:textSize="11pt" />
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:fontFamily="@font/textfont"
-        android:text=" 간략한 정보"
-        android:textSize="11pt" />
+    android:layout_width="match_parent"
+    android:layout_height="30dp"
+    android:fontFamily="@font/textfont"
+    android:text=" 간략한 정보"
+    android:textSize="11pt" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="30dp"
@@ -123,9 +123,9 @@
             android:background="@drawable/awaitingbid_button"
             android:backgroundTint="#3f9efa"
             android:fontFamily="@font/textfont"
-            android:onClick="onclick2"
             android:text="수락"
             android:textColor="#FFFFFF"
+            android:onClick="onclick2"
             android:textSize="10pt"
 
             />
