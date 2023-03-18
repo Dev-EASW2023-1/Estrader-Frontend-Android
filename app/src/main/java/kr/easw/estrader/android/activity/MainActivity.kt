@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         imageButton.setOnClickListener {
             val intent = Intent(applicationContext, TestActivity1::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
     }
 }
