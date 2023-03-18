@@ -70,12 +70,17 @@
 
             </LinearLayout>
 
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/fragment_container_view"
-                android:name="kr.easw.estrader.android.fragment.LoginFragment"
+            <FrameLayout
+                android:id="@+id/login_container_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:layout="@layout/fragment_login" />
+                android:layout_height="wrap_content" />
+
+<!--            <androidx.fragment.app.FragmentContainerView-->
+<!--                android:id="@+id/fragment_container_view"-->
+<!--                android:name="kr.easw.estrader.android.fragment.LoginFragment"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                tools:layout="@layout/fragment_login" />-->
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
