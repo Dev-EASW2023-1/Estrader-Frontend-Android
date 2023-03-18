@@ -6,20 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
 
-    <ScrollView
-        android:id="@+id/scrollview_main_body"
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_height="0dp">
+        android:orientation="vertical"
+        android:background="@drawable/login_rounded_corners"
+        android:padding="30dp">
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragment_container_view"
-            android:name="kr.easw.estrader.android.fragment.ItemListFragment"
+        <com.airbnb.lottie.LottieAnimationView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:layout="@layout/fragment_itemlist" />
+            android:layout_height="100dp"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="check.json"
+            app:lottie_loop="true" />
 
-    </ScrollView>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

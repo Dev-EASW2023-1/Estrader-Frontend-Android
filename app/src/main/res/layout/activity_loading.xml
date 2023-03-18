@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:lottie_autoPlay="true"
-            app:lottie_fileName="heartanimation.json"
+            app:lottie_fileName="check.json"
             app:lottie_loop="true" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>

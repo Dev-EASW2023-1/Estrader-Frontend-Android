@@ -7,6 +7,7 @@
     android:background="#316ce4"
     android:layout_height="match_parent">
 
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,13 +17,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.631"
         tools:layout_editor_absoluteX="0dp">
-
-        <ImageView
-            android:id="@+id/awaitingbid_imageView"
-            android:layout_width="wrap_content"
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:contentDescription="체크화면"
-            android:src="" />
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="check.json"
+            app:lottie_loop="true" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="check.json"
+            app:lottie_loop="true" />
 
         <TextView
             android:id="@+id/awaitingbid_textView"
