@@ -1,25 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:orientation="vertical"
-        android:background="@drawable/login_rounded_corners"
-        android:padding="30dp">
+        android:gravity="center"
+        android:padding="20dp">
 
         <ImageView
-            android:id="@+id/fragment_imageView"
+            android:id="@+id/itemlist_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_house1"/>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="100dp"
-            android:contentDescription="@string/item_image" />
+            android:layout_toStartOf="@+id/itemlist_auctionperiod"
+            android:layout_toEndOf="@+id/itemlist_image"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="30dp"
+            android:orientation="vertical">
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+            <TextView
+                android:id="@+id/itemlist_auctionhouse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="담당법원"
+                android:textSize="16dp"
+                android:textColor="#000"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/itemlist_casenumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="사건번호"
+                android:textSize="16dp"
+                android:textColor="#000"/>
+
+            <TextView
+                android:id="@+id/itemlist_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="소재지"
+                android:textSize="16dp"
+                android:textColor="#000"/>
+
+            <TextView
+                android:id="@+id/itemlist_reserveprice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="최저입찰가"
+                android:textSize="16dp"
+                android:textColor="#000"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/itemlist_auctionperiod"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="30dp"
+            android:text="입찰기간"
+            android:textSize="16dp"
+            android:textColor="#000" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="10dp"
+        android:background="#aaa"/>
+
+</LinearLayout>
+
