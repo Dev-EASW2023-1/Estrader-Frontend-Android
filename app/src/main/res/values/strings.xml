@@ -13,6 +13,7 @@
     <string name="hello_guide">부동산 경매 서비스를 편하게 이용하세요.</string>
     <string name="status_bar">상태 바</string>
     <string name="item_image">물건 사진</string>
+    <string name="header_logo">상단 로고</string>
     <string name="sign_in"><u>Sign In</u></string>
     <string name="sign_up"><u>Sign Up</u></string>
     <!-- TODO: Remove or change this placeholder text -->
