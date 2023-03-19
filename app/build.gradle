@@ -7,6 +7,10 @@ android {
     namespace 'kr.easw.estrader.android'
     compileSdk 33
 
+    buildFeatures {
+        viewBinding true
+    }
+
     defaultConfig {
         applicationId "kr.easw.estrader.android"
         minSdk 24

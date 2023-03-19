@@ -16,6 +16,9 @@
     <string name="header_logo">상단 로고</string>
     <string name="sign_in"><u>Sign In</u></string>
     <string name="sign_up"><u>Sign Up</u></string>
+    <string name="navigation_home">홈</string>
+    <string name="navigation_map">지도</string>
+    <string name="navigation_more">더보기</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
