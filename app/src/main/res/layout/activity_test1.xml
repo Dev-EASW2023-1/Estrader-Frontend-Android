@@ -114,9 +114,10 @@
 
             android:layout_marginRight="30dp"
             android:background="@drawable/awaitingbid_button"
-            android:backgroundTint="#3f9efa"
+
             android:fontFamily="@font/textfont"
             android:text="취소"
+            android:backgroundTint="#3f9efa"
             android:textColor="#FFFFFF"
             android:textSize="10pt" />
 

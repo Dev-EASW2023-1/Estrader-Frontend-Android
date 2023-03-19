@@ -17,6 +17,7 @@ class TestActivity2 : AppCompatActivity() {
         imageButton.setOnClickListener {
             val dialog = Dialog(this)
             dialog.setContentView(R.layout.fragment_dialog)
+            dialog.window?.setBackgroundDrawableResource(R.drawable.round_dialog_background)
             dialog.show()
         }}
     fun onPositiveButtonClick(view: View) {
