@@ -73,7 +73,8 @@
             <FrameLayout
                 android:id="@+id/login_container_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                />
 
 <!--            <androidx.fragment.app.FragmentContainerView-->
 <!--                android:id="@+id/fragment_container_view"-->
