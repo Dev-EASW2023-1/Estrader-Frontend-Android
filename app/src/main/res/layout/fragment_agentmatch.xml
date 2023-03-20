@@ -19,17 +19,11 @@
         tools:layout_editor_absoluteX="0dp">
         <com.airbnb.lottie.LottieAnimationView
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="200dp"
             app:lottie_autoPlay="true"
             app:lottie_fileName="check.json"
             app:lottie_loop="true" />
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            app:lottie_autoPlay="true"
-            app:lottie_fileName="check.json"
-            app:lottie_loop="true" />
 
         <TextView
             android:id="@+id/awaitingbid_textView"
@@ -61,7 +55,7 @@
             android:text="확인"
             android:textSize="10pt"
             android:textColor="#3f9efa"
-
+            android:onClick="accept"
             android:background="@drawable/awaitingbid_button"
 
 
