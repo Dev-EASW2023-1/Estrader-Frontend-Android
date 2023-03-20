@@ -18,6 +18,7 @@
             android:id="@+id/fragment_imageView"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
+            android:src="@drawable/ic_house1"
             android:contentDescription="@string/item_image" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>

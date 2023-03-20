@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.appcompat.widget.LinearLayoutCompat
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/mainlist_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        app:layout_constraintTop_toTopOf="parent"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:startIconDrawable="@drawable/main_search_icon_resize"
         android:hint="아파트, 지역, 지하철역, 학교 검색"
@@ -30,16 +30,15 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <FrameLayout
-        android:id="@+id/mainlist_container_view"
+        android:id="@+id/mainlist_framelayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/mainlist_search"/>
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/mainlist_navigation_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_navigation_menu" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>
