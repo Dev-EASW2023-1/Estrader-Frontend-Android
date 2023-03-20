@@ -3,11 +3,13 @@ package kr.easw.estrader.android.activity
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import kr.easw.estrader.android.R
+import kr.easw.estrader.android.fragment.AgentdelegationFragment
 import kr.easw.estrader.android.fragment.LoginFragment
 import kr.easw.estrader.android.fragment.RegisterFragment
 
@@ -23,6 +25,9 @@ class MainActivity : AppCompatActivity() {
         val myFragment2 = RegisterFragment()
         fragmentTransaction.add(kr.easw.estrader.android.R.id.login_container_view, myFragment)
         fragmentTransaction.commit()
+
+
+
         var tv = findViewById(R.id.sign_up) as TextView
         tv.setOnClickListener {
             val newFragmentTransaction = supportFragmentManager.beginTransaction() // 트랜잭션 재생성
@@ -41,6 +46,12 @@ class MainActivity : AppCompatActivity() {
 
 
             realnewFragmentTransaction.commit()
+            val imageButton = findViewById<Button>(R.id.btnNext)
+            imageButton.setOnClickListener {
+                val intent = Intent(applicationContext, TestActivity1::class.java)
+                startActivity(intent)
+            }
+
         }
 
 
