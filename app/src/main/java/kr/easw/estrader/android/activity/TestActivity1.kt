@@ -22,7 +22,7 @@ class TestActivity1 : AppCompatActivity() {
         val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
         val myFragment = AgentdelegationFragment()
         val myFragment2 = RegisterFragment()
-        fragmentTransaction.add(kr.easw.estrader.android.R.id.mainlist_container_view, myFragment)
+        fragmentTransaction.add(kr.easw.estrader.android.R.id.mainlist_framelayout, myFragment)
         fragmentTransaction.commit()
 
     }
