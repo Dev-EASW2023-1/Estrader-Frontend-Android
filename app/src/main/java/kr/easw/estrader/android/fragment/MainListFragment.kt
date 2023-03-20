@@ -1,6 +1,5 @@
 package kr.easw.estrader.android.fragment
 
-import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commitNow
@@ -27,7 +25,7 @@ class MainListFragment : Fragment() {
     private lateinit var recyclerViewBinding: ElementItemlistBinding
 
     interface OnItemClickListener{
-        fun onItemClick(v: View, position: Int)
+        fun onItemClick(position: Int)
     }
 
     override fun onCreateView(
@@ -60,7 +58,7 @@ class MainListFragment : Fragment() {
                 viewType: Int
             ): ViewHolder {
                 recyclerViewBinding = ElementItemlistBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                return ViewHolder(recyclerViewBinding, requireContext())
+                return ViewHolder(recyclerViewBinding, itemClickListener)
             }
 
             override fun onBindViewHolder(
@@ -84,7 +82,7 @@ class MainListFragment : Fragment() {
         }
 
         recyclerViewAdapter.setOnItemClickListener(object: OnItemClickListener{
-            override fun onItemClick(v: View, position: Int) {
+            override fun onItemClick(position: Int) {
                 requireActivity().supportFragmentManager.commitNow {
                     replace(R.id.mainlist_framelayout, ItemLookUpFragment())
                 }
@@ -106,8 +104,10 @@ private data class RecyclerViewItem (
     val reservePrice: String
 )
 
-private class ViewHolder(binding: ElementItemlistBinding, context: Context)
-    : RecyclerView.ViewHolder(binding.root) {
+private class ViewHolder(
+    binding: ElementItemlistBinding,
+    listener: MainListFragment.OnItemClickListener?
+) : RecyclerView.ViewHolder(binding.root) {
     var img: ImageView = binding.itemlistImage
     var auctionHouse: TextView = binding.itemlistAuctionhouse
     var caseNumber: TextView = binding.itemlistCasenumber
@@ -116,8 +116,10 @@ private class ViewHolder(binding: ElementItemlistBinding, context: Context)
 
     init {
         binding.root.setOnClickListener {
-//            if (adapterPosition != RecyclerView.NO_POSITION) {
-//            }
+            val pos = adapterPosition
+            if(pos != RecyclerView.NO_POSITION) {
+                listener?.onItemClick(pos)
+            }
         }
     }
 
