@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="expandedBarTextStyle">
-        <item name="android:textSize">45dp</item>
+        <item name="android:textSize">24dp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
