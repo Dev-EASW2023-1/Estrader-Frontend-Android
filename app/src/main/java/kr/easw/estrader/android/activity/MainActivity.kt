@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
             realnewFragmentTransaction.commit()
             val imageButton = findViewById<Button>(R.id.btnNext)
             imageButton.setOnClickListener {
-                val intent = Intent(applicationContext, TestActivity2::class.java)
+                val intent = Intent(applicationContext, MainActivity::class.java)
                 startActivity(intent)
             }
 

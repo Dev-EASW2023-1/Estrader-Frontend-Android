@@ -3,11 +3,9 @@ package kr.easw.estrader.android.dialog
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.system.Os.accept
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import kr.easw.estrader.android.R
-import kr.easw.estrader.android.activity.TestActivity1
 import kr.easw.estrader.android.activity.TestActivity2
 
 class Dialog: AppCompatActivity() {
@@ -52,7 +50,7 @@ class Dialog: AppCompatActivity() {
 
     private fun negativ() {
         // negativ Button 클릭 시 처리할 작업 구현
-        val intent = Intent(applicationContext, TestActivity1::class.java)
+        val intent = Intent(applicationContext, TestActivity2::class.java)
         startActivity(intent)
     }
     private fun positive() {

@@ -7,9 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
 import kr.easw.estrader.android.R
-import kr.easw.estrader.android.activity.TestActivity1
+import kr.easw.estrader.android.activity.TestActivity2
 
 class LoginFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -18,7 +17,7 @@ class LoginFragment : Fragment() {
         // nextbtn 클릭 이벤트 해당 프래그먼트에 써야됨
         val nextButton = view.findViewById<Button>(R.id.btnNext)
         nextButton.setOnClickListener {
-            val intent = Intent(activity, TestActivity1::class.java)
+            val intent = Intent(activity, TestActivity2::class.java)
             startActivity(intent)
         }
 

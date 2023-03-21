@@ -12,7 +12,7 @@ class StartingScreenActivity : AppCompatActivity() {
         setContentView(R.layout.fragment_login)
         val imageButton = findViewById<Button>(R.id.btnNext)
         imageButton.setOnClickListener {
-            val intent = Intent(applicationContext, TestActivity1::class.java)
+            val intent = Intent(applicationContext, TestActivity2::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
