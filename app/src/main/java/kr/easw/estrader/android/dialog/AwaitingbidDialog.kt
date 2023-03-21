@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kr.easw.estrader.android.R
+import kr.easw.estrader.android.activity.MainListActivity
 import kr.easw.estrader.android.activity.TestActivity2
 
 class AwaitingbidDialog : AppCompatActivity() {
@@ -38,21 +39,8 @@ class AwaitingbidDialog : AppCompatActivity() {
 
     private fun accept() {
         // Positive Button 클릭 시 처리할 작업 구현
-            val dialog = Dialog(this)
-            dialog.setContentView(R.layout.fragment_dialog) // my_dialog_layout은 사용자 정의 대화 상자의 레이아웃 파일 이름입니다.
-            val button = dialog.findViewById<Button>(R.id.positive_button) // 레이아웃 파일에서 버튼의 id를 R.id.dialog_button으로 가정합니다.
-            val button2 = dialog.findViewById<Button>(R.id.negative_button) // 레이아웃 파일에서 버튼의 id를 R.id.dialog_button으로 가정합니다.
-
-            button.setOnClickListener {
-                // 버튼이 클릭되었을 때 실행될 코드를 여기에 작성합니다.
-                Toast.makeText(this, "positive_button이 클릭되었습니다!", Toast.LENGTH_SHORT).show()
-            }
-            button2.setOnClickListener {
-                // 버튼이 클릭되었을 때 실행될 코드를 여기에 작성합니다.
-                Toast.makeText(this, "negative_button이 클릭되었습니다!", Toast.LENGTH_SHORT).show()
-            }
-
-            dialog.show()
+        val intent = Intent(applicationContext, MainListActivity::class.java)
+        startActivity(intent)
         }
     }
 

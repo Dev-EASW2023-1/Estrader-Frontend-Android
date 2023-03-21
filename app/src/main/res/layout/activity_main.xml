@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <!-- 상단바 -->
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#ffffff">
+        android:background="#ffffff"
+        android:orientation="horizontal">
 
         <!-- 상단바 내용 -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fontFamily="@font/titlefont"
             android:layout_marginStart="30dp"
-            android:text="부동산 머시기"
+            android:fontFamily="@font/titlefont"
             android:gravity=""
+            android:text="부동산 머시기"
             android:textColor="#000000"
             android:textSize="20dp" />
 
@@ -27,11 +26,10 @@
 
     <!-- 이미지 -->
     <ImageView
-        android:src="@drawable/example"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:scaleType="centerCrop"
-        />
+        android:src="@drawable/example" />
 
 
     <!-- 텍스트 -->
@@ -44,19 +42,22 @@
 
         android:text=" 간략한 정보"
         android:textSize="11pt" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:fontFamily="@font/textfont"
         android:text=" 간략한 정보"
         android:textSize="11pt" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:fontFamily="@font/textfont"
         android:layout_marginStart="10dp"
+        android:fontFamily="@font/textfont"
         android:text="사건번호"
         android:textSize="11pt" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="30dp"
@@ -64,6 +65,7 @@
         android:fontFamily="@font/textfont"
         android:text="물건번호"
         android:textSize="11pt" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="30dp"
@@ -71,6 +73,7 @@
         android:fontFamily="@font/textfont"
         android:text="감정평가액"
         android:textSize="11pt" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="30dp"
@@ -78,6 +81,7 @@
         android:fontFamily="@font/textfont"
         android:text="매각기일"
         android:textSize="11pt" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="30dp"
@@ -85,6 +89,7 @@
         android:fontFamily="@font/textfont"
         android:text="물건비고"
         android:textSize="11pt" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="30dp"

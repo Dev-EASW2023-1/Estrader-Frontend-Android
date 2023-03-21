@@ -1,5 +1,6 @@
 package kr.easw.estrader.android.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,8 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import kr.easw.estrader.android.databinding.FragmentItemlookupBinding
+import kr.easw.estrader.android.dialog.AwaitingbidDialog
+import kr.easw.estrader.android.dialog.MainDialog
 
 
 class ItemLookUpFragment : Fragment() {
@@ -28,7 +31,12 @@ class ItemLookUpFragment : Fragment() {
     ) {
         onOffTitleAppBar()
 
+        binding.confirmButton2.setOnClickListener {
+            val myDialog = MainDialog(requireContext())
+            myDialog.show()
+        }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -55,4 +63,8 @@ class ItemLookUpFragment : Fragment() {
             }
         })
     }
+
+
+
+
 }

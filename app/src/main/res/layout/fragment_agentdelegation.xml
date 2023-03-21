@@ -1,62 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-
-<LinearLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/agentdelegation"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <!-- 상단바 -->
 
 
     <!-- 이미지 -->
     <ImageView
-        android:src="@drawable/example"
         android:layout_width="match_parent"
         android:layout_height="350dp"
         android:scaleType="centerCrop"
-        />
+        android:src="@drawable/example" />
 
 
     <LinearLayout
-        android:layout_marginTop="5px"
-        android:orientation="vertical"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
+
+        android:layout_marginTop="5px"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
 
             >
 
             <!-- 상단바 내용 -->
             <TextView
-                android:layout_marginTop="20px"
                 android:layout_width="320px"
-                android:gravity="center"
                 android:layout_height="70px"
-                android:fontFamily="@font/textfont"
                 android:layout_marginLeft="100px"
+                android:layout_marginTop="20px"
+                android:background="@drawable/agentdelegation_border"
+                android:fontFamily="@font/textfont"
+                android:gravity="center"
                 android:text="사건번호 1234"
                 android:textColor="#95A1AC"
-                android:textSize="15dp"
-                android:background="@drawable/agentdelegation_border"
-                />
+                android:textSize="15dp" />
 
         </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20px"
             android:layout_marginStart="5dp"
+            android:layout_marginTop="20px"
             android:fontFamily="@font/textfont"
             android:text="간략한 정보"
             android:textSize="11pt" />
@@ -64,10 +59,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/textfont"
             android:layout_marginStart="5dp"
+            android:fontFamily="@font/textfont"
             android:text="사건번호"
             android:textSize="11pt" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -75,6 +71,7 @@
             android:fontFamily="@font/textfont"
             android:text="물건번호"
             android:textSize="11pt" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -82,6 +79,7 @@
             android:fontFamily="@font/textfont"
             android:text="감정평가액"
             android:textSize="11pt" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -89,6 +87,7 @@
             android:fontFamily="@font/textfont"
             android:text="매각기일"
             android:textSize="11pt" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -96,6 +95,7 @@
             android:fontFamily="@font/textfont"
             android:text="물건비고"
             android:textSize="11pt" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -104,6 +104,7 @@
             android:text="담당법원"
             android:textSize="11pt" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -119,9 +120,9 @@
             android:layout_marginRight="30dp"
             android:background="@drawable/awaitingbid_button"
 
+            android:backgroundTint="#3f9efa"
             android:fontFamily="@font/textfont"
             android:text="취소"
-            android:backgroundTint="#3f9efa"
             android:textColor="#FFFFFF"
             android:textSize="10pt" />
 

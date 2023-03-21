@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#316ce4"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#316ce4">
 
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -17,6 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.631"
         tools:layout_editor_absoluteX="0dp">
+
         <com.airbnb.lottie.LottieAnimationView
             android:layout_width="match_parent"
             android:layout_height="200dp"
@@ -25,39 +25,40 @@
             app:lottie_loop="true" />
 
 
-
         <TextView
             android:id="@+id/awaitingbid_textView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
             android:fontFamily="@font/textfont"
-            android:textSize="20pt"
-            android:textColor="#FFFFFF"
             android:gravity="center_horizontal"
-            android:text="입찰완료" />
+            android:text="대리신청중..."
+            android:textColor="#FFFFFF"
+            android:textSize="20pt" />
+
         <TextView
             android:id="@+id/awaitingbid_textView1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/textfont"
-            android:textSize="15pt"
-            android:textColor="#FFFFFF"
             android:gravity="center_horizontal"
             android:text="대리인이 배정된 후\n 연락드리겠습니다. "
-            />
+            android:textColor="#FFFFFF"
+            android:textSize="15pt" />
+
         <android.widget.Button
             android:id="@+id/confirm_button"
             android:layout_width="130dp"
             android:layout_height="50dp"
-            android:backgroundTint="#FFFFFF"
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
-            android:fontFamily="@font/textfont"
-            android:text="확인"
-            android:textSize="10pt"
-            android:textColor="#316ce4"
-            android:onClick="accept"
             android:background="@drawable/awaitingbid_button"
+            android:backgroundTint="#FFFFFF"
+            android:fontFamily="@font/textfont"
+            android:onClick="accept"
+            android:text="확인"
+            android:textColor="#316ce4"
+            android:textSize="10pt"
 
 
             />

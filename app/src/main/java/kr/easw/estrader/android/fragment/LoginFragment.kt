@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import kr.easw.estrader.android.R
+import kr.easw.estrader.android.activity.MainListActivity
 import kr.easw.estrader.android.activity.TestActivity2
 
 class LoginFragment : Fragment() {
@@ -17,7 +18,7 @@ class LoginFragment : Fragment() {
         // nextbtn 클릭 이벤트 해당 프래그먼트에 써야됨
         val nextButton = view.findViewById<Button>(R.id.btnNext)
         nextButton.setOnClickListener {
-            val intent = Intent(activity, TestActivity2::class.java)
+            val intent = Intent(activity, MainListActivity::class.java)
             startActivity(intent)
         }
 
