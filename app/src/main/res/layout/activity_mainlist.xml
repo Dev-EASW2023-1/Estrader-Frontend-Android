@@ -6,29 +6,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/mainlist_search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:startIconDrawable="@drawable/main_search_icon_resize"
-        android:hint="아파트, 지역, 지하철역, 학교 검색"
-        app:hintEnabled="true"
-        app:hintAnimationEnabled="true">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:inputType="text"
-            android:maxLines="1"
-            android:paddingStart="10dp"
-            android:paddingEnd="0dp"
-            android:textSize="12dp"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
     <FrameLayout
         android:id="@+id/mainlist_framelayout"
         android:layout_width="match_parent"

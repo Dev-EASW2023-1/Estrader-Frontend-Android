@@ -51,7 +51,15 @@ class MainListFragment : Fragment() {
             RecyclerViewItem(ContextCompat.getDrawable(requireContext(), R.drawable.ic_house3)!!,"테스트1","테스트1","테스트1","테스트1"),
             RecyclerViewItem(ContextCompat.getDrawable(requireContext(), R.drawable.ic_house4)!!,"테스트1","테스트1","테스트1","테스트1")
         )
+        initRecyclerView()
+    }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun initRecyclerView(){
         val recyclerViewAdapter = object: RecyclerView.Adapter<ViewHolder>() {
             override fun onCreateViewHolder(
                 parent: ViewGroup,
@@ -76,7 +84,7 @@ class MainListFragment : Fragment() {
             }
         }
 
-        _binding!!.mainlistRecyclerView.apply {
+        binding.mainlistRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
             adapter = recyclerViewAdapter
         }
@@ -88,11 +96,6 @@ class MainListFragment : Fragment() {
                 }
             }
         })
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
 

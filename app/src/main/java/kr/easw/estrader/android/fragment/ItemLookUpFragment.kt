@@ -1,11 +1,14 @@
 package kr.easw.estrader.android.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import kr.easw.estrader.android.databinding.FragmentItemlookupBinding
+
 
 class ItemLookUpFragment : Fragment() {
     private var _binding: FragmentItemlookupBinding? = null
@@ -19,8 +22,37 @@ class ItemLookUpFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?
+    ) {
+        onOffTitleAppBar()
+
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun onOffTitleAppBar(){
+        val collapsingToolbarLayout = binding.collapsingLayout
+        val appBarLayout = binding.appbarLayout
+        appBarLayout.addOnOffsetChangedListener(object : OnOffsetChangedListener {
+            var isShow = true
+            var scrollRange = -1
+            override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
+                if (scrollRange == -1) {
+                    scrollRange = appBarLayout.totalScrollRange
+                }
+                if (scrollRange + verticalOffset == 0) {
+                    collapsingToolbarLayout.title = "Title"
+                    isShow = true
+                } else if (isShow) {
+                    collapsingToolbarLayout.title = " "
+                    isShow = false
+                }
+            }
+        })
     }
 }
