@@ -1,8 +1,6 @@
 package kr.easw.estrader.android.activity
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
@@ -47,13 +45,6 @@ class MainActivity : AppCompatActivity() {
             realNewFragmentTransaction.replace(R.id.login_container_view, myFragment)
             realNewFragmentTransaction.commit()
 
-            val imageButton = findViewById<Button>(R.id.btnNext)
-            imageButton.setOnClickListener {
-                val intent = Intent(this, MainListActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(intent)
-                finish()
-            }
         }
     }
 }
