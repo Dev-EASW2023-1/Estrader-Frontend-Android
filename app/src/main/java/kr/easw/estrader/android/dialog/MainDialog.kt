@@ -6,10 +6,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import kr.easw.estrader.android.R
+import kr.easw.estrader.android.activity.MainListActivity
 
 
 class MainDialog(context: Context) : Dialog(context) {
-        override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_dialog)
 
@@ -22,8 +23,7 @@ class MainDialog(context: Context) : Dialog(context) {
 
         val cancelButton = findViewById<Button>(R.id.negative_button)
         cancelButton.setOnClickListener {
-
-
+            dismiss()
         }
     }
 }

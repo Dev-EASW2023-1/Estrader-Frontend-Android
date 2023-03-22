@@ -20,4 +20,13 @@ class MainListActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        activityBinding = ActivityMainlistBinding.inflate(layoutInflater)
+        setContentView(activityBinding.root)
+
+        supportFragmentManager.commitNow {
+            replace(R.id.mainlist_framelayout, MainListFragment())
+
+        }
+    }
 }
