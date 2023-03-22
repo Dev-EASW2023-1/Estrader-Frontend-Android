@@ -1,17 +1,11 @@
 package kr.easw.estrader.android.dialog
-
 import android.app.AlertDialog
-import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.activity.MainListActivity
-import kr.easw.estrader.android.activity.TestActivity2
 
 class AwaitingbidDialog : AppCompatActivity() {
     private lateinit var alertBtn: Button
@@ -30,7 +24,8 @@ class AwaitingbidDialog : AppCompatActivity() {
             // 다이얼로그 메시지 설정
             builder.setMessage("전 화면으로 돌아갑니다.")
             // Positive Button 클릭 시 처리할 작업 설정
-            builder.setPositiveButton("확인") { _, _ -> accept()
+            builder.setPositiveButton("확인") { _, _ ->
+                accept()
             }
             // 다이얼로그를 띄워주기
             builder.show()
@@ -41,7 +36,7 @@ class AwaitingbidDialog : AppCompatActivity() {
         // Positive Button 클릭 시 처리할 작업 구현
         val intent = Intent(applicationContext, MainListActivity::class.java)
         startActivity(intent)
-        }
     }
+}
 
 

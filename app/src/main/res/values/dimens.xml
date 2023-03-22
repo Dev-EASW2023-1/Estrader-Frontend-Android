@@ -1,5 +1,5 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
-
+    <dimen name="fragment_slide_in_right_offset">-16dp</dimen>
 </resources>
 

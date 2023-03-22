@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -8,15 +7,15 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/userId"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:hint="Email Address"
         app:helperText="Write your email."
         app:helperTextEnabled="true"
-        android:hint="Email Address"
-        app:hintEnabled="true"
-        app:hintAnimationEnabled="true">
+        app:hintAnimationEnabled="true"
+        app:hintEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -26,17 +25,17 @@
             android:maxLines="1"
             android:paddingStart="10dp"
             android:paddingEnd="0dp"
-            android:textSize="12dp"/>
+            android:textSize="12dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/userPw"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:helperTextTextColor="#585757"
         android:hint="Password"
+        app:helperTextTextColor="#585757"
         app:hintEnabled="true"
         app:passwordToggleEnabled="true">
 
@@ -55,13 +54,13 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/userPwRepeat"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:hint="Confirm Password"
         app:helperText="Write your password."
         app:helperTextEnabled="true"
         app:helperTextTextColor="#585757"
-        android:hint="Confirm Password"
         app:hintEnabled="true"
         app:passwordToggleEnabled="true">
 
@@ -82,9 +81,9 @@
         android:id="@+id/btnNext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/login_button_rounded_corners"
         android:layout_gravity="center"
         android:layout_margin="30dp"
+        android:background="@drawable/login_button_rounded_corners"
         android:text="Create Account"
         android:textColor="#ffffff"
         android:textSize="20dp" />

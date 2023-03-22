@@ -24,32 +24,70 @@ class MainListFragment : Fragment() {
     private var itemClickListener: OnItemClickListener? = null
     private lateinit var recyclerViewBinding: ElementItemlistBinding
 
-    interface OnItemClickListener{
+    interface OnItemClickListener {
         fun onItemClick(position: Int)
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMainlistBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(
-        view: View,
-        savedInstanceState: Bundle?
+        view: View, savedInstanceState: Bundle?
     ) {
         dataList = mutableListOf(
-            RecyclerViewItem(ContextCompat.getDrawable(requireContext(), R.drawable.ic_house1)!!,"테스트1","테스트1","테스트1","테스트1"),
-            RecyclerViewItem(ContextCompat.getDrawable(requireContext(), R.drawable.ic_house2)!!,"테스트1","테스트1","테스트1","테스트1"),
-            RecyclerViewItem(ContextCompat.getDrawable(requireContext(), R.drawable.ic_house3)!!,"테스트1","테스트1","테스트1","테스트1"),
-            RecyclerViewItem(ContextCompat.getDrawable(requireContext(), R.drawable.ic_house4)!!,"테스트1","테스트1","테스트1","테스트1"),
-            RecyclerViewItem(ContextCompat.getDrawable(requireContext(), R.drawable.ic_house1)!!,"테스트1","테스트1","테스트1","테스트1"),
-            RecyclerViewItem(ContextCompat.getDrawable(requireContext(), R.drawable.ic_house2)!!,"테스트1","테스트1","테스트1","테스트1"),
-            RecyclerViewItem(ContextCompat.getDrawable(requireContext(), R.drawable.ic_house3)!!,"테스트1","테스트1","테스트1","테스트1"),
-            RecyclerViewItem(ContextCompat.getDrawable(requireContext(), R.drawable.ic_house4)!!,"테스트1","테스트1","테스트1","테스트1")
+            RecyclerViewItem(
+                ContextCompat.getDrawable(requireContext(), R.drawable.ic_house1)!!,
+                "테스트1",
+                "테스트1",
+                "테스트1",
+                "테스트1"
+            ), RecyclerViewItem(
+                ContextCompat.getDrawable(requireContext(), R.drawable.ic_house2)!!,
+                "테스트1",
+                "테스트1",
+                "테스트1",
+                "테스트1"
+            ), RecyclerViewItem(
+                ContextCompat.getDrawable(requireContext(), R.drawable.ic_house3)!!,
+                "테스트1",
+                "테스트1",
+                "테스트1",
+                "테스트1"
+            ), RecyclerViewItem(
+                ContextCompat.getDrawable(requireContext(), R.drawable.ic_house4)!!,
+                "테스트1",
+                "테스트1",
+                "테스트1",
+                "테스트1"
+            ), RecyclerViewItem(
+                ContextCompat.getDrawable(requireContext(), R.drawable.ic_house1)!!,
+                "테스트1",
+                "테스트1",
+                "테스트1",
+                "테스트1"
+            ), RecyclerViewItem(
+                ContextCompat.getDrawable(requireContext(), R.drawable.ic_house2)!!,
+                "테스트1",
+                "테스트1",
+                "테스트1",
+                "테스트1"
+            ), RecyclerViewItem(
+                ContextCompat.getDrawable(requireContext(), R.drawable.ic_house3)!!,
+                "테스트1",
+                "테스트1",
+                "테스트1",
+                "테스트1"
+            ), RecyclerViewItem(
+                ContextCompat.getDrawable(requireContext(), R.drawable.ic_house4)!!,
+                "테스트1",
+                "테스트1",
+                "테스트1",
+                "테스트1"
+            )
         )
         initRecyclerView()
     }
@@ -59,19 +97,19 @@ class MainListFragment : Fragment() {
         _binding = null
     }
 
-    private fun initRecyclerView(){
-        val recyclerViewAdapter = object: RecyclerView.Adapter<ViewHolder>() {
+    private fun initRecyclerView() {
+        val recyclerViewAdapter = object : RecyclerView.Adapter<ViewHolder>() {
             override fun onCreateViewHolder(
-                parent: ViewGroup,
-                viewType: Int
+                parent: ViewGroup, viewType: Int
             ): ViewHolder {
-                recyclerViewBinding = ElementItemlistBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                recyclerViewBinding = ElementItemlistBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
                 return ViewHolder(recyclerViewBinding, itemClickListener)
             }
 
             override fun onBindViewHolder(
-                holder: ViewHolder,
-                position: Int
+                holder: ViewHolder, position: Int
             ) {
                 val item = dataList!![position]
                 holder.bind(item)
@@ -79,17 +117,17 @@ class MainListFragment : Fragment() {
 
             override fun getItemCount(): Int = dataList!!.size
 
-            fun setOnItemClickListener(listener: OnItemClickListener){
+            fun setOnItemClickListener(listener: OnItemClickListener) {
                 itemClickListener = listener
             }
         }
 
         binding.mainlistRecyclerView.apply {
-            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
+            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             adapter = recyclerViewAdapter
         }
 
-        recyclerViewAdapter.setOnItemClickListener(object: OnItemClickListener{
+        recyclerViewAdapter.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(position: Int) {
                 requireActivity().supportFragmentManager.commitNow {
                     replace(R.id.mainlist_framelayout, ItemLookUpFragment())
@@ -99,7 +137,7 @@ class MainListFragment : Fragment() {
     }
 }
 
-private data class RecyclerViewItem (
+private data class RecyclerViewItem(
     val iconDrawable: Drawable,
     val auctionHouse: String,
     val caseNumber: String,
@@ -108,8 +146,7 @@ private data class RecyclerViewItem (
 )
 
 private class ViewHolder(
-    binding: ElementItemlistBinding,
-    listener: MainListFragment.OnItemClickListener?
+    binding: ElementItemlistBinding, listener: MainListFragment.OnItemClickListener?
 ) : RecyclerView.ViewHolder(binding.root) {
     var img: ImageView = binding.itemlistImage
     var auctionHouse: TextView = binding.itemlistAuctionhouse
@@ -120,7 +157,7 @@ private class ViewHolder(
     init {
         binding.root.setOnClickListener {
             val pos = adapterPosition
-            if(pos != RecyclerView.NO_POSITION) {
+            if (pos != RecyclerView.NO_POSITION) {
                 listener?.onItemClick(pos)
             }
         }

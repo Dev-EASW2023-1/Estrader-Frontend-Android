@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.activity.MainListActivity
-import kr.easw.estrader.android.activity.TestActivity2
 
 class LoginFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

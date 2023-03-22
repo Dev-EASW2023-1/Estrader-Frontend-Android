@@ -1,6 +1,5 @@
 package kr.easw.estrader.android.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,6 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import kr.easw.estrader.android.databinding.FragmentItemlookupBinding
-import kr.easw.estrader.android.dialog.AwaitingbidDialog
 import kr.easw.estrader.android.dialog.MainDialog
 
 
@@ -43,7 +41,7 @@ class ItemLookUpFragment : Fragment() {
         _binding = null
     }
 
-    private fun onOffTitleAppBar(){
+    private fun onOffTitleAppBar() {
         val collapsingToolbarLayout = binding.collapsingLayout
         val appBarLayout = binding.appbarLayout
         appBarLayout.addOnOffsetChangedListener(object : OnOffsetChangedListener {
@@ -63,8 +61,6 @@ class ItemLookUpFragment : Fragment() {
             }
         })
     }
-
-
 
 
 }
