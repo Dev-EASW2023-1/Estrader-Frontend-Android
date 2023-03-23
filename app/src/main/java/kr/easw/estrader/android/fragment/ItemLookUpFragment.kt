@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
+import kr.easw.estrader.android.R
 import kr.easw.estrader.android.activity.MainListActivity
 import kr.easw.estrader.android.databinding.FragmentItemlookupBinding
 import kr.easw.estrader.android.dialog.MainDialog
@@ -41,6 +42,15 @@ class ItemLookUpFragment : Fragment() {
             startActivity(intent)
             activity?.finish()
         }
+        val toolbar = view.findViewById<View>(R.id.toolbar) as androidx.appcompat.widget.Toolbar
+        toolbar.setNavigationOnClickListener {
+            // 툴바 navigationIcon 클릭 이벤트 처리
+            val intent = Intent(requireContext(), MainListActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NO_HISTORY
+            startActivity(intent)
+            activity?.finish()
+        }
+
 
     }
 
