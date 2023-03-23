@@ -45,22 +45,23 @@ class RealtorMainActivity : AppCompatActivity() {
             val dialog = AlertDialog.Builder(this)
                 .setTitle("알림")
                 .setMessage("김덕배 님이 대리 위임을 신청하셨습니다.")
-                .setPositiveButton("확인") { _, _ -> accept()               // 확인 버튼 클릭 시 동작
+                .setPositiveButton("확인") { _, _ ->
+                    accept()               // 확인 버튼 클릭 시 동작
                 }
                 .setNegativeButton("취소") { _, _ ->
                     // 취소 버튼 클릭 시 동작
                 }
-
-
                 .create()
             dialog.show()
         }, 3000) // 5초 (5000ms) 후에 팝업을 띄움
     }
+
     private fun accept() {
         // MainListActivity로 이동
         val intent = Intent(applicationContext, AwaitingbidDialog::class.java)
         startActivity(intent)
     }
+
     override fun onDestroy() {
         super.onDestroy()
         // 핸들러의 메시지 큐에서 보류중인 메시지들을 모두 제거해줍니다.
@@ -68,10 +69,7 @@ class RealtorMainActivity : AppCompatActivity() {
     }
 
 
-    }
-
-
-
+}
 private class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fragmentManager, lifecycle) {
 

@@ -18,6 +18,7 @@ class MainDialog(context: Context) : Dialog(context) {
         okButton.setOnClickListener {
             val intent = Intent(context, AwaitingbidDialog::class.java)
             context.startActivity(intent)
+            dismiss()
         }
 
         val cancelButton = findViewById<Button>(R.id.negative_button)
