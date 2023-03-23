@@ -9,7 +9,6 @@ import kr.easw.estrader.android.R
 import kr.easw.estrader.android.fragment.LoginFragment
 import kr.easw.estrader.android.fragment.RegisterFragment
 
-
 class MainActivity : AppCompatActivity() {
 
 

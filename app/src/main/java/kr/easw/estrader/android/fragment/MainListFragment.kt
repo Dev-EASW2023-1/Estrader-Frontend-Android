@@ -38,6 +38,16 @@ class MainListFragment : Fragment() {
     override fun onViewCreated(
         view: View, savedInstanceState: Bundle?
     ) {
+        initializeData()
+        initRecyclerView()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun initializeData(){
         dataList = mutableListOf(
             RecyclerViewItem(
                 ContextCompat.getDrawable(requireContext(), R.drawable.ic_house1)!!,
@@ -89,12 +99,6 @@ class MainListFragment : Fragment() {
                 "테스트1"
             )
         )
-        initRecyclerView()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     private fun initRecyclerView() {
@@ -111,8 +115,7 @@ class MainListFragment : Fragment() {
             override fun onBindViewHolder(
                 holder: ViewHolder, position: Int
             ) {
-                val item = dataList!![position]
-                holder.bind(item)
+                holder.bind(dataList!![position])
             }
 
             override fun getItemCount(): Int = dataList!!.size
@@ -148,11 +151,11 @@ private data class RecyclerViewItem(
 private class ViewHolder(
     binding: ElementItemlistBinding, listener: MainListFragment.OnItemClickListener?
 ) : RecyclerView.ViewHolder(binding.root) {
-    var img: ImageView = binding.itemlistImage
-    var auctionHouse: TextView = binding.itemlistAuctionhouse
-    var caseNumber: TextView = binding.itemlistCasenumber
-    var location: TextView = binding.itemlistLocation
-    var reservePrice: TextView = binding.itemlistReserveprice
+    val img: ImageView = binding.itemlistImage
+    val auctionHouse: TextView = binding.itemlistAuctionhouse
+    val caseNumber: TextView = binding.itemlistCasenumber
+    val location: TextView = binding.itemlistLocation
+    val reservePrice: TextView = binding.itemlistReserveprice
 
     init {
         binding.root.setOnClickListener {
