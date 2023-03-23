@@ -5,13 +5,9 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.commitNow
 import kr.easw.estrader.android.R
-import kr.easw.estrader.android.databinding.ActivityMainlistBinding
 import kr.easw.estrader.android.fragment.LoginFragment
-import kr.easw.estrader.android.fragment.MainListFragment
 import kr.easw.estrader.android.fragment.RegisterFragment
-import kotlin.reflect.typeOf
 
 class MainActivity : AppCompatActivity() {
 

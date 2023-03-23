@@ -70,6 +70,7 @@ class RealtorMainActivity : AppCompatActivity() {
 
 
 }
+
 private class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fragmentManager, lifecycle) {
 
