@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     }
     //회원가입 텍스트뷰 클릭 이벤트
 
-    private fun signupclick(RegisterFragment: androidx.fragment.app.Fragment) {
+    private fun signupclick(RegisterFragment: RegisterFragment) {
         val newFragmentTransaction = supportFragmentManager.beginTransaction()
         newFragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
         newFragmentTransaction.replace(R.id.login_container_view, RegisterFragment)
