@@ -69,8 +69,9 @@
 
             </LinearLayout>
 
-            <FrameLayout
+            <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/login_container_view"
+                android:name="kr.easw.estrader.android.fragment.LoginFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

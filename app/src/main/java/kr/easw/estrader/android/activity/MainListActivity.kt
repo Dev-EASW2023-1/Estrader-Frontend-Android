@@ -20,6 +20,7 @@ class MainListActivity : AppCompatActivity() {
         }
     }
 
+    //뒤로가기 버튼 눌렸을때 이동
     override fun onBackPressed() {
         activityBinding = ActivityMainlistBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)

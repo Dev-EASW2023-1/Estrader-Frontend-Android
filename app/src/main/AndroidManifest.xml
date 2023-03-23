@@ -16,13 +16,10 @@
             android:name=".dialog.MainDialog"
             android:exported="false" />
         <activity
-            android:name=".activity.StartingScreenActivity"
+            android:name=".dialog.AwaitingbidDialog"
             android:exported="false" />
         <activity
             android:name=".activity.MainListActivity"
-            android:exported="false" />
-        <activity
-            android:name=".dialog.AwaitingbidDialog"
             android:exported="false" />
         <activity
             android:name=".activity.MainActivity"

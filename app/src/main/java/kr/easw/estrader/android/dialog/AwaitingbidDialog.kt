@@ -13,28 +13,28 @@ class AwaitingbidDialog : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //현재 액티비티 레이아웃 fragment_awaitingbid로 설정
         setContentView(R.layout.fragment_awaitingbid)
 
-        // View inflate
         alertBtn = findViewById(R.id.confirm_button)
 
-        // 기본 형태의 다이얼로그
+        // alertBtn 클릭 이벤트
         alertBtn.setOnClickListener {
-            // 다이얼로그를 생성하기 위해 Builder 클래스 생성자를 이용해 줍니다.
+            // AlertDialog.Builder 클래스의 생성자를 호출해 다이얼로그를 생성
             val builder = AlertDialog.Builder(this)
-            // 다이얼로그 메시지 설정
+            // 다이얼로그 메시지 및 Positive Button 클릭 이벤트
             builder.setMessage("전 화면으로 돌아갑니다.")
-            // Positive Button 클릭 시 처리할 작업 설정
             builder.setPositiveButton("확인") { _, _ ->
-                accept()
+                accept() //accept 메소드 호출
             }
-            // 다이얼로그를 띄워주기
             builder.show()
         }
     }
 
+    //accept 메소드 정의
     private fun accept() {
-        // Positive Button 클릭 시 처리할 작업 구현
+        // MainListActivity로 이동
         val intent = Intent(applicationContext, MainListActivity::class.java)
         startActivity(intent)
     }
