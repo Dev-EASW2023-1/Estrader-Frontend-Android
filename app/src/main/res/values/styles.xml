@@ -21,4 +21,11 @@
     <style name="customCheckboxStyle" parent="@android:style/Widget.DeviceDefault.CompoundButton.CheckBox">
         <item name="android:fontFamily">@font/font_family</item>
     </style>
+
+    <style name="AppTheme.AlertDialogTheme" parent="ThemeOverlay.AppCompat.Dialog.Alert">
+        <item name="buttonBarButtonStyle">@style/AppTheme.AlertDialogTheme.Button</item>
+    </style>
+    <style name="AppTheme.AlertDialogTheme.Button" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:textColor">#3f9efa</item>
+    </style>
 </resources>

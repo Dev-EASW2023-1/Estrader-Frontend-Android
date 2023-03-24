@@ -1,5 +1,6 @@
 package kr.easw.estrader.android.fragment
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,8 +12,7 @@ import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.activity.MainListActivity
 import kr.easw.estrader.android.databinding.FragmentItemlookupBinding
-import kr.easw.estrader.android.dialog.MainDialog
-
+import kr.easw.estrader.android.dialog.AwaitingbidDialog
 
 class ItemLookUpFragment : Fragment() {
     private var _binding: FragmentItemlookupBinding? = null
@@ -33,9 +33,18 @@ class ItemLookUpFragment : Fragment() {
         onOffTitleAppBar()
 
         binding.confirmButton2.setOnClickListener {
-            val myDialog = MainDialog(requireContext())
-            myDialog.show()
+            val builder = AlertDialog.Builder(requireContext(), R.style.AppTheme_AlertDialogTheme)
+            builder.setTitle("대리위임 동의")
+            builder.setMessage("대리위임을 신청 하시겠습니까?")
+            builder.setPositiveButton("확인") { _, _ ->
+                accept()
+            }
+            builder.setNegativeButton("취소") { _, _ ->
+
+            }
+            builder.show()
         }
+
         binding.confirmButton.setOnClickListener {
             val intent = Intent(requireContext(), MainListActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NO_HISTORY
@@ -81,5 +90,10 @@ class ItemLookUpFragment : Fragment() {
         })
     }
 
+    private fun accept() {
+        // MainListActivity로 이동
+        val intent = Intent(requireContext(), AwaitingbidDialog::class.java)
+        startActivity(intent)
 
+    }
 }

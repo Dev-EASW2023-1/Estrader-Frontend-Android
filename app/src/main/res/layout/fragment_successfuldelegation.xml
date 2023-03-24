@@ -19,10 +19,9 @@
 
         <com.airbnb.lottie.LottieAnimationView
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             app:lottie_autoPlay="true"
-            app:lottie_fileName="loding.json"
-            android:layout_marginBottom="130dp"
+            app:lottie_fileName="check.json"
             app:lottie_loop="true" />
 
 
@@ -30,10 +29,11 @@
             android:id="@+id/awaitingbid_textView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:fontFamily="@font/textfont"
             android:gravity="center_horizontal"
-            android:text="대리신청중..."
+            android:text="대리 위임 완료"
             android:textColor="#FFFFFF"
             android:textSize="20pt" />
 
@@ -43,11 +43,26 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/textfont"
             android:gravity="center_horizontal"
-            android:text="대리인을 \n 찾는 중 입니다. "
+            android:text="마곡나루 광명부동산 \n공인중개사무소로 \n대리위임이 완료\n되었습니다."
             android:textColor="#FFFFFF"
             android:textSize="15pt" />
 
+        <android.widget.Button
+            android:id="@+id/confirm_button"
+            android:layout_width="130dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/awaitingbid_button"
+            android:backgroundTint="#FFFFFF"
+            android:fontFamily="@font/textfont"
+            android:onClick="accept"
+            android:text="확인"
+            android:textColor="#316ce4"
+            android:textSize="10pt"
 
+
+            />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
