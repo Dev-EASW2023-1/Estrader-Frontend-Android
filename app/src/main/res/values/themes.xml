@@ -13,6 +13,12 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="windowNoTitle">true</item>
+        <!-- Applying custom font-family. -->
+        <item name="android:textViewStyle">@style/customTextViewStyle</item>
+        <item name="android:buttonStyle">@style/customButtonStyle</item>
+        <item name="android:editTextStyle">@style/customEditTextStyle</item>
+        <item name="android:radioButtonStyle">@style/customRadioButtonStyle</item>
+        <item name="android:checkboxStyle">@style/customCheckboxStyle</item>
     </style>
 
     <style name="Theme.Estrader.NoActionBar">

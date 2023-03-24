@@ -30,9 +30,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="20dp"
-            android:fontFamily="@font/textfont"
             android:gravity="center_horizontal"
-            android:text="대리신청중..."
+            android:text="대리 위임 완료"
             android:textColor="#FFFFFF"
             android:textSize="20pt" />
 
@@ -40,9 +39,8 @@
             android:id="@+id/awaitingbid_textView1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fontFamily="@font/textfont"
             android:gravity="center_horizontal"
-            android:text="대리인이 배정된 후\n 연락드리겠습니다. "
+            android:text="우회전공인중개사무소로 대리 위임이 완료되었습니다."
             android:textColor="#FFFFFF"
             android:textSize="15pt" />
 
@@ -54,7 +52,6 @@
             android:layout_marginTop="40dp"
             android:background="@drawable/awaitingbid_button"
             android:backgroundTint="#FFFFFF"
-            android:fontFamily="@font/textfont"
             android:onClick="accept"
             android:text="확인"
             android:textColor="#316ce4"
