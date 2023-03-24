@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="expandedBarTextStyle">
         <item name="android:textSize">24dp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
+
+    <style name="AppTheme.AlertDialogTheme" parent="ThemeOverlay.AppCompat.Dialog.Alert">
+        <item name="buttonBarButtonStyle">@style/AppTheme.AlertDialogTheme.Button</item>
+    </style>
+    <style name="AppTheme.AlertDialogTheme.Button" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:textColor">#3f9efa</item>
+    </style>
+
 </resources>
