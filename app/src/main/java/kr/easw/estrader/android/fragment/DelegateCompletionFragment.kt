@@ -1,15 +1,13 @@
 package kr.easw.estrader.android.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.commitNow
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kr.easw.estrader.android.R
 import kr.easw.estrader.android.databinding.ElementDelegateitemBinding
 import kr.easw.estrader.android.databinding.FragmentDelegatecompletionBinding
 
@@ -40,7 +38,7 @@ class DelegateCompletionFragment : Fragment() {
         initRecyclerView()
     }
 
-    private fun initializeData(){
+    private fun initializeData() {
         dataList = mutableListOf(
             DelegateCompletionRecyclerViewItem(
                 "남재경",

@@ -47,7 +47,7 @@ class MainListFragment : Fragment() {
         _binding = null
     }
 
-    private fun initializeData(){
+    private fun initializeData() {
         dataList = mutableListOf(
             RecyclerViewItem(
                 ContextCompat.getDrawable(requireContext(), R.drawable.ic_house1)!!,
