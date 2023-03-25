@@ -18,7 +18,6 @@ class SuccessfulelegationDialog : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         //현재 액티비티 레이아웃 fragment_awaitingbid로 설정
         setContentView(R.layout.fragment_successfuldelegation)
 
@@ -26,16 +25,22 @@ class SuccessfulelegationDialog : AppCompatActivity() {
 
         // alertBtn 클릭 이벤트
         alertBtn.setOnClickListener {
-            // AlertDialog.Builder 클래스의 생성자를 호출해 다이얼로그를 생성
-            val builder = AlertDialog.Builder(this,R.style.AppTheme_AlertDialogTheme)
-            // 다이얼로그 메시지 및 Positive Button 클릭 이벤트
-            builder.setMessage("전 화면으로 돌아갑니다.")
-            builder.setPositiveButton("확인") { _, _ ->
-                accept() //accept 메소드 호출
-            }
-            builder.show()
+            alertclick()
         }
     }
+
+    private fun alertclick() {
+        // AlertDialog.Builder 클래스의 생성자를 호출해 다이얼로그를 생성
+        val builder = AlertDialog.Builder(this, R.style.AppTheme_AlertDialogTheme)
+        // 다이얼로그 메시지 및 Positive Button 클릭 이벤트
+        builder.setMessage("전 화면으로 돌아갑니다.")
+        builder.setPositiveButton("확인") { _, _ ->
+            accept() //accept 메소드 호출
+        }
+        builder.show()
+
+    }
+
 
     //accept 메소드 정의
     private fun accept() {
