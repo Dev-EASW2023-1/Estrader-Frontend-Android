@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/fragment_imageView"
+            android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:contentDescription="@string/item_image" />

@@ -2,11 +2,15 @@ package kr.easw.estrader.android.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.commitNow
+import androidx.fragment.app.commit
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.databinding.ActivityMainlistBinding
 import kr.easw.estrader.android.fragment.MainListFragment
 
+/**
+ * 사용자 메인 화면 activity
+ * 부동산 매각 정보(담당 법원, 사건 번호) 리스트
+ */
 class MainListActivity : AppCompatActivity() {
     private lateinit var activityBinding: ActivityMainlistBinding
 
@@ -15,19 +19,9 @@ class MainListActivity : AppCompatActivity() {
         activityBinding = ActivityMainlistBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
 
-        supportFragmentManager.commitNow {
-            replace(R.id.mainlist_framelayout, MainListFragment())
-        }
-    }
-
-    //뒤로가기 버튼 눌렸을때 이동
-    override fun onBackPressed() {
-        activityBinding = ActivityMainlistBinding.inflate(layoutInflater)
-        setContentView(activityBinding.root)
-
-        supportFragmentManager.commitNow {
-            replace(R.id.mainlist_framelayout, MainListFragment())
-
+        // commit() 으로 Fragment Transaction 비동기 처리
+        supportFragmentManager.commit {
+            replace(R.id.framelayout, MainListFragment())
         }
     }
 }

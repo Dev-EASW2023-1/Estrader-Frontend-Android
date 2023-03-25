@@ -11,7 +11,7 @@
         android:padding="20dp">
 
         <TextView
-            android:id="@+id/delegate_username"
+            android:id="@+id/username"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:layout_alignParentStart="true"
@@ -26,13 +26,13 @@
             android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:layout_centerVertical="true"
-            android:layout_marginStart="30dp"
-            android:layout_toStartOf="@+id/delegate_auctionperiod"
-            android:layout_toEndOf="@+id/delegate_username"
+            android:layout_marginStart="10dp"
+            android:layout_toStartOf="@+id/auctionperiod"
+            android:layout_toEndOf="@+id/username"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/delegate_auctionhouse"
+                android:id="@+id/auctionhouse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="담당법원"
@@ -40,7 +40,7 @@
                 android:textSize="16dp" />
 
             <TextView
-                android:id="@+id/delegate_casenumber"
+                android:id="@+id/casenumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="사건번호"
@@ -48,7 +48,7 @@
                 android:textSize="16dp" />
 
             <TextView
-                android:id="@+id/delegate_location"
+                android:id="@+id/location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="소재지"
@@ -56,7 +56,7 @@
                 android:textSize="16dp" />
 
             <TextView
-                android:id="@+id/delegate_reserveprice"
+                android:id="@+id/reserveprice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="최저입찰가"
@@ -66,12 +66,12 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/delegate_auctionperiod"
+            android:id="@+id/auctionperiod"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="10dp"
             android:text="입찰기간"
             android:textColor="#000"
             android:textSize="16dp" />

@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:fontFamily="@font/nanumgothictitle"
         android:text="대리위임 동의"
         android:textColor="@color/black"
         android:textSize="20sp" />
@@ -21,7 +20,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="15dp"
-        android:fontFamily="@font/nanumgothictext"
         android:text="대리위임 하시겠습니까?"
         android:textColor="@color/black"
         android:textSize="20sp" />

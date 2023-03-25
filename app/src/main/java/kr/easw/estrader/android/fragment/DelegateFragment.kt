@@ -10,13 +10,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kr.easw.estrader.android.databinding.ElementDelegateitemBinding
 import kr.easw.estrader.android.databinding.FragmentDelegateBinding
+import kr.easw.estrader.android.model.dto.DelegateItem
 
+/**
+ * 대리인 전용 메인 화면 Fragment
+ * 대리 위임 신청 목록
+ */
 class DelegateFragment : Fragment() {
     private var _binding: FragmentDelegateBinding? = null
     private val binding get() = _binding!!
-    private var dataList: MutableList<DelegateRecyclerViewItem>? = null
+    private var dataList: MutableList<DelegateItem>? = null
     private var itemClickListener: OnItemClickListener? = null
-    private lateinit var recyclerViewBinding: ElementDelegateitemBinding
+    private lateinit var recyclerBinding: ElementDelegateitemBinding
 
     interface OnItemClickListener {
         fun onItemClick(position: Int)
@@ -35,68 +40,74 @@ class DelegateFragment : Fragment() {
         savedInstanceState: Bundle?
     ) {
         initializeData()
-        initRecyclerView()
+        initRecycler()
     }
 
     private fun initializeData() {
         dataList = mutableListOf(
-            DelegateRecyclerViewItem(
+            DelegateItem(
                 "남재경",
-                "테스트1",
-                "테스트1",
-                "테스트1",
-                "테스트1"
-            ), DelegateRecyclerViewItem(
+                "대구지방법원",
+                "2022타경112663",
+                "대구광역시 중구",
+                "1,489,129,980",
+                "03-27 ~ \n04-07"
+            ), DelegateItem(
                 "허석무",
-                "테스트1",
-                "테스트1",
-                "테스트1",
-                "테스트1"
+                "대구지방법원",
+                "2022타경111158",
+                "대구광역시 수성구",
+                "438,000,000",
+                "03-27 ~ \n04-07"
             ),
-            DelegateRecyclerViewItem(
+            DelegateItem(
                 "김성준",
-                "테스트1",
-                "테스트1",
-                "테스트1",
-                "테스트1"
+                "대구지방법원",
+                "2022타경112663",
+                "대구광역시 중구",
+                "1,489,129,980",
+                "03-27 ~ \n04-07"
             ),
-            DelegateRecyclerViewItem(
+            DelegateItem(
                 "최이루",
-                "테스트1",
-                "테스트1",
-                "테스트1",
-                "테스트1"
+                "대구지방법원",
+                "2022타경111158",
+                "대구광역시 수성구",
+                "438,000,000",
+                "03-27 ~ \n04-07"
             ),
-            DelegateRecyclerViewItem(
+            DelegateItem(
                 "임정수",
-                "테스트1",
-                "테스트1",
-                "테스트1",
-                "테스트1"
+                "대구지방법원",
+                "2022타경112663",
+                "대구광역시 중구",
+                "1,489,129,980",
+                "03-27 ~ \n04-07"
             ),
-            DelegateRecyclerViewItem(
+            DelegateItem(
                 "엄선용",
-                "테스트1",
-                "테스트1",
-                "테스트1",
-                "테스트1"
+                "대구지방법원",
+                "2022타경111158",
+                "대구광역시 수성구",
+                "438,000,000",
+                "03-27 ~ \n04-07"
             )
         )
     }
 
-    private fun initRecyclerView() {
-        val recyclerViewAdapter = object : RecyclerView.Adapter<DelegateViewHolder>() {
+    private fun initRecycler() {
+        val recyclerViewAdapter = object : RecyclerView.Adapter<DelegateHolder>() {
             override fun onCreateViewHolder(
                 parent: ViewGroup, viewType: Int
-            ): DelegateViewHolder {
-                recyclerViewBinding = ElementDelegateitemBinding.inflate(
+            ): DelegateHolder {
+                recyclerBinding = ElementDelegateitemBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
-                return DelegateViewHolder(recyclerViewBinding, itemClickListener)
+                return DelegateHolder(recyclerBinding, itemClickListener)
             }
 
             override fun onBindViewHolder(
-                holder: DelegateViewHolder, position: Int
+                holder: DelegateHolder, position: Int
             ) {
                 holder.bind(dataList!![position])
             }
@@ -128,22 +139,16 @@ class DelegateFragment : Fragment() {
     }
 }
 
-private data class DelegateRecyclerViewItem(
-    val username: String,
-    val auctionHouse: String,
-    val caseNumber: String,
-    val location: String,
-    val reservePrice: String
-)
-
-private class DelegateViewHolder(
-    binding: ElementDelegateitemBinding, listener: DelegateFragment.OnItemClickListener?
+private class DelegateHolder(
+    binding: ElementDelegateitemBinding,
+    listener: DelegateFragment.OnItemClickListener?
 ) : RecyclerView.ViewHolder(binding.root) {
-    val username: TextView = binding.delegateUsername
-    val auctionHouse: TextView = binding.delegateAuctionhouse
-    val caseNumber: TextView = binding.delegateCasenumber
-    val location: TextView = binding.delegateLocation
-    val reservePrice: TextView = binding.delegateReserveprice
+    val username: TextView = binding.username
+    val auctionHouse: TextView = binding.auctionhouse
+    val caseNumber: TextView = binding.casenumber
+    val location: TextView = binding.location
+    val reservePrice: TextView = binding.reserveprice
+    val auctionPeriod: TextView = binding.auctionperiod
 
     init {
         binding.root.setOnClickListener {
@@ -154,11 +159,12 @@ private class DelegateViewHolder(
         }
     }
 
-    fun bind(item: DelegateRecyclerViewItem) {
+    fun bind(item: DelegateItem) {
         username.text = item.username
         auctionHouse.text = item.auctionHouse
         caseNumber.text = item.caseNumber
         location.text = item.location
         reservePrice.text = item.reservePrice
+        auctionPeriod.text = item.auctionPeriod
     }
 }
