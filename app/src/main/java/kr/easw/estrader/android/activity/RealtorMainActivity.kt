@@ -34,40 +34,26 @@ class RealtorMainActivity : AppCompatActivity() {
         val tabLayout = activityBinding.tabLayout
 
         viewPager.adapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
-
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = tabTitleArray[position]
         }.attach()
-        mHandler = Handler()
 
         // 5초 후에 팝업을 띄우기 위해 postDelayed 메소드를 호출
         mHandler.postDelayed({
-            val dialog = AlertDialog.Builder(this)
-                .setTitle("알림")
-                .setMessage("김덕배 님이 대리 위임을 신청하셨습니다.")
-                .setPositiveButton("확인") { _, _ ->
-                    accept()               // 확인 버튼 클릭 시 동작
-                }
-                .setNegativeButton("취소") { _, _ ->
-                    // 취소 버튼 클릭 시 동작
-                }
-                .create()
+            val dialog =
+                AlertDialog.Builder(this).setTitle("알림").setMessage("김덕배 님이 대리 위임을 신청하셨습니다.")
+                    .setPositiveButton("확인") { _, _ ->
+                        accept()
+                    }.setNegativeButton("취소") { _, _ ->
+                    }.create()
             dialog.show()
         }, 3000) // 5초 (5000ms) 후에 팝업을 띄움
     }
 
     private fun accept() {
-        // MainListActivity로 이동
         val intent = Intent(applicationContext, AwaitingbidDialog::class.java)
         startActivity(intent)
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        // 핸들러의 메시지 큐에서 보류중인 메시지들을 모두 제거해줍니다.
-        mHandler.removeCallbacksAndMessages(null)
-    }
-
 
 }
 
