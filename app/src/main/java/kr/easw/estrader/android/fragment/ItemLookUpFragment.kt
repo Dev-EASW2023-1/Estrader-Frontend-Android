@@ -14,6 +14,11 @@ import kr.easw.estrader.android.activity.MainListActivity
 import kr.easw.estrader.android.databinding.FragmentItemlookupBinding
 import kr.easw.estrader.android.dialog.AwaitingbidDialog
 
+/**
+ * Item 상세 정보 Fragment
+ * 대리위임버튼 클릭하면 확인 팝업 후 AwaitingbidDialog로 이동
+ */
+
 class ItemLookUpFragment : Fragment() {
     private var _binding: FragmentItemlookupBinding? = null
     private val binding get() = _binding!!

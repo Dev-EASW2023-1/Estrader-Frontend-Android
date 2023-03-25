@@ -8,6 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.activity.MainListActivity
 
+/**
+ * 대리인 위임 완료 Activity
+ * 확인 누르면 전 화면으로 돌아간다는 팝업 뜨고
+ * MainListActivity로 이동
+ */
 class SuccessfulelegationDialog : AppCompatActivity() {
     private lateinit var alertBtn: Button
 

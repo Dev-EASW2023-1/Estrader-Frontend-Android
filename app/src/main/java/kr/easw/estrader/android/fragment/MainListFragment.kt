@@ -18,7 +18,7 @@ import kr.easw.estrader.android.model.dto.MainItem
 import java.lang.ref.WeakReference
 
 /**
- * 사용자 메인 화면 Fragment
+ * 사용자 Sign in Fragment
  * 리스트 항목을 누르면 ItemLookUpFragment 로 이동
  */
 class MainListFragment : Fragment() {

@@ -1,6 +1,5 @@
 package kr.easw.estrader.android.dialog
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -8,8 +7,12 @@ import android.os.Looper
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import kr.easw.estrader.android.R
-import kr.easw.estrader.android.activity.MainListActivity
 
+/**
+ * 대리신청중 화면 Activity
+ * 지금은 5초 지연 후 SuccessfulelegationDialog이동이지만
+ * 추후에는 대리인 어플에서 수락 하면 이동으로 수정
+ */
 class AwaitingbidDialog : AppCompatActivity() {
     private lateinit var alertBtn: Button
 
