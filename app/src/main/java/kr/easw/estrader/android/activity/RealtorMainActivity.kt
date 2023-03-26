@@ -1,6 +1,8 @@
 package kr.easw.estrader.android.activity
 
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
+import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -11,6 +13,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import kr.easw.estrader.android.R
 import kr.easw.estrader.android.databinding.ActivityRealtormainBinding
 import kr.easw.estrader.android.dialog.AwaitingBidDialog
 import kr.easw.estrader.android.fragment.DelegateCompletionFragment
@@ -45,6 +48,7 @@ class RealtorMainActivity : AppCompatActivity() {
         initFields()
         initTabLayout()
 
+        mHandler = Handler(Looper.getMainLooper())
         // 5초 뒤 "김덕배 님이 대리 위임을 신청하셨습니다." 팝업 확인 후, AwaitingBidDialog 이동
         mHandler.postDelayed({
             showDialog()
@@ -79,12 +83,14 @@ class RealtorMainActivity : AppCompatActivity() {
     }
 
     private fun showDialog() {
-        AlertDialog.Builder(this)
+        AlertDialog.Builder(this, R.style.AppTheme_AlertDialogTheme)
             .setTitle("알림")
             .setMessage("김덕배 님이 대리 위임을 신청하셨습니다.")
             .setPositiveButton("확인") { _, _ ->
                 startActivity(
-                    Intent(this, AwaitingBidDialog::class.java)
+                    Intent(this, AwaitingBidDialog::class.java).apply {
+                        flags = FLAG_ACTIVITY_SINGLE_TOP or FLAG_ACTIVITY_CLEAR_TOP
+                    }
                 )
             }
             .setNegativeButton("취소") { _, _ ->

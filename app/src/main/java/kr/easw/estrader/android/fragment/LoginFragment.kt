@@ -1,7 +1,6 @@
 package kr.easw.estrader.android.fragment
 
 import android.content.Intent
-import android.content.Intent.FLAG_ACTIVITY_NO_HISTORY
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,7 +32,7 @@ class LoginFragment : Fragment() {
         // Login 버튼 누르면 MainListActivity 로 이동
         nextButton.setOnClickListener {
             startActivity(Intent(requireContext(), MainListActivity::class.java).apply {
-                flags = FLAG_ACTIVITY_NO_HISTORY
+                flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
             })
             requireActivity().finish()
         }

@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import kr.easw.estrader.android.R
 
@@ -21,10 +20,14 @@ class AwaitingBidDialog : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_awaitingbid)
 
+        mHandler = Handler(Looper.getMainLooper())
+
         // 5초 뒤 SuccessDelegationDialog 이동
         mHandler.postDelayed({
             startActivity(
-                Intent(this, SuccessDelegationDialog::class.java)
+                Intent(this, SuccessDelegationDialog::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                }
             )
             finish()
         }, 5000)

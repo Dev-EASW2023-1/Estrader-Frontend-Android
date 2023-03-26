@@ -2,7 +2,6 @@ package kr.easw.estrader.android.fragment
 
 import android.app.AlertDialog
 import android.content.Intent
-import android.content.Intent.FLAG_ACTIVITY_NO_HISTORY
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,11 +9,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import kr.easw.estrader.android.R
-import kr.easw.estrader.android.activity.MainListActivity
 import kr.easw.estrader.android.databinding.FragmentItemlookupBinding
 import kr.easw.estrader.android.dialog.AwaitingBidDialog
 
@@ -82,7 +81,9 @@ class ItemLookUpFragment : Fragment() {
             .setMessage("대리 위임을 신청하시겠습니까?")
             .setPositiveButton("확인") { _, _ ->
                 startActivity(
-                    Intent(requireContext(), AwaitingBidDialog::class.java)
+                    Intent(requireContext(), AwaitingBidDialog::class.java).apply {
+                        flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    }
                 )
             }
             .setNegativeButton("취소") { _, _ ->
@@ -92,17 +93,15 @@ class ItemLookUpFragment : Fragment() {
     }
 
     private fun delegateReject() {
-        startActivity(Intent(requireContext(), MainListActivity::class.java).apply {
-            flags = FLAG_ACTIVITY_NO_HISTORY
-        })
-        requireActivity().finish()
+        requireActivity().supportFragmentManager.commit {
+            replace(R.id.framelayout, MainListFragment())
+        }
     }
 
     private fun toolbarNavClick() {
-        startActivity(Intent(requireContext(), MainListActivity::class.java).apply {
-            flags = FLAG_ACTIVITY_NO_HISTORY
-        })
-        requireActivity().finish()
+        requireActivity().supportFragmentManager.commit {
+            replace(R.id.framelayout, MainListFragment())
+        }
     }
 
     private fun onOffTitleAppBar() {
