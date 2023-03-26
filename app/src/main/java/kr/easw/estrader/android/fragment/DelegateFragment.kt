@@ -122,7 +122,7 @@ class DelegateFragment : BaseFragment<FragmentDelegateBinding>(FragmentDelegateB
         // recyclerView 아이템 클릭 이벤트 설정
         recyclerViewAdapter.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(position: Int) {
-                TODO("아직 정하지 않았음.")
+                // TODO("아직 정하지 않았음.")
             }
         })
     }
