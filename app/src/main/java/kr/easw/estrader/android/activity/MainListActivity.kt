@@ -8,8 +8,8 @@ import kr.easw.estrader.android.databinding.ActivityMainlistBinding
 import kr.easw.estrader.android.fragment.MainListFragment
 
 /**
- * 사용자 메인 화면 activity
- * 부동산 매각 정보(담당 법원, 사건 번호) 리스트
+ * 사용자 전용 메인화면 activity
+ * 부동산 매각정보 리스트 (MainListFragment)
  */
 class MainListActivity : AppCompatActivity() {
     private lateinit var activityBinding: ActivityMainlistBinding
@@ -20,6 +20,7 @@ class MainListActivity : AppCompatActivity() {
         setContentView(activityBinding.root)
 
         // commit() 으로 Fragment Transaction 비동기 처리
+        // 부동산 매각정보 리스트 (MainListFragment) 초기화
         supportFragmentManager.commit {
             replace(R.id.framelayout, MainListFragment())
         }

@@ -4,36 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kr.easw.estrader.android.databinding.ElementDelegateitemBinding
 import kr.easw.estrader.android.databinding.FragmentDelegateBinding
+import kr.easw.estrader.android.model.data.DelegateHolder
 import kr.easw.estrader.android.model.dto.DelegateItem
+import java.lang.ref.WeakReference
 
 /**
- * 대리인 전용 메인 화면 Fragment
- * 대리 위임 신청 목록
+ * 대리인 전용 메인화면 Fragment
+ * 대리위임 신청 목록
  */
-class DelegateFragment : Fragment() {
-    private var _binding: FragmentDelegateBinding? = null
-    private val binding get() = _binding!!
+class DelegateFragment : BaseFragment<FragmentDelegateBinding>(FragmentDelegateBinding::inflate) {
+
     private var dataList: MutableList<DelegateItem>? = null
-    private var itemClickListener: OnItemClickListener? = null
-    private lateinit var recyclerBinding: ElementDelegateitemBinding
-
-    interface OnItemClickListener {
-        fun onItemClick(position: Int)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentDelegateBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    private var itemClickListener: WeakReference<OnItemClickListener>? = null
+    private var recyclerBinding: ElementDelegateitemBinding? = null
 
     override fun onViewCreated(
         view: View,
@@ -43,6 +30,12 @@ class DelegateFragment : Fragment() {
         initRecycler()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        recyclerBinding = null
+    }
+
+    // ViewHolder 에 사용할 DateList 초기화
     private fun initializeData() {
         dataList = mutableListOf(
             DelegateItem(
@@ -95,7 +88,7 @@ class DelegateFragment : Fragment() {
         )
     }
 
-    private fun initRecycler() {
+    override fun initRecycler() {
         val recyclerViewAdapter = object : RecyclerView.Adapter<DelegateHolder>() {
             override fun onCreateViewHolder(
                 parent: ViewGroup, viewType: Int
@@ -103,7 +96,7 @@ class DelegateFragment : Fragment() {
                 recyclerBinding = ElementDelegateitemBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
-                return DelegateHolder(recyclerBinding, itemClickListener)
+                return DelegateHolder(recyclerBinding, itemClickListener?.get())
             }
 
             override fun onBindViewHolder(
@@ -114,57 +107,23 @@ class DelegateFragment : Fragment() {
 
             override fun getItemCount(): Int = dataList!!.size
 
+            // 리스너 객체 참조를 recyclerView Adapter 에 전달
+            // 약한 참조를 위해 WeakReference 설정
             fun setOnItemClickListener(listener: OnItemClickListener) {
-                itemClickListener = listener
+                itemClickListener = WeakReference(listener)
             }
         }
 
-        binding.delegateRecyclerView.apply {
+        (binding as FragmentDelegateBinding).delegateRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             adapter = recyclerViewAdapter
         }
 
+        // recyclerView 아이템 클릭 이벤트 설정
         recyclerViewAdapter.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(position: Int) {
-//                requireActivity().supportFragmentManager.commitNow {
-//                    replace(R.id.mainlist_framelayout, ItemLookUpFragment())
-//                }
+                // TODO("아직 정하지 않았음.")
             }
         })
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-}
-
-private class DelegateHolder(
-    binding: ElementDelegateitemBinding,
-    listener: DelegateFragment.OnItemClickListener?
-) : RecyclerView.ViewHolder(binding.root) {
-    val username: TextView = binding.username
-    val auctionHouse: TextView = binding.auctionhouse
-    val caseNumber: TextView = binding.casenumber
-    val location: TextView = binding.location
-    val reservePrice: TextView = binding.reserveprice
-    val auctionPeriod: TextView = binding.auctionperiod
-
-    init {
-        binding.root.setOnClickListener {
-            val pos = adapterPosition
-            if (pos != RecyclerView.NO_POSITION) {
-                listener?.onItemClick(pos)
-            }
-        }
-    }
-
-    fun bind(item: DelegateItem) {
-        username.text = item.username
-        auctionHouse.text = item.auctionHouse
-        caseNumber.text = item.caseNumber
-        location.text = item.location
-        reservePrice.text = item.reservePrice
-        auctionPeriod.text = item.auctionPeriod
     }
 }

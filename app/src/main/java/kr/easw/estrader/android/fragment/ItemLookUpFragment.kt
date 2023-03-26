@@ -42,7 +42,8 @@ class ItemLookUpFragment : Fragment() {
         binding.confirmButton.setOnClickListener {
             daerereject()
         }
-        binding.toolbar.setNavigationOnClickListener {
+        val toolbar = view.findViewById<View>(R.id.toolbar) as androidx.appcompat.widget.Toolbar
+        toolbar.setNavigationOnClickListener {
             // 툴바 navigationIcon 클릭 이벤트 처리
             toolbarnavclick()
         }

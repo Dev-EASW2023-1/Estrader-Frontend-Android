@@ -12,19 +12,18 @@
 
         <TextView
             android:id="@+id/username"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:gravity="center"
-            android:layout_marginStart="30dp"
             android:text="유저이름"
             android:textColor="#000"
             android:textSize="16dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
             android:layout_toStartOf="@+id/auctionperiod"
@@ -72,6 +71,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
+            android:gravity="center"
             android:text="입찰기간"
             android:textColor="#000"
             android:textSize="16dp" />
