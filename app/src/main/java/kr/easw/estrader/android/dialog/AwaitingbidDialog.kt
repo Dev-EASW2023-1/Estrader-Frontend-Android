@@ -14,8 +14,6 @@ import kr.easw.estrader.android.R
  * 추후에는 대리인 어플에서 수락 하면 이동으로 수정
  */
 class AwaitingbidDialog : AppCompatActivity() {
-    private lateinit var alertBtn: Button
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

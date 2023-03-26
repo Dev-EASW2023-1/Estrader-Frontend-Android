@@ -1,9 +1,11 @@
 package kr.easw.estrader.android.activity
 
+import android.os.Binder
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import kr.easw.estrader.android.R
+import kr.easw.estrader.android.databinding.ActivityLoginBinding
 import kr.easw.estrader.android.fragment.LoginFragment
 import kr.easw.estrader.android.fragment.RegisterFragment
 
@@ -12,36 +14,26 @@ import kr.easw.estrader.android.fragment.RegisterFragment
  * LOGIN 버튼을 누르면 MainListActivity 로 이동
  */
 class MainActivity : AppCompatActivity() {
-    private val signInTextView: TextView by lazy {
-        findViewById(R.id.sign_in)
-    }
-    private val signUpTextView: TextView by lazy {
-        findViewById(R.id.sign_up)
-    }
 
+    private lateinit var binding: ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
-        initFields()
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         initFragment()
 
-        signInTextView.setOnClickListener {
+        binding.signIn.setOnClickListener {
             signInClick()
         }
-        signUpTextView.setOnClickListener {
+        binding.signUp.setOnClickListener {
             signUpClick()
         }
     }
 
-    //회원 가입, 로그인 Textview 초기화
-    private fun initFields(){
-        signInTextView
-        signUpTextView
-    }
 
     // 로그인 Fragment init
-    private fun initFragment(){
+    private fun initFragment() {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.container_view, LoginFragment())
