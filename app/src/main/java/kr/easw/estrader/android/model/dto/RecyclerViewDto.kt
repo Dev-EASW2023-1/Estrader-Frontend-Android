@@ -2,16 +2,6 @@ package kr.easw.estrader.android.model.dto
 
 import android.graphics.drawable.Drawable
 
-data class TestItem(
-    val iconDrawable: Drawable,
-    val username: String,
-    val auctionHouse: String,
-    val caseNumber: String,
-    val location: String,
-    val reservePrice: String,
-    val auctionPeriod: String
-)
-
 data class MainItem(
     val iconDrawable: Drawable,
     val auctionHouse: String,
