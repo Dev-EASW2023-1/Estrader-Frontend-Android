@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:id="@+id/flow_nav"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="kr.easw.estrader.android.fragment.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/activity_login"
+        >
+        <action
+            android:id="@+id/action_loginFragment_to_mainListFragment"
+            app:destination="@id/mainListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainListFragment"
+        android:name="kr.easw.estrader.android.fragment.MainListFragment"
+        android:label="MainListFragment"
+        tools:layout="@layout/fragment_mainlist"/>
+</navigation>
