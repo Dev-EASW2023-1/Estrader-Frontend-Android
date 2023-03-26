@@ -13,8 +13,8 @@ import kr.easw.estrader.android.model.dto.DelegateItem
 import java.lang.ref.WeakReference
 
 /**
- * 대리인 전용 메인 화면 Fragment
- * 대리 위임 신청 목록
+ * 대리인 전용 메인화면 Fragment
+ * 대리위임 신청 목록
  */
 class DelegateFragment : BaseFragment<FragmentDelegateBinding>(FragmentDelegateBinding::inflate) {
 

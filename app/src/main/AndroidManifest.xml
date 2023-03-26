@@ -13,10 +13,10 @@
         android:noHistory="true"
         tools:targetApi="31">
         <activity
-            android:name=".dialog.SuccessfulelegationDialog"
+            android:name=".dialog.SuccessDelegationDialog"
             android:exported="false" />
         <activity
-            android:name=".dialog.AwaitingbidDialog"
+            android:name=".dialog.AwaitingBidDialog"
             android:exported="false" />
         <activity
             android:name=".activity.MainListActivity"
