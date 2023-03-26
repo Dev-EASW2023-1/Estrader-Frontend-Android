@@ -12,7 +12,7 @@ import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.activity.MainListActivity
 import kr.easw.estrader.android.databinding.FragmentItemlookupBinding
-import kr.easw.estrader.android.dialog.AwaitingbidDialog
+import kr.easw.estrader.android.dialog.SuccessDelegationDialog
 
 /**
  * Item 상세 정보 Fragment
@@ -42,8 +42,7 @@ class ItemLookUpFragment : Fragment() {
         binding.confirmButton.setOnClickListener {
             daerereject()
         }
-        val toolbar = view.findViewById<View>(R.id.toolbar) as androidx.appcompat.widget.Toolbar
-        toolbar.setNavigationOnClickListener {
+        binding.toolbar.setNavigationOnClickListener {
             // 툴바 navigationIcon 클릭 이벤트 처리
             toolbarnavclick()
         }
@@ -103,8 +102,7 @@ class ItemLookUpFragment : Fragment() {
 
     private fun accept() {
         // MainListActivity로 이동
-        val intent = Intent(requireContext(), AwaitingbidDialog::class.java)
+        val intent = Intent(requireContext(), SuccessDelegationDialog::class.java)
         startActivity(intent)
-
     }
 }
