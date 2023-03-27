@@ -44,14 +44,14 @@ class DelegateCompletionFragment : BaseFragment<FragmentDelegatecompletionBindin
                 "2022타경112663",
                 "대구광역시 중구",
                 "1,489,129,980",
-                "03-27 ~ \n04-07"
+                "03-27\n ~ \n04-07"
             ), DelegateCompletionItem(
                 "김성준",
                 "대구지방법원",
                 "2022타경112663",
                 "대구광역시 중구",
                 "1,489,129,980",
-                "03-27 ~ \n04-07"
+                "03-27\n ~ \n04-07"
             ),
             DelegateCompletionItem(
                 "엄선용",
@@ -59,7 +59,7 @@ class DelegateCompletionFragment : BaseFragment<FragmentDelegatecompletionBindin
                 "2022타경111158",
                 "대구광역시 수성구",
                 "438,000,000",
-                "03-27 ~ \n04-07"
+                "03-27\n ~ \n04-07"
             ),
             DelegateCompletionItem(
                 "허석무",
@@ -67,7 +67,7 @@ class DelegateCompletionFragment : BaseFragment<FragmentDelegatecompletionBindin
                 "2022타경111158",
                 "대구광역시 수성구",
                 "438,000,000",
-                "03-27 ~ \n04-07"
+                "03-27\n ~ \n04-07"
             ),
             DelegateCompletionItem(
                 "최이루",
@@ -75,7 +75,7 @@ class DelegateCompletionFragment : BaseFragment<FragmentDelegatecompletionBindin
                 "2022타경111158",
                 "대구광역시 수성구",
                 "438,000,000",
-                "03-27 ~ \n04-07"
+                "03-27\n ~ \n04-07"
             ),
             DelegateCompletionItem(
                 "임정수",
@@ -83,7 +83,7 @@ class DelegateCompletionFragment : BaseFragment<FragmentDelegatecompletionBindin
                 "2022타경112663",
                 "대구광역시 중구",
                 "1,489,129,980",
-                "03-27 ~ \n04-07"
+                "03-27\n ~ \n04-07"
             )
         )
     }

@@ -10,7 +10,7 @@
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/color_main</item>
         <!-- Customize your theme here. -->
         <item name="windowNoTitle">true</item>
         <!-- Applying custom font-family. -->
@@ -19,6 +19,7 @@
         <item name="android:editTextStyle">@style/customEditTextStyle</item>
         <item name="android:radioButtonStyle">@style/customRadioButtonStyle</item>
         <item name="android:checkboxStyle">@style/customCheckboxStyle</item>
+        <item name="android:alertDialogTheme">@style/AppTheme.AlertDialogTheme</item>
     </style>
 
     <style name="Theme.Estrader.NoActionBar">

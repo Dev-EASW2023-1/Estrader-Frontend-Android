@@ -16,7 +16,7 @@
             android:layout_height="350dp"
             android:fitsSystemWindows="true"
             app:collapsedTitleTextAppearance="@style/expandedBarTextStyle"
-            app:contentScrim="?attr/colorPrimaryVariant"
+            app:contentScrim="@color/color_main"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
@@ -69,7 +69,7 @@
                     android:padding="10dp"
                     android:text="매물관리번호 2020타경 28592"
                     android:textColor="#95A1AC"
-                    android:textSize="16dp" />
+                    android:textSize="@dimen/heading_size" />
 
                 <TextView
                     android:id="@+id/tv_hello"
@@ -78,7 +78,7 @@
                     android:layout_marginTop="16dp"
                     android:text="다가구주택"
                     android:textColor="#000000"
-                    android:textSize="24dp"
+                    android:textSize="@dimen/title_size"
                     android:textStyle="bold" />
 
                 <TextView
@@ -87,7 +87,7 @@
                     android:layout_height="wrap_content"
                     android:text="대구광역시 중구 공평로8길 53-4"
                     android:textColor="#000000"
-                    android:textSize="16dp" />
+                    android:textSize="@dimen/heading_size" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -106,7 +106,7 @@
                     android:layout_marginTop="16dp"
                     android:text="상세정보"
                     android:textColor="#000000"
-                    android:textSize="24dp"
+                    android:textSize="@dimen/title_size"
                     android:textStyle="bold" />
 
                 <GridLayout
@@ -122,7 +122,7 @@
                         android:layout_gravity="center_vertical"
                         android:text="소재지"
                         android:textColor="#000000"
-                        android:textSize="16dp"
+                        android:textSize="@dimen/heading_size"
                         android:textStyle="bold" />
 
                     <TextView
@@ -132,7 +132,7 @@
                         android:layout_gravity="center_vertical"
                         android:text="철근콘크리트구조 (철근)콘크리트지붕 4층 다가구주택 1층 철근콘크리트구조 계단실 11.88㎡ 2층 철근콘크리트구조 4가구 113.68㎡ 2층 철근콘크리트구조 사무소 51.41㎡ 3층 철근콘크리트구조 6가구 160.05㎡ 4층 철근콘크리트구조 3가구 157.23㎡"
                         android:textColor="#000000"
-                        android:textSize="16dp" />
+                        android:textSize="@dimen/heading_size" />
 
                 </GridLayout>
 
@@ -155,7 +155,7 @@
                         android:layout_gravity="center_vertical"
                         android:text="감정평가액 \n최저매각가격"
                         android:textColor="#000000"
-                        android:textSize="16dp"
+                        android:textSize="@dimen/heading_size"
                         android:textStyle="bold" />
 
                     <TextView
@@ -165,7 +165,7 @@
                         android:layout_gravity="center_vertical"
                         android:text="1,489,129,980"
                         android:textColor="#000000"
-                        android:textSize="16dp" />
+                        android:textSize="@dimen/heading_size" />
 
                 </GridLayout>
 
@@ -188,7 +188,7 @@
                         android:layout_gravity="center_vertical"
                         android:text="비고"
                         android:textColor="#000000"
-                        android:textSize="16dp"
+                        android:textSize="@dimen/heading_size"
                         android:textStyle="bold" />
 
                     <TextView
@@ -198,7 +198,7 @@
                         android:layout_gravity="center_vertical"
                         android:text="-일괄매각 -감정서에 의하면 본건 기호(가)1층 사무소 증축부분은 건물등기사항전부증명서 상 미등재된 상태로서 일반건축물대장과 상이하나, 물적동일성의 기준이 되는 건축물대장을 기준으로 1층 증축 부분(22.68㎡)을 정상적으로 평가하였으며 매각에 포함 "
                         android:textColor="#000000"
-                        android:textSize="16dp" />
+                        android:textSize="@dimen/heading_size" />
 
                 </GridLayout>
 
@@ -222,10 +222,10 @@
                         android:layout_gravity="start"
                         android:layout_marginEnd="30dp"
                         android:background="@drawable/awaitingbid_button"
-                        android:backgroundTint="#3f9efa"
+                        android:backgroundTint="@color/color_main"
                         android:text="취소"
                         android:textColor="#FFFFFF"
-                        android:textSize="20dp" />
+                        android:textSize="@dimen/subtitle_size" />
 
                     <android.widget.Button
                         android:id="@+id/confirm_button2"
@@ -234,11 +234,10 @@
                         android:layout_gravity="end"
                         android:layout_marginStart="30dp"
                         android:background="@drawable/awaitingbid_button"
-                        android:backgroundTint="#3f9efa"
-                        android:onClick="onclick2"
+                        android:backgroundTint="@color/color_main"
                         android:text="대리위임"
                         android:textColor="#FFFFFF"
-                        android:textSize="20dp" />
+                        android:textSize="@dimen/subtitle_size" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 

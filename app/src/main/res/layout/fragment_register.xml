@@ -25,7 +25,7 @@
             android:maxLines="1"
             android:paddingStart="10dp"
             android:paddingEnd="0dp"
-            android:textSize="12dp" />
+            android:textSize="@dimen/hint_size" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -48,7 +48,7 @@
             android:maxLines="1"
             android:paddingStart="10dp"
             android:paddingEnd="0dp"
-            android:textSize="12dp" />
+            android:textSize="@dimen/hint_size" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -73,7 +73,7 @@
             android:maxLines="1"
             android:paddingStart="10dp"
             android:paddingEnd="0dp"
-            android:textSize="12dp" />
+            android:textSize="@dimen/hint_size" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -86,6 +86,7 @@
         android:background="@drawable/login_button_rounded_corners"
         android:text="Create Account"
         android:textColor="#ffffff"
-        android:textSize="20dp" />
+        android:textSize="@dimen/subtitle_size"
+        android:textStyle="bold"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>
