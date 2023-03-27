@@ -76,7 +76,7 @@ class ItemLookUpFragment : Fragment() {
     }
 
     private fun delegateAccept() {
-        AlertDialog.Builder(requireContext(), R.style.AppTheme_AlertDialogTheme)
+        AlertDialog.Builder(requireContext())
             .setTitle("대리 위임 동의")
             .setMessage("대리 위임을 신청하시겠습니까?")
             .setPositiveButton("확인") { _, _ ->
