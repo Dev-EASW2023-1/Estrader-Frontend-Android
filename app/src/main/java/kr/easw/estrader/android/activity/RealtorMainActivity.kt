@@ -10,7 +10,6 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import kr.easw.estrader.android.R
 import kr.easw.estrader.android.databinding.ActivityRealtormainBinding
 import kr.easw.estrader.android.fragment.DelegateCompletionFragment
 import kr.easw.estrader.android.fragment.DelegateFragment
@@ -79,7 +78,7 @@ class RealtorMainActivity : AppCompatActivity() {
     }
 
     private fun showDialog() {
-        AlertDialog.Builder(this, R.style.AppTheme_AlertDialogTheme)
+        AlertDialog.Builder(this)
             .setTitle("알림")
             .setMessage("김덕배 님이 대리 위임을 신청하셨습니다.")
             .setPositiveButton("확인") { _, _ ->
