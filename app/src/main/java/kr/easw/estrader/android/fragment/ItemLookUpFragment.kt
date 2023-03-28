@@ -6,30 +6,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
-import com.google.android.material.appbar.CollapsingToolbarLayout
 import kr.easw.estrader.android.R
+import kr.easw.estrader.android.activity.MainListActivity
 import kr.easw.estrader.android.databinding.FragmentItemlookupBinding
-import kr.easw.estrader.android.dialog.AwaitingBidDialog
+import kr.easw.estrader.android.dialog.SuccessDelegationDialog
 
 /**
- * 사용자 전용 부동산 매각 상세정보 Fragment
- * 대리위임 버튼 클릭 시 "대리 위임 동의" 팝업 확인 후, AwaitingBidDialog 로 이동
+ * Item 상세 정보 Fragment
+ * 대리위임버튼 클릭하면 확인 팝업 후 AwaitingbidDialog로 이동
  */
 
 class ItemLookUpFragment : Fragment() {
     private var _binding: FragmentItemlookupBinding? = null
     private val binding get() = _binding!!
-    private lateinit var collapsingToolbarLayout: CollapsingToolbarLayout
-    private lateinit var appBarLayout: AppBarLayout
-    private lateinit var delegate: Button
-    private lateinit var cancle: Button
-    private lateinit var toolbar: Toolbar
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -41,24 +33,18 @@ class ItemLookUpFragment : Fragment() {
     override fun onViewCreated(
         view: View, savedInstanceState: Bundle?
     ) {
-        initFields()
-
-        // CollapsingToolbarLayout 가 축소할 때만 Toolbar 에 제목 표시
         onOffTitleAppBar()
 
-        // "대리 위임 동의" 팝업 확인 후, AwaitingBidDialog 로 이동
-        delegate.setOnClickListener {
-            delegateAccept()
+        binding.confirmButton2.setOnClickListener {
+            daereaccept()
         }
 
-        // "대리 위임 동의" 팝업 취소 이벤트 처리
-        cancle.setOnClickListener {
-            delegateReject()
+        binding.confirmButton.setOnClickListener {
+            daerereject()
         }
-
-        // 툴바 navigationIcon 클릭 이벤트 처리
-        toolbar.setNavigationOnClickListener {
-            toolbarNavClick()
+        binding.toolbar.setNavigationOnClickListener {
+            // 툴바 navigationIcon 클릭 이벤트 처리
+            toolbarnavclick()
         }
     }
 
@@ -67,44 +53,35 @@ class ItemLookUpFragment : Fragment() {
         _binding = null
     }
 
-    private fun initFields(){
-        collapsingToolbarLayout = binding.collapsingLayout
-        appBarLayout = binding.appbarLayout
-        delegate = binding.confirmButton2
-        cancle = binding.confirmButton
-        toolbar = binding.toolbar
+    private fun toolbarnavclick() {
+        val intent = Intent(requireContext(), MainListActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NO_HISTORY
+        startActivity(intent)
+        activity?.finish()
     }
 
-    private fun delegateAccept() {
-        AlertDialog.Builder(requireContext())
-            .setTitle("대리 위임 동의")
-            .setMessage("대리 위임을 신청하시겠습니까?")
-            .setPositiveButton("확인") { _, _ ->
-                startActivity(
-                    Intent(requireContext(), AwaitingBidDialog::class.java).apply {
-                        flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    }
-                )
-            }
-            .setNegativeButton("취소") { _, _ ->
-            }
-            .create()
-            .show()
-    }
-
-    private fun delegateReject() {
-        requireActivity().supportFragmentManager.commit {
-            replace(R.id.framelayout, MainListFragment())
+    private fun daereaccept() {
+        val builder = AlertDialog.Builder(requireContext(), R.style.AppTheme_AlertDialogTheme)
+        builder.setTitle("대리위임 동의")
+        builder.setMessage("대리위임을 신청 하시겠습니까?")
+        builder.setPositiveButton("확인") { _, _ ->
+            accept()
         }
+        builder.setNegativeButton("취소") { _, _ ->
+        }
+        builder.show()
     }
 
-    private fun toolbarNavClick() {
-        requireActivity().supportFragmentManager.commit {
-            replace(R.id.framelayout, MainListFragment())
-        }
+    private fun daerereject() {
+        val intent = Intent(requireContext(), MainListActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NO_HISTORY
+        startActivity(intent)
+        activity?.finish()
     }
 
     private fun onOffTitleAppBar() {
+        val collapsingToolbarLayout = binding.collapsingLayout
+        val appBarLayout = binding.appbarLayout
         appBarLayout.addOnOffsetChangedListener(object : OnOffsetChangedListener {
             var isShow = true
             var scrollRange = -1
@@ -121,5 +98,11 @@ class ItemLookUpFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun accept() {
+        // MainListActivity로 이동
+        val intent = Intent(requireContext(), SuccessDelegationDialog::class.java)
+        startActivity(intent)
     }
 }

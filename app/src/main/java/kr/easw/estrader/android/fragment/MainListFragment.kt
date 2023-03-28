@@ -47,56 +47,56 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
                 "2022타경112663",
                 "대구광역시 중구",
                 "1,489,129,980",
-                "03-27\n ~ \n04-07"
+                "03-27 ~ \n04-07"
             ), MainItem(
                 ContextCompat.getDrawable(requireContext(), R.drawable.ic_house2)!!,
                 "대구지방법원",
                 "2022타경111158",
                 "대구광역시 수성구",
                 "438,000,000",
-                "03-27\n ~ \n04-07"
+                "03-27 ~ \n04-07"
             ), MainItem(
                 ContextCompat.getDrawable(requireContext(), R.drawable.ic_house3)!!,
                 "대구지방법원",
                 "2022타경112663",
                 "대구광역시 중구",
                 "1,489,129,980",
-                "03-27\n ~ \n04-07"
+                "03-27 ~ \n04-07"
             ), MainItem(
                 ContextCompat.getDrawable(requireContext(), R.drawable.ic_house4)!!,
                 "대구지방법원",
                 "2022타경111158",
                 "대구광역시 수성구",
                 "438,000,000",
-                "03-27\n ~ \n04-07"
+                "03-27 ~ \n04-07"
             ), MainItem(
                 ContextCompat.getDrawable(requireContext(), R.drawable.ic_house1)!!,
                 "대구지방법원",
                 "2022타경112663",
                 "대구광역시 중구",
                 "1,489,129,980",
-                "03-27\n ~ \n04-07"
+                "03-27 ~ \n04-07"
             ), MainItem(
                 ContextCompat.getDrawable(requireContext(), R.drawable.ic_house2)!!,
                 "대구지방법원",
                 "2022타경111158",
                 "대구광역시 수성구",
                 "438,000,000",
-                "03-27\n ~ \n04-07"
+                "03-27 ~ \n04-07"
             ), MainItem(
                 ContextCompat.getDrawable(requireContext(), R.drawable.ic_house3)!!,
                 "대구지방법원",
                 "2022타경112663",
                 "대구광역시 중구",
                 "1,489,129,980",
-                "03-27\n ~ \n04-07"
+                "03-27 ~ \n04-07"
             ), MainItem(
                 ContextCompat.getDrawable(requireContext(), R.drawable.ic_house4)!!,
                 "대구지방법원",
                 "2022타경111158",
                 "대구광역시 수성구",
                 "438,000,000",
-                "03-27\n ~ \n04-07"
+                "03-27 ~ \n04-07"
             )
         )
     }
