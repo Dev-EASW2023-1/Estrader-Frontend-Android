@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_main">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="check.json"
+            app:lottie_loop="true" />
+
+        <TextView
+            android:id="@+id/awaitingbid_titleView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:text="입찰을 수락 \n하시겠습니까?"
+            android:textColor="#FFFFFF"
+            android:textSize="15pt"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/awaitingbid_textView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:text="수원지방법원 경매 3계"
+            android:textColor="#FFFFFF"
+            android:textSize="15pt"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/awaitingbid_textView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:text="사건번호 : 2023타경 1234\n 물건유형 : 아파트/상가/주택\n 입찰기일 : 2123년 4월 15일 \n 오전10시 30분 "
+            android:textColor="#FFFFFF"
+            android:textSize="12pt" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp">
+
+            <android.widget.Button
+                android:id="@+id/confirm_button"
+                android:layout_width="130dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/awaitingbid_button"
+                android:backgroundTint="#FFFFFF"
+                android:text="확인"
+                android:textColor="@color/color_main"
+                android:textSize="10pt"
+                android:textStyle="bold" />
+
+            <android.widget.Button
+                android:id="@+id/reject_button"
+                android:layout_width="130dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:background="@drawable/awaitingbid_button"
+                android:backgroundTint="#FFFFFF"
+                android:text="거절"
+                android:textColor="@color/color_main"
+                android:textSize="10pt"
+                android:textStyle="bold" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,13 +19,22 @@
             android:name=".dialog.AwaitingBidDialog"
             android:exported="false" />
         <activity
+            android:name=".activity.MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.MainListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".dialog.RealtormatchDialog"
             android:exported="false" />
         <activity
             android:name=".activity.RealtorMainActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.PdfEditor"
+            android:exported="false" />
+        <activity
+            android:name=".dialog.RealtorDialog"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Estrader.NoActionBar">
