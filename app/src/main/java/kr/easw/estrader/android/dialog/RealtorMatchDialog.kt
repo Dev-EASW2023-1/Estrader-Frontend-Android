@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.activity.PdfEditor
 
-class RealtormatchDialog : AppCompatActivity() {
+class RealtorMatchDialog : AppCompatActivity() {
     private lateinit var alertBtn: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {

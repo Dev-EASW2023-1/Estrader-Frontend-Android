@@ -14,7 +14,6 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import kr.easw.estrader.android.R
-import kr.easw.estrader.android.activity.MainListActivity
 import kr.easw.estrader.android.databinding.FragmentItemlookupBinding
 import kr.easw.estrader.android.dialog.AwaitingBidDialog
 
@@ -46,16 +45,19 @@ class ItemLookUpFragment : Fragment() {
         // CollapsingToolbarLayout 가 축소할 때만 Toolbar 에 제목 표시
         onOffTitleAppBar()
 
+        // "대리 위임 동의" 팝업 확인 후, AwaitingBidDialog 로 이동
         delegate.setOnClickListener {
             delegateAccept()
         }
 
+        // "대리 위임 동의" 팝업 취소 이벤트 처리
         cancle.setOnClickListener {
             delegateReject()
         }
+
+        // 툴바 navigationIcon 클릭 이벤트 처리
         binding.toolbar.setNavigationOnClickListener {
-            // 툴바 navigationIcon 클릭 이벤트 처리
-            toolbarnavclick()
+            toolbarNavClick()
         }
     }
 
@@ -70,13 +72,6 @@ class ItemLookUpFragment : Fragment() {
         delegate = binding.confirmButton2
         cancle = binding.confirmButton
         toolbar = binding.toolbar
-    }
-
-    private fun toolbarnavclick() {
-        val intent = Intent(requireContext(), MainListActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NO_HISTORY
-        startActivity(intent)
-        activity?.finish()
     }
 
     private fun delegateAccept() {
@@ -97,6 +92,12 @@ class ItemLookUpFragment : Fragment() {
     }
 
     private fun delegateReject() {
+        requireActivity().supportFragmentManager.commit {
+            replace(R.id.framelayout, MainListFragment())
+        }
+    }
+
+    private fun toolbarNavClick() {
         requireActivity().supportFragmentManager.commit {
             replace(R.id.framelayout, MainListFragment())
         }

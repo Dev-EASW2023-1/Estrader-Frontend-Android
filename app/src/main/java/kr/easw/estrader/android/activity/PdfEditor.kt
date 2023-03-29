@@ -1,6 +1,6 @@
 package kr.easw.estrader.android.activity
 
-
+import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
@@ -22,34 +22,25 @@ import java.io.File
 import java.io.IOException
 
 
-class PdfEditor: AppCompatActivity() {
+class PdfEditor : AppCompatActivity() {
     private lateinit var binding: FragmentPdfBinding
     private lateinit var binding2: FragmentPdfviewBinding
 
-    companion object {
-        const val REQUEST_CODE_WRITE_EXTERNAL_STORAGE_PERMISSION = 100
-        const val nameX = 123f
-        const val nameY = 405f
-
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(kr.easw.estrader.android.R.layout.fragment_pdf)
         binding = FragmentPdfBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         PDFBoxResourceLoader.init(applicationContext)
 
+        editPdf()
+    }
 
-
-            editPdf()
 //            val name: String = binding.nameInput.text.toString()
 //            val num: String = binding.numInput.text.toString()
 //
 //            val textBitmap: Bitmap = textAsBitmap(name, 50f)
 //            val numBitmap: Bitmap = textAsBitmap(num, 50f)
-//
-//
 //
 //            val pngFile = File(this.externalCacheDir, "image.png")
 //            val pngNum = File(this.externalCacheDir, "num.png")
@@ -99,14 +90,14 @@ class PdfEditor: AppCompatActivity() {
 //
 //        }
 //
-//
 //        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 //            // 권한이 없는 경우 권한 요청 대화 상자를 표시
 //            ActivityCompat.requestPermissions(this,
 //                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
 //                REQUEST_CODE_WRITE_EXTERNAL_STORAGE_PERMISSION)
 //        }
-    }
+
+    @SuppressLint("SdCardPath")
     private fun editPdf() {
         try {
             val inputStream = assets.open("입찰.pdf")
@@ -137,13 +128,11 @@ class PdfEditor: AppCompatActivity() {
             contentStream.newLineAtOffset(220f, 613f) // 좌표 설정 y값은 커질수록 올라감
             contentStream.showText("김덕배") // 텍스트 설정
 
-
             contentStream.newLineAtOffset(195f, 5f) // 좌표 설정 y값은 커질수록 올라감
             contentStream.setFont(font, 12f)
             contentStream.showText("010-1234-5678")
 
             contentStream.endText() // 하나만
-
 
             contentStream.close()
 
@@ -164,8 +153,7 @@ class PdfEditor: AppCompatActivity() {
 
                 currentPage.close()
                 pdfRenderer.close()
-        }
-
+            }
 
         } catch (e: IOException) {
             e.printStackTrace()
@@ -188,5 +176,4 @@ class PdfEditor: AppCompatActivity() {
 
         return bitmap
     }
-
 }

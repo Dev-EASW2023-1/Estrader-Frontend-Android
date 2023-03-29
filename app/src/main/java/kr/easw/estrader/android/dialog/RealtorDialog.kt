@@ -25,7 +25,7 @@ class RealtorDialog : AppCompatActivity() {
         // 5초 뒤 SuccessDelegationDialog 이동
         mHandler.postDelayed({
             startActivity(
-                Intent(this, RealtormatchDialog::class.java).apply {
+                Intent(this, RealtorMatchDialog::class.java).apply {
                     flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
                 }
             )
