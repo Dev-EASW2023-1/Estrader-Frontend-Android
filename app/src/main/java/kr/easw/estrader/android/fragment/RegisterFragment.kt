@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 import kr.easw.estrader.android.R
 
 /**
- * 공용 회원 가입 Fragment
+ * 회원가입 Fragment
  *
- * 회원 가입 미구현
+ * 회원가입 미구현
  */
 class RegisterFragment : Fragment() {
     override fun onCreateView(

@@ -21,10 +21,29 @@ import kr.easw.estrader.android.databinding.FragmentPdfviewBinding
 import java.io.File
 import java.io.IOException
 
+/**
+ * Copyright [2023] [Nam Jae Gyeong]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 class PdfEditor : AppCompatActivity() {
     private lateinit var binding: FragmentPdfBinding
-    private lateinit var binding2: FragmentPdfviewBinding
+    private lateinit var bindingToPDF: FragmentPdfviewBinding
+
+    companion object{
+        // TODO("좌표를 상수로 저장")
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +52,7 @@ class PdfEditor : AppCompatActivity() {
 
         PDFBoxResourceLoader.init(applicationContext)
 
-        editPdf()
+        editPDF()
     }
 
 //            val name: String = binding.nameInput.text.toString()
@@ -98,18 +117,16 @@ class PdfEditor : AppCompatActivity() {
 //        }
 
     @SuppressLint("SdCardPath")
-    private fun editPdf() {
+    private fun editPDF() {
         try {
             val inputStream = assets.open("입찰.pdf")
             val document = PDDocument.load(inputStream)
             val page = document.getPage(0)
             val contentStream = PDPageContentStream(document, page, PDPageContentStream.AppendMode.APPEND, true)
 
-            val assetManager = assets
-            val fontStream = assetManager.open("nanumgothictext.ttf")
-
-
+            val fontStream = assets.open("nanumgothictext.ttf")
             val font: PDFont = PDType0Font.load(document, fontStream)
+
             val fontSize = 25f
             val leading = 1.5f * fontSize
             val mediaBox: PDRectangle = page.mediaBox
@@ -147,9 +164,9 @@ class PdfEditor : AppCompatActivity() {
                 val bitmap = Bitmap.createBitmap(currentPage.width, currentPage.height, Bitmap.Config.ARGB_8888)
                 currentPage.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
                 setContentView(kr.easw.estrader.android.R.layout.fragment_pdfview)
-                binding2 = FragmentPdfviewBinding.inflate(layoutInflater)
-                binding2.pdfview.setImageBitmap(bitmap) //pdfview -> 이미지뷰고 set머시기 이미지뷰만됨
-                setContentView(binding2.root)
+                bindingToPDF = FragmentPdfviewBinding.inflate(layoutInflater)
+                bindingToPDF.pdfview.setImageBitmap(bitmap) //pdfview -> 이미지뷰고 set머시기 이미지뷰만됨
+                setContentView(bindingToPDF.root)
 
                 currentPage.close()
                 pdfRenderer.close()

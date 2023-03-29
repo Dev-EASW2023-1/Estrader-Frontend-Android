@@ -18,6 +18,7 @@ import kr.easw.estrader.android.fragment.RegisterFragment
 
 /**
  * 로그인, 회원 가입 activity
+ * PDF 저장과 FCM에 대한 권한 요청
  * 상단 탭에서 로그인 (LoginFragment), 회원가입 (RegisterFragment) 이동
  * LOGIN 버튼을 누르면 MainListActivity 로 이동
  */
@@ -35,6 +36,8 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         const val requestFinal = 444
+
+        // android 11에서 기존 권한 (android.permission.WRITE_EXTERNAL_STORAGE) 무시
         val permissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             arrayOf(
                 Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -59,6 +62,7 @@ class MainActivity : AppCompatActivity() {
         // 로그인 Fragment init
         initFragment()
 
+        // 권한 요청
         permissionRequest()
 
         //로그인 Textview 클릭 이벤트
@@ -106,12 +110,14 @@ class MainActivity : AppCompatActivity() {
         resultLauncher = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
         ) { result ->
+            // 거부된 권한 목록 저장
             deniedList = result.filter {
                 !it.value
             }.map {
                 it.key
             }
 
+            // 거부된 권한 목록 남아 있으면 권한 재요청
             when {
                 deniedList.isNotEmpty() -> {
                     requestAgain(deniedList.toTypedArray())
@@ -124,6 +130,7 @@ class MainActivity : AppCompatActivity() {
         resultLauncher.launch(permissions)
     }
 
+    // requestCode 보내고 권한 재요청
     private fun requestAgain(its: Array<String>) {
         AlertDialog.Builder(this)
             .setTitle("권한 재요청")
@@ -142,6 +149,7 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
+    //requestCode 받고 권한 요청에 대한 결과 처리
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String?>,
@@ -150,6 +158,7 @@ class MainActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == requestFinal) {
 
+            // 또 권한 거부 시 거부된 권한 목록 저장
             val permission = permissions.toList().filter {
                 ActivityCompat.checkSelfPermission(
                     this,
@@ -157,6 +166,7 @@ class MainActivity : AppCompatActivity() {
                 ) == PackageManager.PERMISSION_DENIED
             }
 
+            // 메시지 출력
             if (permission.isNotEmpty()){
                 Snackbar.make(binding.root, "권한 재요청을 취소하셨습니다.", Snackbar.LENGTH_SHORT).show()
             } else {

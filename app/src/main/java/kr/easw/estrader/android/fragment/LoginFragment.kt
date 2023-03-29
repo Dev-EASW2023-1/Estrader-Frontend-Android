@@ -11,7 +11,7 @@ import kr.easw.estrader.android.activity.MainListActivity
 import kr.easw.estrader.android.databinding.FragmentLoginBinding
 
 /**
- * 공용 로그인 Fragment
+ * 로그인 Fragment
  * Login 버튼 누르면 MainListActivity 로 이동
  */
 class LoginFragment : Fragment() {

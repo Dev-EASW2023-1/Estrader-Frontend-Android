@@ -17,7 +17,7 @@ class RealtorMatchDialog : AppCompatActivity() {
 
         alertBtn = findViewById(R.id.confirm_button)
 
-        // "전 화면으로 돌아갑니다." 팝업 확인 후, MainListActivity 이동
+        // PdfEditor 이동
         alertBtn.setOnClickListener {
             alertClick()
         }

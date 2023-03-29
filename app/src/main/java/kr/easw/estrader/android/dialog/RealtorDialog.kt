@@ -7,12 +7,6 @@ import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import kr.easw.estrader.android.R
 
-/**
- * 대리위임 신청 대기 Dialog
- *
- * 지금은 5초 뒤, SuccessDelegationDialog 이동
- * 추후 대리인 앱에서 대리위임 수락 후, SuccessDelegationDialog 이동 수정 예정
- */
 class RealtorDialog : AppCompatActivity() {
     private lateinit var mHandler: Handler
 
@@ -22,7 +16,7 @@ class RealtorDialog : AppCompatActivity() {
 
         mHandler = Handler(Looper.getMainLooper())
 
-        // 5초 뒤 SuccessDelegationDialog 이동
+        // 5초 뒤 RealtorMatchDialog 이동
         mHandler.postDelayed({
             startActivity(
                 Intent(this, RealtorMatchDialog::class.java).apply {
