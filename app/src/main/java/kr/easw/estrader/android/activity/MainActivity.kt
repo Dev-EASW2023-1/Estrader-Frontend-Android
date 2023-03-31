@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -66,6 +67,14 @@ class MainActivity : AppCompatActivity() {
         // 권한 요청
         permissionRequest()
 
+        FirebaseMessaging.getInstance().token
+            .addOnCompleteListener{ task ->
+                if(task.isSuccessful){
+                    val token = task.result
+                    Log.d("FIREBASE_TOKEN****************", token.toString())
+                }
+            }
+
         //로그인 Textview 클릭 이벤트
         signInTextView.setOnClickListener {
             signInClick()
@@ -75,8 +84,6 @@ class MainActivity : AppCompatActivity() {
         signUpTextView.setOnClickListener {
             signUpClick()
         }
-
-
     }
 
     private fun initFields(){
