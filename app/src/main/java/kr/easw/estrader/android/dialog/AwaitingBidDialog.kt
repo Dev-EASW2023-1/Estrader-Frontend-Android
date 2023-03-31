@@ -1,9 +1,12 @@
 package kr.easw.estrader.android.dialog
 
+import android.content.Context
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.Vibrator
 import androidx.appcompat.app.AppCompatActivity
 import kr.easw.estrader.android.R
 
@@ -15,15 +18,21 @@ import kr.easw.estrader.android.R
  */
 class AwaitingBidDialog : AppCompatActivity() {
     private lateinit var mHandler: Handler
+    private lateinit var mediaPlayer: MediaPlayer
+    private lateinit var vibrator: Vibrator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_awaitingbid)
 
         mHandler = Handler(Looper.getMainLooper())
+        mediaPlayer = MediaPlayer.create(this, R.raw.bingbong)
+        vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
 
         // 5초 뒤 SuccessDelegationDialog 이동
         mHandler.postDelayed({
+            mediaPlayer.start()
+            vibrator.vibrate(1000)
             startActivity(
                 Intent(this, SuccessDelegationDialog::class.java).apply {
                     flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
