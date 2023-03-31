@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_main">
+    android:background="@color/white">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -17,6 +17,7 @@
         <com.airbnb.lottie.LottieAnimationView
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:layout_marginTop="30dp"
             app:lottie_autoPlay="true"
             app:lottie_fileName="check.json"
             app:lottie_loop="true" />
@@ -28,19 +29,21 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:gravity="center_horizontal"
-            android:text="대리 위임 완료"
-            android:textColor="#FFFFFF"
-            android:textSize="20pt"
+            android:text="마곡나루 광명부동산\n 공인중개사무소"
+            android:textColor="@color/black"
+            android:textSize="14pt"
             android:textStyle="bold"/>
 
         <TextView
+
+            android:lineSpacingMultiplier="1.2"
             android:id="@+id/awaitingbid_textView1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
-            android:text="마곡나루 광명부동산\n공인중개사무소로\n대리위임이\n완료되었습니다."
-            android:textColor="#FFFFFF"
-            android:textSize="15pt" />
+            android:text="대리위임완료"
+            android:textColor="@color/black"
+            android:textSize="24pt" />
 
         <android.widget.Button
             android:id="@+id/confirm_button"
@@ -49,9 +52,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
             android:background="@drawable/awaitingbid_button"
-            android:backgroundTint="#FFFFFF"
             android:text="확인"
-            android:textColor="@color/color_main"
+            android:textColor="@color/black"
             android:textSize="10pt"
             android:textStyle="bold"/>
 
