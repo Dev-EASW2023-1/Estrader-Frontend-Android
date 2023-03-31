@@ -11,6 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.messaging.FirebaseMessaging
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.databinding.ActivityLoginBinding
 import kr.easw.estrader.android.fragment.LoginFragment
@@ -74,6 +75,8 @@ class MainActivity : AppCompatActivity() {
         signUpTextView.setOnClickListener {
             signUpClick()
         }
+
+
     }
 
     private fun initFields(){
