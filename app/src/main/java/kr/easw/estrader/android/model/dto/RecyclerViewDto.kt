@@ -7,7 +7,9 @@ data class MainItem(
     val location: String,
     val reservePrice: String,
     val auctionPeriod: String
-)
+) {
+
+}
 
 data class DelegateItem(
     val username: String,
