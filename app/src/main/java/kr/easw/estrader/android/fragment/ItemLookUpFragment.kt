@@ -7,15 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import com.bumptech.glide.Glide
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.databinding.FragmentItemlookupBinding
 import kr.easw.estrader.android.dialog.AwaitingBidDialog
+import kr.easw.estrader.android.model.dto.MainItem
 
 /**
  * 사용자 전용 부동산 매각 상세정보 Fragment
@@ -41,9 +44,11 @@ class ItemLookUpFragment : Fragment() {
         view: View, savedInstanceState: Bundle?
     ) {
         initFields()
-
         // CollapsingToolbarLayout 가 축소할 때만 Toolbar 에 제목 표시
-        onOffTitleAppBar()
+        onOffTitleAppBar( )
+        Glide.with(binding.mainimage)
+            .load("https://dimg.donga.com/wps/NEWS/IMAGE/2022/08/17/114998051.2.jpg")
+            .into(binding.mainimage)
 
         // "대리 위임 동의" 팝업 확인 후, AwaitingBidDialog 로 이동
         delegate.setOnClickListener {

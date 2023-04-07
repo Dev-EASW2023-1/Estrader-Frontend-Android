@@ -4,14 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.databinding.ElementItemlistBinding
 import kr.easw.estrader.android.databinding.FragmentMainlistBinding
-import kr.easw.estrader.android.model.data.MainHolder
 import kr.easw.estrader.android.model.dto.MainItem
 import java.lang.ref.WeakReference
 
@@ -42,56 +41,56 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
     private fun initializeData() {
         dataList = mutableListOf(
             MainItem(
-                ContextCompat.getDrawable(requireContext(), R.drawable.ic_house1)!!,
+                "https://dimg.donga.com/wps/NEWS/IMAGE/2022/08/17/114998051.2.jpg",
                 "대구지방법원",
                 "2022타경112663",
                 "대구광역시 중구",
                 "1,489,129,980",
                 "03-27\n ~ \n04-07"
             ), MainItem(
-                ContextCompat.getDrawable(requireContext(), R.drawable.ic_house2)!!,
+                "https://dimg.donga.com/wps/NEWS/IMAGE/2022/08/17/114998051.2.jpg",
                 "대구지방법원",
                 "2022타경111158",
                 "대구광역시 수성구",
                 "438,000,000",
                 "03-27\n ~ \n04-07"
             ), MainItem(
-                ContextCompat.getDrawable(requireContext(), R.drawable.ic_house3)!!,
+                "https://dimg.donga.com/wps/NEWS/IMAGE/2022/08/17/114998051.2.jpg",
                 "대구지방법원",
                 "2022타경112663",
                 "대구광역시 중구",
                 "1,489,129,980",
                 "03-27\n ~ \n04-07"
             ), MainItem(
-                ContextCompat.getDrawable(requireContext(), R.drawable.ic_house4)!!,
+                "https://dimg.donga.com/wps/NEWS/IMAGE/2022/08/17/114998051.2.jpg",
                 "대구지방법원",
                 "2022타경111158",
                 "대구광역시 수성구",
                 "438,000,000",
                 "03-27\n ~ \n04-07"
             ), MainItem(
-                ContextCompat.getDrawable(requireContext(), R.drawable.ic_house1)!!,
+                "https://dimg.donga.com/wps/NEWS/IMAGE/2022/08/17/114998051.2.jpg",
                 "대구지방법원",
                 "2022타경112663",
                 "대구광역시 중구",
                 "1,489,129,980",
                 "03-27\n ~ \n04-07"
             ), MainItem(
-                ContextCompat.getDrawable(requireContext(), R.drawable.ic_house2)!!,
+                "https://dimg.donga.com/wps/NEWS/IMAGE/2022/08/17/114998051.2.jpg",
                 "대구지방법원",
                 "2022타경111158",
                 "대구광역시 수성구",
                 "438,000,000",
                 "03-27\n ~ \n04-07"
             ), MainItem(
-                ContextCompat.getDrawable(requireContext(), R.drawable.ic_house3)!!,
+                "https://dimg.donga.com/wps/NEWS/IMAGE/2022/08/17/114998051.2.jpg",
                 "대구지방법원",
                 "2022타경112663",
                 "대구광역시 중구",
                 "1,489,129,980",
                 "03-27\n ~ \n04-07"
             ), MainItem(
-                ContextCompat.getDrawable(requireContext(), R.drawable.ic_house4)!!,
+                "https://dimg.donga.com/wps/NEWS/IMAGE/2022/08/17/114998051.2.jpg",
                 "대구지방법원",
                 "2022타경111158",
                 "대구광역시 수성구",
@@ -102,10 +101,10 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
     }
 
     override fun initRecycler() {
-        val recyclerAdapter = object : RecyclerView.Adapter<MainHolder>() {
+        val recyclerAdapter = object : RecyclerView.Adapter<kr.easw.estrader.android.fragment.MainHolder>() {
             override fun onCreateViewHolder(
                 parent: ViewGroup, viewType: Int
-            ): MainHolder {
+            ): kr.easw.estrader.android.fragment.MainHolder {
                 recyclerBinding = ElementItemlistBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
@@ -113,7 +112,7 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
             }
 
             override fun onBindViewHolder(
-                holder: MainHolder, position: Int
+                holder: kr.easw.estrader.android.fragment.MainHolder, position: Int
             ) {
                 holder.bind(dataList!![position])
             }
@@ -140,5 +139,34 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
                 }
             }
         })
+    }
+}
+
+
+class MainHolder(
+    private val binding: ElementItemlistBinding?,
+    private val itemClickListener: BaseFragment.OnItemClickListener?
+) : RecyclerView.ViewHolder(binding?.root!!), View.OnClickListener {
+
+    init {
+        itemView.setOnClickListener(this)
+    }
+
+    fun bind(item: MainItem) {
+        Glide.with(itemView)
+            .load(item.iconDrawable)
+            .into(binding?.image!!)
+
+        binding.apply {
+            casenumber.text = item.caseNumber
+            auctionhouse.text = item.auctionHouse
+            location.text = item.location
+            reserveprice.text = item.reservePrice
+            auctionperiod.text = item.auctionPeriod
+        }
+    }
+
+    override fun onClick(v: View?) {
+        itemClickListener?.onItemClick(adapterPosition)
     }
 }
