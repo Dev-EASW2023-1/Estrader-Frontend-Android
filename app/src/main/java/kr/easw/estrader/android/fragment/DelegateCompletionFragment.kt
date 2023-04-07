@@ -88,7 +88,7 @@ class DelegateCompletionFragment : BaseFragment<FragmentDelegatecompletionBindin
         )
     }
 
-    override fun initRecycler() {
+    private fun initRecycler() {
         val recyclerViewAdapter = object : RecyclerView.Adapter<DelegateCompletionHolder>() {
             override fun onCreateViewHolder(
                 parent: ViewGroup, viewType: Int

@@ -2,7 +2,7 @@ package kr.easw.estrader.android.model.data
 
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import kr.easw.estrader.android.activity.GlideApp
 import kr.easw.estrader.android.databinding.ElementDelegateitemBinding
 import kr.easw.estrader.android.databinding.ElementItemlistBinding
 import kr.easw.estrader.android.fragment.BaseFragment
@@ -30,8 +30,9 @@ class MainHolder(
     }
 
     fun bind(item: MainItem) {
-        Glide.with(itemView)
+        GlideApp.with(itemView)
             .load(item.iconDrawable)
+            .override(100, 100)
             .into(binding!!.image)
         auctionHouse.text = item.auctionHouse
         caseNumber.text = item.caseNumber

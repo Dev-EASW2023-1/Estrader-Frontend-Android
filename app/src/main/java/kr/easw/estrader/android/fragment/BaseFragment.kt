@@ -35,11 +35,8 @@ abstract class BaseFragment<VB : ViewBinding>(private val inflate: Inflate<VB>) 
 
     // View 작업 수행
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        initRecycler()
-    }
 
-    // recyclerView Adapter
-    abstract fun initRecycler()
+    }
 
     // 메모리 누수 방지용 binding 참조 해제
     override fun onDestroyView() {

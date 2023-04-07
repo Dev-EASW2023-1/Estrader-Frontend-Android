@@ -1,5 +1,6 @@
 package kr.easw.estrader.android.fragment
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,7 +25,6 @@ import java.lang.ref.WeakReference
  */
 class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistBinding::inflate){
 
-    private var dataList: MutableList<MainItem> = mutableListOf()
     private var itemClickListener: WeakReference<OnItemClickListener>? = null
     private var recyclerBinding: ElementItemlistBinding? = null
 
@@ -33,7 +33,6 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
         savedInstanceState: Bundle?
     ) {
         initializeData()
-        initRecycler()
     }
 
     override fun onDestroyView() {
@@ -43,12 +42,17 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
 
     // ViewHolder 에 사용할 DateList 초기화
     private fun initializeData() {
+        val progressDialog = ProgressDialog(requireContext())
+        progressDialog.setMessage("Loading...")
+        progressDialog.show()
+
         RestRequestTemplate.Builder()
             .setRequestHeaders(mutableMapOf("Content-Type" to "application/json"))
             .setRequestParams(UserListDto::class)
             .setRequestUrl("$SERVER_URL/user/test")
             .setRequestMethod(Request.Method.GET)
             .setListener{
+                val dataList: MutableList<MainItem> = mutableListOf()
 
                 println("X3 | ${it.get("userDto")}")
                 println("X4 | ${it.getAsJsonArray("userDto")}")
@@ -57,7 +61,7 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
                 println("X7 | ${it.getAsJsonArray("userDto").get(1).asJsonObject.get("picture")}")
 
                 dataList.add(MainItem(
-                    it.getAsJsonArray("userDto").get(0).asJsonObject.get("picture").toString(),
+                    removeDot(it.getAsJsonArray("userDto").get(0).asJsonObject.get("picture").toString()),
                     "대구지방법원",
                     "2022타경112663",
                     "대구광역시 중구",
@@ -65,7 +69,7 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
                     "03-27\n ~ \n04-07"
                 ))
                 dataList.add(MainItem(
-                    it.getAsJsonArray("userDto").get(1).asJsonObject.get("picture").toString(),
+                    removeDot(it.getAsJsonArray("userDto").get(1).asJsonObject.get("picture").toString()),
                     "대구지방법원",
                     "2022타경112663",
                     "대구광역시 중구",
@@ -73,7 +77,7 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
                     "03-27\n ~ \n04-07"
                 ))
                 dataList.add(MainItem(
-                    it.getAsJsonArray("userDto").get(2).asJsonObject.get("picture").toString(),
+                    removeDot(it.getAsJsonArray("userDto").get(2).asJsonObject.get("picture").toString()),
                     "대구지방법원",
                     "2022타경112663",
                     "대구광역시 중구",
@@ -81,35 +85,19 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
                     "03-27\n ~ \n04-07"
                 ))
 
-//                dataList = mutableListOf(
-//                    MainItem(
-//                        it.getAsJsonArray("userDto").get(0).asJsonObject.get("picture").toString(),
-//                        "대구지방법원",
-//                        "2022타경112663",
-//                        "대구광역시 중구",
-//                        "1,489,129,980",
-//                        "03-27\n ~ \n04-07"
-//                    ), MainItem(
-//                        it.getAsJsonArray("userDto").get(1).asJsonObject.get("picture").toString(),
-//                        "대구지방법원",
-//                        "2022타경111158",
-//                        "대구광역시 수성구",
-//                        "438,000,000",
-//                        "03-27\n ~ \n04-07"
-//                    ), MainItem(
-//                        it.getAsJsonArray("userDto").get(2).asJsonObject.get("picture").toString(),
-//                        "대구지방법원",
-//                        "2022타경112663",
-//                        "대구광역시 중구",
-//                        "1,489,129,980",
-//                        "03-27\n ~ \n04-07"
-//                    )
-//                )
+                initRecycler(dataList)
+
+                progressDialog.dismiss()
             }
             .build(requireContext())
     }
 
-    override fun initRecycler() {
+    private fun removeDot(str : String ) : String {
+        val re = "^\"|\"$".toRegex()
+        return str.replace(re, "")
+    }
+
+    private fun initRecycler(itemList: MutableList<MainItem>) {
         val recyclerAdapter = object : RecyclerView.Adapter<MainHolder>() {
             override fun onCreateViewHolder(
                 parent: ViewGroup, viewType: Int
@@ -123,10 +111,10 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
             override fun onBindViewHolder(
                 holder: MainHolder, position: Int
             ) {
-                holder.bind(dataList!![position])
+                holder.bind(itemList[position])
             }
 
-            override fun getItemCount(): Int = dataList!!.size
+            override fun getItemCount(): Int = itemList.size
 
             // 리스너 객체 참조를 recyclerView Adapter 에 전달
             // 약한 참조를 위해 WeakReference 설정

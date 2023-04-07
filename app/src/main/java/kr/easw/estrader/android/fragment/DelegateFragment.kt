@@ -88,7 +88,7 @@ class DelegateFragment : BaseFragment<FragmentDelegateBinding>(FragmentDelegateB
         )
     }
 
-    override fun initRecycler() {
+    private fun initRecycler() {
         val recyclerViewAdapter = object : RecyclerView.Adapter<DelegateHolder>() {
             override fun onCreateViewHolder(
                 parent: ViewGroup, viewType: Int

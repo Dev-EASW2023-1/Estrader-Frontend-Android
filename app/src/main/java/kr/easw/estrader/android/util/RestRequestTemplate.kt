@@ -20,7 +20,6 @@ class RestRequestTemplate(
     context: Context,
     requestMethod: Int,
     requestUrl: String,
-//    requestType: Type,
     requestParams: Any,
     listener: Response.Listener<JsonObject>?,
     requestHeaders: MutableMap<String, String>?
@@ -45,7 +44,6 @@ class RestRequestTemplate(
         private var requestMethod = 0
         private var requestUrl: String? = null
         private var requestParams: Any? = null
-//        private var requestType: Type? = null
         private var requestHeaders: MutableMap<String, String>? = null
         private var listener: Response.Listener<JsonObject>? = null
 
@@ -58,11 +56,6 @@ class RestRequestTemplate(
             this.requestUrl = requestUrl
             return this
         }
-
-//        fun setRequestType(requestType: Type?): Builder {
-//            this.requestType = requestType
-//            return this
-//        }
 
         fun setRequestParams(requestParams: Any?): Builder {
             this.requestParams = requestParams
@@ -90,7 +83,6 @@ class RestRequestTemplate(
 open class GsonRequest<T>(
     url: String,
     requestMethod: Int,
-//    private val clazz: Class<T>,
     private val type: Type,
     private val headers: MutableMap<String, String>?,
     private val listener: Response.Listener<T>,
