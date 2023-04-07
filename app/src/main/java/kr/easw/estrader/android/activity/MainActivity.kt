@@ -17,6 +17,7 @@ import kr.easw.estrader.android.R
 import kr.easw.estrader.android.databinding.ActivityLoginBinding
 import kr.easw.estrader.android.fragment.LoginFragment
 import kr.easw.estrader.android.fragment.RegisterFragment
+import kr.easw.estrader.android.util.RestRequestTemplate
 
 /**
  * 로그인, 회원 가입 activity

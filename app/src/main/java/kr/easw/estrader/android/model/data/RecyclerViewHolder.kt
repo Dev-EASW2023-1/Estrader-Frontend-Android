@@ -1,8 +1,8 @@
 package kr.easw.estrader.android.model.data
 
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import kr.easw.estrader.android.databinding.ElementDelegateitemBinding
 import kr.easw.estrader.android.databinding.ElementItemlistBinding
 import kr.easw.estrader.android.fragment.BaseFragment
@@ -11,10 +11,9 @@ import kr.easw.estrader.android.model.dto.DelegateItem
 import kr.easw.estrader.android.model.dto.MainItem
 
 class MainHolder(
-    binding: ElementItemlistBinding?,
+    private val binding: ElementItemlistBinding?,
     listener: BaseFragment.OnItemClickListener?
 ) : RecyclerView.ViewHolder(binding!!.root) {
-    private val img: ImageView = binding!!.image
     private val auctionHouse: TextView = binding!!.auctionhouse
     private val caseNumber: TextView = binding!!.casenumber
     private val location: TextView = binding!!.location
@@ -31,7 +30,9 @@ class MainHolder(
     }
 
     fun bind(item: MainItem) {
-        img.setImageDrawable(item.iconDrawable)
+        Glide.with(itemView)
+            .load(item.iconDrawable)
+            .into(binding!!.image)
         auctionHouse.text = item.auctionHouse
         caseNumber.text = item.caseNumber
         location.text = item.location
