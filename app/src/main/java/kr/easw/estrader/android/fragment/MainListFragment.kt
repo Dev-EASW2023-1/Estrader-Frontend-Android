@@ -42,7 +42,7 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
 
     // ViewHolder 에 사용할 DateList 초기화
     private fun initialize() {
-        //
+        // 서버와 데이터 주고 받을 때 작업 중임을 알리는 ProgressDialog
         val progressDialog = ProgressDialog(requireContext())
         progressDialog.setMessage("Loading...")
         progressDialog.show()
@@ -71,6 +71,7 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
 
                 initRecycler(dataList)
 
+                // 서버 통신 완료 후 ProgressDialog 종료
                 progressDialog.dismiss()
             }
             .build(requireContext())
