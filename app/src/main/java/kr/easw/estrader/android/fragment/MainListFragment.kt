@@ -62,27 +62,27 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
 
                 dataList.add(MainItem(
                     removeDot(it.getAsJsonArray("userDto").get(0).asJsonObject.get("picture").toString()),
-                    "대구지방법원",
-                    "2022타경112663",
-                    "대구광역시 중구",
-                    "1,489,129,980",
-                    "03-27\n ~ \n04-07"
+                    removeDot(it.getAsJsonArray("userDto").get(0).asJsonObject.get("period").toString()),
+                    removeDot(it.getAsJsonArray("userDto").get(0).asJsonObject.get("information").toString()),
+                    removeDot(it.getAsJsonArray("userDto").get(0).asJsonObject.get("location").toString()),
+                    removeDot(it.getAsJsonArray("userDto").get(0).asJsonObject.get("auctionperiod").toString()),
+                    removeDot(it.getAsJsonArray("userDto").get(0).asJsonObject.get("reserveprice").asString.replace("\\n", ""))
                 ))
                 dataList.add(MainItem(
                     removeDot(it.getAsJsonArray("userDto").get(1).asJsonObject.get("picture").toString()),
-                    "대구지방법원",
-                    "2022타경112663",
-                    "대구광역시 중구",
-                    "1,489,129,980",
-                    "03-27\n ~ \n04-07"
+                    removeDot(it.getAsJsonArray("userDto").get(1).asJsonObject.get("period").toString()),
+                    removeDot(it.getAsJsonArray("userDto").get(1).asJsonObject.get("information").toString()),
+                    removeDot(it.getAsJsonArray("userDto").get(1).asJsonObject.get("location").toString()),
+                    removeDot(it.getAsJsonArray("userDto").get(1).asJsonObject.get("auctionperiod").toString()),
+                    removeDot(it.getAsJsonArray("userDto").get(1).asJsonObject.get("reserveprice").asString.replace("\\n", ""))
                 ))
                 dataList.add(MainItem(
                     removeDot(it.getAsJsonArray("userDto").get(2).asJsonObject.get("picture").toString()),
-                    "대구지방법원",
-                    "2022타경112663",
-                    "대구광역시 중구",
-                    "1,489,129,980",
-                    "03-27\n ~ \n04-07"
+                    removeDot(it.getAsJsonArray("userDto").get(2).asJsonObject.get("period").toString()),
+                    removeDot(it.getAsJsonArray("userDto").get(2).asJsonObject.get("information").toString()),
+                    removeDot(it.getAsJsonArray("userDto").get(2).asJsonObject.get("location").toString()),
+                    removeDot(it.getAsJsonArray("userDto").get(2).asJsonObject.get("auctionperiod").toString()),
+                    removeDot(it.getAsJsonArray("userDto").get(2).asJsonObject.get("reserveprice").asString.replace("\\n", ""))
                 ))
 
                 initRecycler(dataList)
@@ -131,8 +131,10 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
         // recyclerView 아이템 클릭 이벤트 설정
         recyclerAdapter.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(position: Int) {
+                val itemLookUpFragment = ItemLookUpFragment.indexnum(position)
                 requireActivity().supportFragmentManager.commit {
-                    replace(R.id.framelayout, ItemLookUpFragment())
+                    replace(R.id.framelayout, itemLookUpFragment)
+
                 }
             }
         })
