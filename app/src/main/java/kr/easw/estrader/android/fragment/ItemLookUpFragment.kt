@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
 import androidx.appcompat.widget.Toolbar
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.bumptech.glide.Glide
@@ -18,7 +18,6 @@ import com.google.android.material.appbar.CollapsingToolbarLayout
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.databinding.FragmentItemlookupBinding
 import kr.easw.estrader.android.dialog.AwaitingBidDialog
-import kr.easw.estrader.android.model.dto.MainItem
 
 /**
  * 사용자 전용 부동산 매각 상세정보 Fragment
@@ -33,6 +32,16 @@ class ItemLookUpFragment : Fragment() {
     private lateinit var delegate: Button
     private lateinit var cancle: Button
     private lateinit var toolbar: Toolbar
+
+    companion object {
+        private const val ARG_POSITION = "position"
+
+        // MainListFragment 에서 데이터 받기 위해 bundleOf("키" to "값") 으로 bundle 생성
+        fun indexImage(iconDrawable: String) = ItemLookUpFragment().apply {
+            arguments = bundleOf(ARG_POSITION to iconDrawable)
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -46,8 +55,10 @@ class ItemLookUpFragment : Fragment() {
         initFields()
         // CollapsingToolbarLayout 가 축소할 때만 Toolbar 에 제목 표시
         onOffTitleAppBar( )
+
+        // MainListFragment 에서 보내준 이미지 URL 을 Glide 로 출력
         Glide.with(binding.mainimage)
-            .load("https://dimg.donga.com/wps/NEWS/IMAGE/2022/08/17/114998051.2.jpg")
+            .load(arguments?.getString(ARG_POSITION).toString())
             .into(binding.mainimage)
 
         // "대리 위임 동의" 팝업 확인 후, AwaitingBidDialog 로 이동

@@ -32,7 +32,7 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
         view: View,
         savedInstanceState: Bundle?
     ) {
-        initializeData()
+        initialize()
     }
 
     override fun onDestroyView() {
@@ -41,60 +41,39 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
     }
 
     // ViewHolder 에 사용할 DateList 초기화
-    private fun initializeData() {
+    private fun initialize() {
+        //
         val progressDialog = ProgressDialog(requireContext())
         progressDialog.setMessage("Loading...")
         progressDialog.show()
 
-        RestRequestTemplate.Builder()
+        // Volley Builder 패턴을 통한 네트워크 통신
+        RestRequestTemplate.Builder<UserListDto>()
             .setRequestHeaders(mutableMapOf("Content-Type" to "application/json"))
-            .setRequestParams(UserListDto::class)
             .setRequestUrl("$SERVER_URL/user/test")
+            .setRequestParams(UserListDto::class.java)
             .setRequestMethod(Request.Method.GET)
             .setListener{
+
+                // 서버에서 받아온 Response 처리
                 val dataList: MutableList<MainItem> = mutableListOf()
 
-                println("X3 | ${it.get("userDto")}")
-                println("X4 | ${it.getAsJsonArray("userDto")}")
-                println("X5 | ${it.getAsJsonArray("userDto").get(1)}")
-                println("X6 | ${it.getAsJsonArray("userDto").get(1).asJsonObject}")
-                println("X7 | ${it.getAsJsonArray("userDto").get(1).asJsonObject.get("picture")}")
-
-                dataList.add(MainItem(
-                    removeDot(it.getAsJsonArray("userDto").get(0).asJsonObject.get("picture").toString()),
-                    "대구지방법원",
-                    "2022타경112663",
-                    "대구광역시 중구",
-                    "1,489,129,980",
-                    "03-27\n ~ \n04-07"
-                ))
-                dataList.add(MainItem(
-                    removeDot(it.getAsJsonArray("userDto").get(1).asJsonObject.get("picture").toString()),
-                    "대구지방법원",
-                    "2022타경112663",
-                    "대구광역시 중구",
-                    "1,489,129,980",
-                    "03-27\n ~ \n04-07"
-                ))
-                dataList.add(MainItem(
-                    removeDot(it.getAsJsonArray("userDto").get(2).asJsonObject.get("picture").toString()),
-                    "대구지방법원",
-                    "2022타경112663",
-                    "대구광역시 중구",
-                    "1,489,129,980",
-                    "03-27\n ~ \n04-07"
-                ))
+                for(x in 0..2){
+                    dataList.add(MainItem(
+                        it.userDto[x].picture,
+                        it.userDto[x].period,
+                        it.userDto[x].information,
+                        it.userDto[x].location,
+                        it.userDto[x].auctionperiod,
+                        it.userDto[x].reserveprice
+                    ))
+                }
 
                 initRecycler(dataList)
 
                 progressDialog.dismiss()
             }
             .build(requireContext())
-    }
-
-    private fun removeDot(str : String ) : String {
-        val re = "^\"|\"$".toRegex()
-        return str.replace(re, "")
     }
 
     private fun initRecycler(itemList: MutableList<MainItem>) {
@@ -131,8 +110,10 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
         // recyclerView 아이템 클릭 이벤트 설정
         recyclerAdapter.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(position: Int) {
+
+                // Bundle 을 이용해 position 에 해당하는 이미지 URL 넘기기
                 requireActivity().supportFragmentManager.commit {
-                    replace(R.id.framelayout, ItemLookUpFragment())
+                    replace(R.id.framelayout, ItemLookUpFragment.indexImage(itemList[position].iconDrawable))
                 }
             }
         })

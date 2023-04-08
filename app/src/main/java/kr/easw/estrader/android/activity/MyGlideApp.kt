@@ -11,6 +11,13 @@ import okhttp3.OkHttpClient
 import java.io.InputStream
 import java.util.concurrent.TimeUnit
 
+/**
+ * Glide Glide timeout set
+ *
+ * connectTimeOut: 설정된 연결 시간 제한 내에 서버 연결할 수 없는 경우, 해당 요청을 실패한 것으로 계산
+ * ReadTimeOut: 서버로부터 응답 시간이 읽기 시간보다 크면, 해당 요청을 실패한 것으로 계산
+ */
+
 @GlideModule
 class MyGlideApp : AppGlideModule() {
     override fun registerComponents(context: Context, glide: Glide, registry: Registry) {

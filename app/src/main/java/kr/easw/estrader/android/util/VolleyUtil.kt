@@ -5,7 +5,6 @@ import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.toolbox.Volley
 
-
 class VolleyUtil private constructor(context: Context) {
     private val queue by lazy { Volley.newRequestQueue(context) }
 
