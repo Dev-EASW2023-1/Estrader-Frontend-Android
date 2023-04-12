@@ -3,13 +3,14 @@ package kr.easw.estrader.android.util
 import android.content.Context
 import com.android.volley.NetworkResponse
 import com.android.volley.ParseError
-import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.HttpHeaderParser
+import com.android.volley.toolbox.JsonRequest
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import kr.easw.estrader.android.util.VolleyUtil.Companion.execute
 import org.bouncycastle.asn1.eac.CertificateBody.requestType
+import org.json.JSONObject
 import java.io.UnsupportedEncodingException
 import java.nio.charset.Charset
 
@@ -19,21 +20,23 @@ import java.nio.charset.Charset
  *
  * 서버로부터 응답 구현, 서버에 요청 미구현
  */
-class RestRequestTemplate<T: Any>(
+class RestRequestTemplate<request: Any, response: Any>(
     context: Context,
     requestMethod: Int,
     requestUrl: String,
-    requestParams: Class<T>?,
-    listener: Response.Listener<T>?,
+    requestParams: request?,
+    responseParams: Class<response>?,
+    listener: Response.Listener<response>?,
     requestHeaders: MutableMap<String, String>?
 ) {
 
     init {
-        object: GsonRequest<T>(
+        object: GsonRequest<response>(
             requestUrl,
             requestMethod,
-            requestParams!!,
+            responseParams!!,
             requestHeaders,
+            JSONObject(Gson().toJson(requestParams)),
             listener!!,
             Response.ErrorListener {
                 println("X3 | $it")
@@ -43,42 +46,48 @@ class RestRequestTemplate<T: Any>(
         }.execute(context)
     }
 
-    class Builder<T : Any> {
+    class Builder<request: Any, response: Any> {
         private var requestMethod = 0
         private var requestUrl: String? = null
-        private var requestParams: Class<T>? = null
+        private var requestParams: request? = null
+        private var responseParams: Class<response>? = null
         private var requestHeaders: MutableMap<String, String>? = null
-        private var listener: Response.Listener<T>? = null
+        private var listener: Response.Listener<response>? = null
 
-        fun setRequestMethod(requestMethod: Int): Builder<T> {
+        fun setRequestMethod(requestMethod: Int): Builder<request, response> {
             this.requestMethod = requestMethod
             return this
         }
 
-        fun setRequestUrl(requestUrl: String?): Builder<T> {
+        fun setRequestUrl(requestUrl: String?): Builder<request, response> {
             this.requestUrl = requestUrl
             return this
         }
 
-        fun setRequestParams(requestParams: Class<T>?): Builder<T> {
+        fun setRequestParams(requestParams: request?): Builder<request, response> {
             this.requestParams = requestParams
             return this
         }
 
-        fun setRequestHeaders(requestHeaders: MutableMap<String, String>?) : Builder<T> {
+        fun setResponseParams(responseParams: Class<response>?): Builder<request, response> {
+            this.responseParams = responseParams
+            return this
+        }
+
+        fun setRequestHeaders(requestHeaders: MutableMap<String, String>?) : Builder<request, response> {
             this.requestHeaders = requestHeaders
             return this
         }
 
-        fun setListener(listener: Response.Listener<T>?) : Builder<T> {
+        fun setListener(listener: Response.Listener<response>?) : Builder<request, response> {
             this.listener = listener
             return this
         }
 
-        fun build(context: Context): RestRequestTemplate<T> {
+        fun build(context: Context): RestRequestTemplate<request, response> {
             check(requestType >= 0) { "RequestType is null" }
             checkNotNull(requestUrl) { "RequestUrl is null" }
-            return RestRequestTemplate(context, requestMethod, requestUrl!!, requestParams, listener, requestHeaders)
+            return RestRequestTemplate(context, requestMethod, requestUrl!!, requestParams, responseParams, listener, requestHeaders)
         }
     }
 }
@@ -95,9 +104,10 @@ open class GsonRequest<T>(
     requestMethod: Int,
     private val clazz: Class<T>,
     private val headers: MutableMap<String, String>?,
+    jsonRequest: JSONObject?,
     private val listener: Response.Listener<T>,
     errorListener: Response.ErrorListener
-) : Request<T>(requestMethod, url, errorListener) {
+) : JsonRequest<T>(requestMethod, url, jsonRequest?.toString(), listener, errorListener) {
     private val gson = Gson()
 
     override fun getHeaders(): MutableMap<String, String> = headers ?: super.getHeaders()

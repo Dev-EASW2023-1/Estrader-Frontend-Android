@@ -14,6 +14,7 @@ import kr.easw.estrader.android.databinding.ElementItemlistBinding
 import kr.easw.estrader.android.databinding.FragmentMainlistBinding
 import kr.easw.estrader.android.definitions.SERVER_URL
 import kr.easw.estrader.android.model.data.MainHolder
+import kr.easw.estrader.android.model.dto.ItemDto
 import kr.easw.estrader.android.model.dto.ItemListDto
 import kr.easw.estrader.android.model.dto.MainItem
 import kr.easw.estrader.android.util.RestRequestTemplate
@@ -48,10 +49,11 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
         progressDialog.show()
 
         // Volley Builder 패턴을 통한 네트워크 통신
-        RestRequestTemplate.Builder<ItemListDto>()
+        RestRequestTemplate.Builder<ItemDto, ItemListDto>()
             .setRequestHeaders(mutableMapOf("Content-Type" to "application/json"))
             .setRequestUrl("$SERVER_URL/user/test")
-            .setRequestParams(ItemListDto::class.java)
+            .setRequestParams(ItemDto("야옹","야옹","야옹","야옹","야옹","야옹"))
+            .setResponseParams(ItemListDto::class.java)
             .setRequestMethod(Request.Method.GET)
             .setListener{
 
