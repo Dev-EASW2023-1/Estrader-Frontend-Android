@@ -1,6 +1,6 @@
 package kr.easw.estrader.android.model.dto
 
-data class UserDto (
+data class ItemDto (
     val picture: String,
     val information: String,
     val period: String,
@@ -9,6 +9,6 @@ data class UserDto (
     val auctionperiod: String
 )
 
-data class UserListDto (
-    val userDto: List<UserDto>
+data class ItemListDto (
+    val itemDto: List<ItemDto>
 )

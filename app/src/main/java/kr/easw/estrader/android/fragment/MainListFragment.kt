@@ -14,8 +14,8 @@ import kr.easw.estrader.android.databinding.ElementItemlistBinding
 import kr.easw.estrader.android.databinding.FragmentMainlistBinding
 import kr.easw.estrader.android.definitions.SERVER_URL
 import kr.easw.estrader.android.model.data.MainHolder
+import kr.easw.estrader.android.model.dto.ItemListDto
 import kr.easw.estrader.android.model.dto.MainItem
-import kr.easw.estrader.android.model.dto.UserListDto
 import kr.easw.estrader.android.util.RestRequestTemplate
 import java.lang.ref.WeakReference
 
@@ -48,10 +48,10 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
         progressDialog.show()
 
         // Volley Builder 패턴을 통한 네트워크 통신
-        RestRequestTemplate.Builder<UserListDto>()
+        RestRequestTemplate.Builder<ItemListDto>()
             .setRequestHeaders(mutableMapOf("Content-Type" to "application/json"))
             .setRequestUrl("$SERVER_URL/user/test")
-            .setRequestParams(UserListDto::class.java)
+            .setRequestParams(ItemListDto::class.java)
             .setRequestMethod(Request.Method.GET)
             .setListener{
 
@@ -60,12 +60,12 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
 
                 for(x in 0..2){
                     dataList.add(MainItem(
-                        it.userDto[x].picture,
-                        it.userDto[x].period,
-                        it.userDto[x].information,
-                        it.userDto[x].location,
-                        it.userDto[x].auctionperiod,
-                        it.userDto[x].reserveprice
+                        it.itemDto[x].picture,
+                        it.itemDto[x].period,
+                        it.itemDto[x].information,
+                        it.itemDto[x].location,
+                        it.itemDto[x].auctionperiod,
+                        it.itemDto[x].reserveprice
                     ))
                 }
 
