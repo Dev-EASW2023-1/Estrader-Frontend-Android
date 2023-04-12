@@ -49,7 +49,7 @@ class PdfEditor : AppCompatActivity() {
 
     private fun editPdf() {
         try {
-            val inputStream = assets.open("입찰.pdf")
+            val inputStream = assets.open("기일입찰표.pdf")
             val document = PDDocument.load(inputStream)
             val page = document.getPage(0)
             val contentStream = PDPageContentStream(
