@@ -119,7 +119,10 @@ class ItemLookUpFragment : Fragment() {
         }
     }
 
-    private fun onOffTitleAppBar() {
+
+
+
+        private fun onOffTitleAppBar() {
         appBarLayout.addOnOffsetChangedListener(object : OnOffsetChangedListener {
             var isShow = true
             var scrollRange = -1
@@ -137,4 +140,5 @@ class ItemLookUpFragment : Fragment() {
             }
         })
     }
+
 }

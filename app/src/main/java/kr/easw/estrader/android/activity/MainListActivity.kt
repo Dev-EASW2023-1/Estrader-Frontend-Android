@@ -1,6 +1,7 @@
 package kr.easw.estrader.android.activity
 
 import android.os.Bundle
+import android.text.TextUtils.replace
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import kr.easw.estrader.android.R
@@ -25,4 +26,9 @@ class MainListActivity : AppCompatActivity() {
             replace(R.id.framelayout, MainListFragment())
         }
     }
+    override fun onBackPressed() {
+        supportFragmentManager.commit {
+            replace(R.id.framelayout, MainListFragment())
+
+        }}
 }

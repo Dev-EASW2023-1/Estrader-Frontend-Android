@@ -6,6 +6,9 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
+import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -85,6 +88,8 @@ class MainActivity : AppCompatActivity() {
         signUpTextView.setOnClickListener {
             signUpClick()
         }
+
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
     }
 
     private fun initFields(){
@@ -184,5 +189,12 @@ class MainActivity : AppCompatActivity() {
                 Snackbar.make(binding.root, "All request are permitted", Snackbar.LENGTH_SHORT).show()
             }
         }
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        val imm: InputMethodManager =
+            getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+        return super.dispatchTouchEvent(ev)
     }
 }

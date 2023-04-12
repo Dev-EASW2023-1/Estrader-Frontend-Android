@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
     <!--
         androidx.fragment.app.FragmentContainerView
@@ -78,7 +79,7 @@
                 android:id="@+id/container_view"
                 android:name="kr.easw.estrader.android.fragment.LoginFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
