@@ -63,13 +63,18 @@ class RegisterFragment : Fragment() {
             if (pw.equals(pwrp)) {
                 val sharedPreferences =
                     requireContext().getSharedPreferences("user", Context.MODE_PRIVATE)
+
+
                 val editor = sharedPreferences.edit()
                 editor.putString("id", id)
                 editor.putString("pw", pw)
                 val hashedpw = sha256(pw)
+                editor.putString("hashedpw", hashedpw)
                 editor.apply()
-                println(id)
-                println(hashedpw)
+                val userid = sharedPreferences.getString("id", "")
+                val userpassword = sharedPreferences.getString("hashedpw", "")
+                println(userid)
+                println(userpassword)
                 saveUserInfo(id, hashedpw)
 
             } else{
