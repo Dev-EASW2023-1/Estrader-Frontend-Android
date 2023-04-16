@@ -1,6 +1,6 @@
 package kr.easw.estrader.android.fragment
 
-import android.content.ContentValues.TAG
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -10,14 +10,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.appcompat.app.AlertDialog
 import com.android.volley.Request
-import com.android.volley.Response
-import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
+import com.google.android.material.textfield.TextInputLayout
+import kr.easw.estrader.android.activity.MainListActivity
 import kr.easw.estrader.android.databinding.FragmentRegisterBinding
-import kr.easw.estrader.android.definitions.SERVER_URL
+import kr.easw.estrader.android.definitions.PREFERENCE_ID
+import kr.easw.estrader.android.definitions.PREFERENCE_PW
+import kr.easw.estrader.android.model.dto.RegisterDataRequest
+import kr.easw.estrader.android.model.dto.RegisterDataResponse
+import kr.easw.estrader.android.model.dto.SignupCheckRequest
+import kr.easw.estrader.android.model.dto.SignupCheckResponse
+import kr.easw.estrader.android.util.PreferenceUtil
+import kr.easw.estrader.android.util.RestRequestTemplate
 import java.security.MessageDigest
 
 /**
@@ -28,8 +34,23 @@ import java.security.MessageDigest
 class RegisterFragment : Fragment() {
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
-    private lateinit var nextButton: Button
-
+    private var validate = false
+    private val fragmentTag = "RegisterFragmentLog"
+    private val registerButton: Button by lazy {
+        binding.btnNext
+    }
+    private val checkButton: Button by lazy {
+        binding.isIdDuplicated
+    }
+    private val userId: TextInputLayout by lazy {
+        binding.userId
+    }
+    private val userPw: TextInputLayout by lazy {
+        binding.userPw
+    }
+    private val userPwRepeat: TextInputLayout by lazy {
+        binding.userPwRepeat
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,69 +68,128 @@ class RegisterFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        nextButton = binding.btnNext
+        initFields()
 
-        // Login 버튼 누르면 MainListActivity 로 이동
-        nextButton.setOnClickListener {
-            val id = binding.userId.editText!!.text.toString()
-            val pw = binding.userPw.editText!!.text.toString()
-            val pwrp = binding.userPwRepeat.editText!!.text.toString()
-            val repeat = AlertDialog.Builder(requireContext())
-            repeat.setTitle("비밀번호 불일치")
-            repeat.setMessage("비밀번호가 일치하지 않습니다.")
+        checkButton.setOnClickListener {
+            validateUserId(userId.editText!!.text.toString())
+        }
 
-            val dialog = repeat.create()
+        registerButton.setOnClickListener {
+            val inputId = userId.editText!!.text.toString()
+            val inputPw = userPw.editText!!.text.toString()
+            val inputCheckPassword = userPwRepeat.editText!!.text.toString()
 
-            if (pw.equals(pwrp)) {
-                val sharedPreferences =
-                    requireContext().getSharedPreferences("user", Context.MODE_PRIVATE)
-
-
-                val editor = sharedPreferences.edit()
-                editor.putString("id", id)
-                editor.putString("pw", pw)
-                val hashedpw = sha256(pw)
-                editor.putString("hashedpw", hashedpw)
-                editor.apply()
-                val userid = sharedPreferences.getString("id", "")
-                val userpassword = sharedPreferences.getString("hashedpw", "")
-                println(userid)
-                println(userpassword)
-                saveUserInfo(id, hashedpw)
-
-            } else{
-                dialog.show()
+            if (!validate) {
+                return@setOnClickListener
+            }
+            if (inputId.isEmpty() || inputPw.isEmpty())
+            {
+                return@setOnClickListener
+            }
+            if (inputPw != inputCheckPassword) {
+                return@setOnClickListener
             }
 
+            registerUser(inputId, inputPw)
         }
     }
+
+    private fun initFields() {
+        registerButton
+        checkButton
+        userId
+        userPw
+        userPwRepeat
+    }
+
+    private fun validateUserId(userId: String) {
+        val progressDialog = ProgressDialog(requireContext())
+        progressDialog.setMessage("Loading...")
+        progressDialog.show()
+
+        RestRequestTemplate.Builder<SignupCheckRequest, SignupCheckResponse>()
+            .setRequestHeaders(mutableMapOf("Content-Type" to "application/json"))
+            .setRequestUrl("http://172.17.0.30:8060/user/account-exists")
+            .setRequestParams(SignupCheckRequest(userId))
+            .setResponseParams(SignupCheckResponse::class.java)
+            .setRequestMethod(Request.Method.POST)
+            .setListener {
+
+                validate = it.isDuplicated
+                Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+
+                progressDialog.dismiss()
+            }
+            .build(requireContext())
+    }
+
+    private fun registerUser(userId: String, userPw: String) {
+        val progressDialog = ProgressDialog(requireContext())
+        progressDialog.setMessage("Loading...")
+        progressDialog.show()
+
+        RestRequestTemplate.Builder<RegisterDataRequest, RegisterDataResponse>()
+            .setRequestHeaders(mutableMapOf("Content-Type" to "application/json"))
+            .setRequestUrl("http://172.17.0.30:8060/user/register")
+            .setRequestParams(RegisterDataRequest(userId, userPw, "테스트", "테스트", "테스트"))
+            .setResponseParams(RegisterDataResponse::class.java)
+            .setRequestMethod(Request.Method.POST)
+            .setListener {
+                Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+
+                if (it.isSuccess) {
+                    PreferenceUtil(requireContext())
+                        .init().build()
+                        .setString(PREFERENCE_ID, userId)
+                        .setString(PREFERENCE_PW, userPw)
+
+                    startActivity(Intent(requireContext(), MainListActivity::class.java).apply {
+                        flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    })
+                    requireActivity().finish()
+                }
+
+                progressDialog.dismiss()
+            }
+            .build(requireContext())
+    }
+
+    // 생명 주기 테스트 용
+    override fun onDestroyView() {
+        Log.d(fragmentTag, "onDestroyView()")
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Log.d(fragmentTag, "onAttach()")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d(fragmentTag, "onStart()")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(fragmentTag, "onResume()")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(fragmentTag, "onStop()")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(fragmentTag, "onDestroy()")
+    }
+
     fun sha256(input: String): String {
         val md = MessageDigest.getInstance("SHA-256")
         val digest = md.digest(input.toByteArray(Charsets.UTF_8))
         return digest.fold("", { str, it -> str + "%02x".format(it) })
-    }
-    fun saveUserInfo(userid: String, hashedPw: String) {
-        val url = "$SERVER_URL/user/test"
-        val request = object : StringRequest(
-            Request.Method.POST, url,
-            Response.Listener<String> { response ->
-                Log.d(TAG, "response: $response")
-                println("통과댐")
-            },
-            Response.ErrorListener { error ->
-                Log.e(TAG, "error: $error")
-            }
-        ) {
-            override fun getParams(): MutableMap<String, String> {
-                val params = HashMap<String, String>()
-                params["period"] = userid
-                params["information"] = hashedPw
-                return params
-            }
-        }
-
-        val queue = Volley.newRequestQueue(context)
-        queue.add(request)
     }
 }
 

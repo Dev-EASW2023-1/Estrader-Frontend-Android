@@ -7,6 +7,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.HttpHeaderParser
 import com.android.volley.toolbox.JsonRequest
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.google.gson.JsonSyntaxException
 import kr.easw.estrader.android.util.VolleyUtil.Companion.execute
 import org.bouncycastle.asn1.eac.CertificateBody.requestType
@@ -17,10 +18,8 @@ import java.nio.charset.Charset
 /**
  * reflection 을 사용해 Java 객체와 JSON 간 변환 작업을 하는 라이브러리 Gson,
  * Volley Builder 패턴을 활용한 Http 통신 Template
- *
- * 서버로부터 응답 구현, 서버에 요청 미구현
  */
-class RestRequestTemplate<request: Any, response: Any>(
+class RestRequestTemplate<request: Any?, response: Any>(
     context: Context,
     requestMethod: Int,
     requestUrl: String,
@@ -36,7 +35,7 @@ class RestRequestTemplate<request: Any, response: Any>(
             requestMethod,
             responseParams!!,
             requestHeaders,
-            JSONObject(Gson().toJson(requestParams)),
+            if(requestParams == null) null else JSONObject(Gson().toJson(requestParams)),
             listener!!,
             Response.ErrorListener {
                 println("X3 | $it")
@@ -46,7 +45,7 @@ class RestRequestTemplate<request: Any, response: Any>(
         }.execute(context)
     }
 
-    class Builder<request: Any, response: Any> {
+    class Builder<request: Any?, response: Any> {
         private var requestMethod = 0
         private var requestUrl: String? = null
         private var requestParams: request? = null
@@ -108,7 +107,9 @@ open class GsonRequest<T>(
     private val listener: Response.Listener<T>,
     errorListener: Response.ErrorListener
 ) : JsonRequest<T>(requestMethod, url, jsonRequest?.toString(), listener, errorListener) {
-    private val gson = Gson()
+    private val gson = GsonBuilder()
+        .serializeNulls()
+        .create()
 
     override fun getHeaders(): MutableMap<String, String> = headers ?: super.getHeaders()
 

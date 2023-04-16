@@ -20,7 +20,6 @@ import kr.easw.estrader.android.R
 import kr.easw.estrader.android.databinding.ActivityLoginBinding
 import kr.easw.estrader.android.fragment.LoginFragment
 import kr.easw.estrader.android.fragment.RegisterFragment
-import kr.easw.estrader.android.util.RestRequestTemplate
 
 /**
  * 로그인, 회원 가입 activity
@@ -32,12 +31,20 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var resultLauncher: ActivityResultLauncher<Array<String>>
     private lateinit var deniedList: List<String>
+    private val activityTag = "ActivityLog"
 
     private val signInTextView: TextView by lazy {
         binding.signIn
     }
     private val signUpTextView: TextView by lazy {
         binding.signUp
+    }
+
+    // 처음 화면 시작 시 Fragment 2번 호출 문제 발생,
+    // 기존에 만들어 둔 Fragment 있으면 띄우고, 없으면 Fragment 새로 생성
+    private val loginFragment: LoginFragment by lazy {
+        supportFragmentManager.findFragmentById(binding.containerView.id) as LoginFragment?
+            ?: LoginFragment.newInstance()
     }
 
     companion object {
@@ -60,6 +67,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d(activityTag, "onCreate()")
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -72,8 +80,8 @@ class MainActivity : AppCompatActivity() {
         permissionRequest()
 
         FirebaseMessaging.getInstance().token
-            .addOnCompleteListener{ task ->
-                if(task.isSuccessful){
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
                     val token = task.result
                     Log.d("FIREBASE_TOKEN****************", token.toString())
                 }
@@ -92,16 +100,20 @@ class MainActivity : AppCompatActivity() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
     }
 
-    private fun initFields(){
+    private fun initFields() {
+        Log.d(activityTag, "액티비티 변수 생성")
         signInTextView
         signUpTextView
+        loginFragment
     }
 
     private fun initFragment() {
+        Log.d(activityTag, "Transaction: begin")
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.container_view, LoginFragment())
+            .replace(binding.containerView.id, loginFragment)
             .commit()
+        Log.d(activityTag, "Transaction: end")
     }
 
     //로그인 Textview 클릭 이벤트
@@ -109,7 +121,7 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager
             .beginTransaction()
             .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-            .replace(R.id.container_view, LoginFragment())
+            .replace(binding.containerView.id, loginFragment)
             .commit()
     }
 
@@ -118,7 +130,7 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager
             .beginTransaction()
             .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-            .replace(R.id.container_view, RegisterFragment())
+            .replace(binding.containerView.id, RegisterFragment())
             .commit()
     }
 
@@ -139,7 +151,8 @@ class MainActivity : AppCompatActivity() {
                     requestAgain(deniedList.toTypedArray())
                 }
                 else -> {
-                    Snackbar.make(binding.root, "All request are permitted", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(binding.root, "All request are permitted", Snackbar.LENGTH_SHORT)
+                        .show()
                 }
             }
         }
@@ -159,7 +172,8 @@ class MainActivity : AppCompatActivity() {
                 )
             }
             .setNegativeButton("취소") { _, _ ->
-                Snackbar.make(binding.root, "권한 재요청을 취소하셨습니다.", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(binding.root, "권한 재요청을 취소하셨습니다.", Snackbar.LENGTH_SHORT)
+                    .show()
             }
             .create()
             .show()
@@ -183,10 +197,12 @@ class MainActivity : AppCompatActivity() {
             }
 
             // 메시지 출력
-            if (permission.isNotEmpty()){
-                Snackbar.make(binding.root, "권한 재요청을 취소하셨습니다.", Snackbar.LENGTH_SHORT).show()
+            if (permission.isNotEmpty()) {
+                Snackbar.make(binding.root, "권한 재요청을 취소하셨습니다.", Snackbar.LENGTH_SHORT)
+                    .show()
             } else {
-                Snackbar.make(binding.root, "All request are permitted", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(binding.root, "All request are permitted", Snackbar.LENGTH_SHORT)
+                    .show()
             }
         }
     }

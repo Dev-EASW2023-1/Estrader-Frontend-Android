@@ -12,11 +12,14 @@ import com.android.volley.Request
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.databinding.ElementItemlistBinding
 import kr.easw.estrader.android.databinding.FragmentMainlistBinding
+import kr.easw.estrader.android.definitions.PREFERENCE_ID
+import kr.easw.estrader.android.definitions.PREFERENCE_PW
 import kr.easw.estrader.android.definitions.SERVER_URL
 import kr.easw.estrader.android.model.data.MainHolder
 import kr.easw.estrader.android.model.dto.ItemDto
 import kr.easw.estrader.android.model.dto.ItemListDto
 import kr.easw.estrader.android.model.dto.MainItem
+import kr.easw.estrader.android.util.PreferenceUtil
 import kr.easw.estrader.android.util.RestRequestTemplate
 import java.lang.ref.WeakReference
 
@@ -49,10 +52,10 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
         progressDialog.show()
 
         // Volley Builder 패턴을 통한 네트워크 통신
-        RestRequestTemplate.Builder<ItemDto, ItemListDto>()
+        RestRequestTemplate.Builder<Void, ItemListDto>()
             .setRequestHeaders(mutableMapOf("Content-Type" to "application/json"))
-            .setRequestUrl("$SERVER_URL/user/test")
-            .setRequestParams(ItemDto("야옹","야옹","야옹","야옹","야옹","야옹"))
+            .setRequestUrl("http://172.17.0.30:8060/item/show-list")
+            .setRequestParams(null)
             .setResponseParams(ItemListDto::class.java)
             .setRequestMethod(Request.Method.GET)
             .setListener{
@@ -77,6 +80,9 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
                 progressDialog.dismiss()
             }
             .build(requireContext())
+
+        println("아이디 저장 여부 " + PreferenceUtil(requireContext()).init().getString(PREFERENCE_ID))
+        println("비밀번호 저장 여부 " + PreferenceUtil(requireContext()).init().getString(PREFERENCE_PW))
     }
 
     private fun initRecycler(itemList: MutableList<MainItem>) {
