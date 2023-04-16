@@ -107,6 +107,8 @@ open class GsonRequest<T>(
     private val listener: Response.Listener<T>,
     errorListener: Response.ErrorListener
 ) : JsonRequest<T>(requestMethod, url, jsonRequest?.toString(), listener, errorListener) {
+
+    // null 을 포함한 결과 값 받는 설정
     private val gson = GsonBuilder()
         .serializeNulls()
         .create()

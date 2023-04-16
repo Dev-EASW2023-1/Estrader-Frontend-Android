@@ -40,12 +40,12 @@ class MainActivity : AppCompatActivity() {
         binding.signUp
     }
 
-    // 처음 화면 시작 시 Fragment 2번 호출 문제 발생,
-    // 기존에 만들어 둔 Fragment 있으면 띄우고, 없으면 Fragment 새로 생성
-    private val loginFragment: LoginFragment by lazy {
-        supportFragmentManager.findFragmentById(binding.containerView.id) as LoginFragment?
-            ?: LoginFragment.newInstance()
-    }
+//    // 처음 화면 시작 시 Fragment 2번 호출 문제 발생,
+//    // 기존에 만들어 둔 Fragment 있으면 띄우고, 없으면 Fragment 새로 생성
+//    private val loginFragment: LoginFragment by lazy {
+//        supportFragmentManager.findFragmentById(binding.containerView.id) as LoginFragment?
+//            ?: LoginFragment.newInstance()
+//    }
 
     companion object {
         const val requestFinal = 444
@@ -104,14 +104,13 @@ class MainActivity : AppCompatActivity() {
         Log.d(activityTag, "액티비티 변수 생성")
         signInTextView
         signUpTextView
-        loginFragment
     }
 
     private fun initFragment() {
         Log.d(activityTag, "Transaction: begin")
         supportFragmentManager
             .beginTransaction()
-            .replace(binding.containerView.id, loginFragment)
+            .replace(binding.containerView.id, LoginFragment())
             .commit()
         Log.d(activityTag, "Transaction: end")
     }
@@ -121,7 +120,7 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager
             .beginTransaction()
             .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-            .replace(binding.containerView.id, loginFragment)
+            .replace(binding.containerView.id, LoginFragment())
             .commit()
     }
 

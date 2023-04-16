@@ -22,14 +22,13 @@ import kr.easw.estrader.android.model.dto.RegisterDataRequest
 import kr.easw.estrader.android.model.dto.RegisterDataResponse
 import kr.easw.estrader.android.model.dto.SignupCheckRequest
 import kr.easw.estrader.android.model.dto.SignupCheckResponse
+import kr.easw.estrader.android.util.HashUtil
 import kr.easw.estrader.android.util.PreferenceUtil
 import kr.easw.estrader.android.util.RestRequestTemplate
-import java.security.MessageDigest
 
 /**
  * 회원가입 Fragment
- *
- * 회원가입 미구현
+ * 회원가입 완료 후 MainListActivity 로 이동
  */
 class RegisterFragment : Fragment() {
     private var _binding: FragmentRegisterBinding? = null
@@ -71,7 +70,12 @@ class RegisterFragment : Fragment() {
         initFields()
 
         checkButton.setOnClickListener {
-            validateUserId(userId.editText!!.text.toString())
+            val inputId = userId.editText!!.text.toString()
+            if (inputId.isEmpty()) {
+                return@setOnClickListener
+            }
+
+            validateUserId(inputId)
         }
 
         registerButton.setOnClickListener {
@@ -131,7 +135,7 @@ class RegisterFragment : Fragment() {
         RestRequestTemplate.Builder<RegisterDataRequest, RegisterDataResponse>()
             .setRequestHeaders(mutableMapOf("Content-Type" to "application/json"))
             .setRequestUrl("http://172.17.0.30:8060/user/register")
-            .setRequestParams(RegisterDataRequest(userId, userPw, "테스트", "테스트", "테스트"))
+            .setRequestParams(RegisterDataRequest(userId, HashUtil.sha256(userPw), "테스트", "테스트", "테스트"))
             .setResponseParams(RegisterDataResponse::class.java)
             .setRequestMethod(Request.Method.POST)
             .setListener {
@@ -141,7 +145,7 @@ class RegisterFragment : Fragment() {
                     PreferenceUtil(requireContext())
                         .init().build()
                         .setString(PREFERENCE_ID, userId)
-                        .setString(PREFERENCE_PW, userPw)
+                        .setString(PREFERENCE_PW, HashUtil.sha256(userPw))
 
                     startActivity(Intent(requireContext(), MainListActivity::class.java).apply {
                         flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -184,12 +188,6 @@ class RegisterFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         Log.d(fragmentTag, "onDestroy()")
-    }
-
-    fun sha256(input: String): String {
-        val md = MessageDigest.getInstance("SHA-256")
-        val digest = md.digest(input.toByteArray(Charsets.UTF_8))
-        return digest.fold("", { str, it -> str + "%02x".format(it) })
     }
 }
 
