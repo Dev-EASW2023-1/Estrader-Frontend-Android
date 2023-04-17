@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         const val requestFinal = 444
 
         // android 11에서 기존 권한 (android.permission.WRITE_EXTERNAL_STORAGE) 무시
-        val permissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        val permissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             arrayOf(
                 Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.READ_CONTACTS

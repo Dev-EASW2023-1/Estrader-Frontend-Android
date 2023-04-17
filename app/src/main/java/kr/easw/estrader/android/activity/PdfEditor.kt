@@ -1,10 +1,15 @@
 package kr.easw.estrader.android.activity
 
+import android.content.ContentValues
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.pdf.PdfRenderer
 import android.os.Bundle
 import android.os.Environment
+import android.os.Environment.DIRECTORY_DOCUMENTS
 import android.os.ParcelFileDescriptor
+import android.provider.MediaStore
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.tom_roush.pdfbox.android.PDFBoxResourceLoader
 import com.tom_roush.pdfbox.pdmodel.PDDocument
@@ -81,33 +86,62 @@ class PdfEditor : AppCompatActivity() {
              * /storage/emulated/0/Android/data/your.package.name/files/Download/에 저장이 됨
              * 이렇게 하면 앱이 지워질때 pdf도 지워지지만 사용자가 접근할 수 없음 그래서 따로 저장
              */
-            val outputFile = File(
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-                "입찰표.pdf"
-            )
-            document.save("/sdcard/Download/입찰표.pdf")
-            document.close()
+//            val outputFile = File(
+//                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+//                "기일입찰표.pdf"
+//            )
+//            document.save("/Download/기일입찰표.pdf")
+//            document.close()
 
-            if (outputFile.exists()) {
-                val pdfRenderer = PdfRenderer(
-                    ParcelFileDescriptor.open(
-                        outputFile, ParcelFileDescriptor.MODE_READ_ONLY
-                    )
-                )
-                val currentPage = pdfRenderer.openPage(0)
-                val bitmap = Bitmap.createBitmap(
-                    currentPage.width, currentPage.height, Bitmap.Config.ARGB_8888
-                )
-                currentPage.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
-                setContentView(kr.easw.estrader.android.R.layout.fragment_pdfview)
-                binding.pdfview.setImageBitmap(bitmap)
-                setContentView(binding.root)
-
-                currentPage.close()
-                pdfRenderer.close()
+            val contentValues = ContentValues().apply {
+                put(MediaStore.MediaColumns.DISPLAY_NAME, "기일입찰표.pdf")
+                put(MediaStore.MediaColumns.MIME_TYPE, "application/pdf")
+                put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
             }
+            val contentResolver = applicationContext.contentResolver
+            val uri =
+                contentResolver.insert(MediaStore.Files.getContentUri("external"), contentValues)
+
+            uri?.let {
+                contentResolver.openOutputStream(it)?.use { outputStream ->
+                    // 여기에 PDF 문서를 저장하세요.
+                    // 예를 들어, PDDocument 객체를 사용한 경우 다음과 같이 작성할 수 있습니다.
+                    document.save(outputStream)
+                    document.close()
+                }
+            }
+            val openPdf = Intent(Intent.ACTION_VIEW).apply {
+                setDataAndType(uri, "application/pdf")
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            }
+
+            if (openPdf.resolveActivity(packageManager) != null) {
+                startActivity(openPdf)
+            } else {
+
+            }
+
+//            if (outputFile.exists()) {
+//                val pdfRenderer = PdfRenderer(
+//                    ParcelFileDescriptor.open(
+//                        outputFile, ParcelFileDescriptor.MODE_READ_ONLY
+//                    )
+//                )
+//                val currentPage = pdfRenderer.openPage(0)
+//                val bitmap = Bitmap.createBitmap(
+//                    currentPage.width, currentPage.height, Bitmap.Config.ARGB_8888
+//                )
+//                currentPage.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
+//                setContentView(kr.easw.estrader.android.R.layout.fragment_pdfview)
+//                binding.pdfview.setImageBitmap(bitmap)
+//                setContentView(binding.root)
+//
+//                currentPage.close()
+//                pdfRenderer.close()
+//            }
         } catch (e: IOException) {
             e.printStackTrace()
         }
+
     }
 }
