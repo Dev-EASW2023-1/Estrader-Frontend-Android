@@ -18,8 +18,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.messaging.FirebaseMessaging
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.databinding.ActivityLoginBinding
+import kr.easw.estrader.android.definitions.PREFERENCE_FCM
 import kr.easw.estrader.android.fragment.LoginFragment
 import kr.easw.estrader.android.fragment.RegisterFragment
+import kr.easw.estrader.android.util.PreferenceUtil
 
 /**
  * 로그인, 회원 가입 activity
@@ -76,16 +78,19 @@ class MainActivity : AppCompatActivity() {
         // 로그인 Fragment init
         initFragment()
 
-        // 권한 요청
-        permissionRequest()
-
         FirebaseMessaging.getInstance().token
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val token = task.result
+                    PreferenceUtil(this)
+                        .init().start()
+                        .setString(PREFERENCE_FCM, token.toString())
                     Log.d("FIREBASE_TOKEN****************", token.toString())
                 }
             }
+
+        // 권한 요청
+        permissionRequest()
 
         //로그인 Textview 클릭 이벤트
         signInTextView.setOnClickListener {

@@ -1,6 +1,6 @@
 package kr.easw.estrader.android.fragment
 
-import android.app.ProgressDialog
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -10,19 +10,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.android.volley.Request
 import com.google.android.material.textfield.TextInputLayout
 import kr.easw.estrader.android.activity.MainListActivity
 import kr.easw.estrader.android.databinding.FragmentLoginBinding
+import kr.easw.estrader.android.definitions.ApiDefinition
+import kr.easw.estrader.android.definitions.PREFERENCE_FCM
 import kr.easw.estrader.android.definitions.PREFERENCE_ID
 import kr.easw.estrader.android.definitions.PREFERENCE_PW
 import kr.easw.estrader.android.model.dto.SignInRequest
-import kr.easw.estrader.android.model.dto.SignInResponse
 import kr.easw.estrader.android.util.HashUtil
 import kr.easw.estrader.android.util.PreferenceUtil
-import kr.easw.estrader.android.util.RestRequestTemplate
 
 /**
  * 로그인 Fragment
@@ -40,11 +40,6 @@ class LoginFragment : Fragment() {
     }
     private val userPw: TextInputLayout by lazy {
         binding.userPw
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = LoginFragment()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,6 +67,11 @@ class LoginFragment : Fragment() {
         initFields()
 
         loginButton.setOnClickListener {
+            if (PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_FCM) == "") {
+                showToast("로그인에 실패했습니다. 다시 한 번 시도해주세요.")
+                return@setOnClickListener
+            }
+
             val inputId = userId.editText!!.text.toString()
             val inputPw = userPw.editText!!.text.toString()
 
@@ -86,22 +86,23 @@ class LoginFragment : Fragment() {
     }
 
     private fun loginUser(userId: String, userPw: String) {
-        val progressDialog = ProgressDialog(requireContext())
-        progressDialog.setMessage("Loading...")
-        progressDialog.show()
+        val dialog = Dialog(requireContext())
+        dialog.setContentView(ProgressBar(requireContext()))
+        dialog.show()
 
-        RestRequestTemplate.Builder<SignInRequest, SignInResponse>()
-            .setRequestHeaders(mutableMapOf("Content-Type" to "application/json"))
-            .setRequestUrl("http://172.17.0.30:8060/user/login")
-            .setRequestParams(SignInRequest(userId, HashUtil.sha256(userPw)))
-            .setResponseParams(SignInResponse::class.java)
-            .setRequestMethod(Request.Method.POST)
+        ApiDefinition.LOGIN_PROCESS
+            .setRequestParams(
+                SignInRequest(
+                    userId,
+                    HashUtil.sha256(userPw),
+                    PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_FCM)!!
+                )
+            )
             .setListener {
-                Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
-
+                showToast(it.message)
                 if (it.isSuccess) {
                     PreferenceUtil(requireContext())
-                        .init().build()
+                        .init().start()
                         .setString(PREFERENCE_ID, userId)
                         .setString(PREFERENCE_PW, HashUtil.sha256(userPw))
 
@@ -111,9 +112,13 @@ class LoginFragment : Fragment() {
                     requireActivity().finish()
                 }
 
-                progressDialog.dismiss()
+                dialog.dismiss()
             }
             .build(requireContext())
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
     // 생명 주기 테스트 용

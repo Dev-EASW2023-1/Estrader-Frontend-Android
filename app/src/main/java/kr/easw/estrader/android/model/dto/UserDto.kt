@@ -5,7 +5,8 @@ data class RegisterDataRequest(
     val password: String,
     val residentid: String,
     val phonenum: String,
-    val address: String
+    val address: String,
+    val fcmToken: String
 )
 
 data class RegisterDataResponse(
@@ -24,7 +25,8 @@ data class SignupCheckResponse(
 
 data class SignInRequest(
     val userid: String,
-    val password: String
+    val password: String,
+    val fcmToken: String
 )
 
 data class SignInResponse(

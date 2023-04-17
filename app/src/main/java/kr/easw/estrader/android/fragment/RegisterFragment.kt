@@ -1,6 +1,6 @@
 package kr.easw.estrader.android.fragment
 
-import android.app.ProgressDialog
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -10,21 +10,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.android.volley.Request
 import com.google.android.material.textfield.TextInputLayout
 import kr.easw.estrader.android.activity.MainListActivity
 import kr.easw.estrader.android.databinding.FragmentRegisterBinding
+import kr.easw.estrader.android.definitions.ApiDefinition
+import kr.easw.estrader.android.definitions.PREFERENCE_FCM
 import kr.easw.estrader.android.definitions.PREFERENCE_ID
 import kr.easw.estrader.android.definitions.PREFERENCE_PW
 import kr.easw.estrader.android.model.dto.RegisterDataRequest
-import kr.easw.estrader.android.model.dto.RegisterDataResponse
 import kr.easw.estrader.android.model.dto.SignupCheckRequest
-import kr.easw.estrader.android.model.dto.SignupCheckResponse
 import kr.easw.estrader.android.util.HashUtil
 import kr.easw.estrader.android.util.PreferenceUtil
-import kr.easw.estrader.android.util.RestRequestTemplate
 
 /**
  * 회원가입 Fragment
@@ -34,6 +33,7 @@ class RegisterFragment : Fragment() {
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
     private var validate = false
+    private var validateUserId: String = ""
     private val fragmentTag = "RegisterFragmentLog"
     private val registerButton: Button by lazy {
         binding.btnNext
@@ -84,13 +84,23 @@ class RegisterFragment : Fragment() {
             val inputCheckPassword = userPwRepeat.editText!!.text.toString()
 
             if (!validate) {
+                showToast("아이디 중복 확인해주세요.")
                 return@setOnClickListener
             }
-            if (inputId.isEmpty() || inputPw.isEmpty())
-            {
+            if(validateUserId != inputId){
+                showToast("아이디 중복 다시 확인해주세요.")
+                return@setOnClickListener
+            }
+            if (inputId.isEmpty() || inputPw.isEmpty() || inputCheckPassword.isEmpty()) {
+                showToast("아이디 또는 비밀번호를 채워주세요.")
                 return@setOnClickListener
             }
             if (inputPw != inputCheckPassword) {
+                showToast("비밀번호와 비밀번호 확인이 일치하지 않아요.")
+                return@setOnClickListener
+            }
+            if (PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_FCM) == "") {
+                showToast("회원가입에 실패했어요. 다시 한 번 시도해주세요.")
                 return@setOnClickListener
             }
 
@@ -107,43 +117,42 @@ class RegisterFragment : Fragment() {
     }
 
     private fun validateUserId(userId: String) {
-        val progressDialog = ProgressDialog(requireContext())
-        progressDialog.setMessage("Loading...")
-        progressDialog.show()
+        val dialog = Dialog(requireContext())
+        dialog.setContentView(ProgressBar(requireContext()))
+        dialog.show()
 
-        RestRequestTemplate.Builder<SignupCheckRequest, SignupCheckResponse>()
-            .setRequestHeaders(mutableMapOf("Content-Type" to "application/json"))
-            .setRequestUrl("http://172.17.0.30:8060/user/account-exists")
+        ApiDefinition.CHECK_ID_DUPLICATED
             .setRequestParams(SignupCheckRequest(userId))
-            .setResponseParams(SignupCheckResponse::class.java)
-            .setRequestMethod(Request.Method.POST)
             .setListener {
-
+                showToast(it.message)
                 validate = it.isDuplicated
-                Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                validateUserId = userId
 
-                progressDialog.dismiss()
+                dialog.dismiss()
             }
             .build(requireContext())
     }
 
     private fun registerUser(userId: String, userPw: String) {
-        val progressDialog = ProgressDialog(requireContext())
-        progressDialog.setMessage("Loading...")
-        progressDialog.show()
+        val dialog = Dialog(requireContext())
+        dialog.setContentView(ProgressBar(requireContext()))
+        dialog.show()
 
-        RestRequestTemplate.Builder<RegisterDataRequest, RegisterDataResponse>()
-            .setRequestHeaders(mutableMapOf("Content-Type" to "application/json"))
-            .setRequestUrl("http://172.17.0.30:8060/user/register")
-            .setRequestParams(RegisterDataRequest(userId, HashUtil.sha256(userPw), "테스트", "테스트", "테스트"))
-            .setResponseParams(RegisterDataResponse::class.java)
-            .setRequestMethod(Request.Method.POST)
+        ApiDefinition.REGISTER_PROCESS
+            .setRequestParams(
+                RegisterDataRequest(
+                    userId,
+                    HashUtil.sha256(userPw),
+                    "테스트",
+                    "테스트",
+                    "테스트",
+                    PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_FCM)!!
+                )
+            )
             .setListener {
-                Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
-
+                showToast(it.message)
                 if (it.isSuccess) {
-                    PreferenceUtil(requireContext())
-                        .init().build()
+                    PreferenceUtil(requireContext()).init().start()
                         .setString(PREFERENCE_ID, userId)
                         .setString(PREFERENCE_PW, HashUtil.sha256(userPw))
 
@@ -153,9 +162,13 @@ class RegisterFragment : Fragment() {
                     requireActivity().finish()
                 }
 
-                progressDialog.dismiss()
+                dialog.dismiss()
             }
             .build(requireContext())
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
     // 생명 주기 테스트 용

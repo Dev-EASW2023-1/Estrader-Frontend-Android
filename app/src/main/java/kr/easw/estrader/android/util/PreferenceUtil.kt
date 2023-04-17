@@ -41,6 +41,12 @@ class PreferenceUtil(private val context: Context) {
         return instance as PreferenceUtil
     }
 
+    fun start(): PreferenceUtil {
+        prefs
+        editor = prefs.edit()
+        return this
+    }
+
     fun setString(key: String, value: String): PreferenceUtil {
         editor?.putString(key, value)?.commit()
         return this
@@ -66,12 +72,6 @@ class PreferenceUtil(private val context: Context) {
 
     fun getBoolean(key: String, defValue: Boolean = false): Boolean {
         return prefs.getBoolean(key, defValue)
-    }
-
-    fun build(): PreferenceUtil {
-        prefs
-        editor = prefs.edit()
-        return this
     }
 
     fun destroyPref() {

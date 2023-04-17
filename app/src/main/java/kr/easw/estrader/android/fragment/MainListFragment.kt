@@ -1,26 +1,20 @@
 package kr.easw.estrader.android.fragment
 
-import android.app.ProgressDialog
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.android.volley.Request
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.databinding.ElementItemlistBinding
 import kr.easw.estrader.android.databinding.FragmentMainlistBinding
-import kr.easw.estrader.android.definitions.PREFERENCE_ID
-import kr.easw.estrader.android.definitions.PREFERENCE_PW
-import kr.easw.estrader.android.definitions.SERVER_URL
+import kr.easw.estrader.android.definitions.ApiDefinition
 import kr.easw.estrader.android.model.data.MainHolder
-import kr.easw.estrader.android.model.dto.ItemDto
-import kr.easw.estrader.android.model.dto.ItemListDto
 import kr.easw.estrader.android.model.dto.MainItem
-import kr.easw.estrader.android.util.PreferenceUtil
-import kr.easw.estrader.android.util.RestRequestTemplate
 import java.lang.ref.WeakReference
 
 /**
@@ -46,24 +40,16 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
 
     // ViewHolder 에 사용할 DateList 초기화
     private fun initialize() {
-        // 서버와 데이터 주고 받을 때 작업 중임을 알리는 ProgressDialog
-        val progressDialog = ProgressDialog(requireContext())
-        progressDialog.setMessage("Loading...")
-        progressDialog.show()
+        val dialog = Dialog(requireContext())
+        dialog.setContentView(ProgressBar(requireContext()))
+        dialog.show()
 
         // Volley Builder 패턴을 통한 네트워크 통신
-        RestRequestTemplate.Builder<Void, ItemListDto>()
-            .setRequestHeaders(mutableMapOf("Content-Type" to "application/json"))
-            .setRequestUrl("http://172.17.0.30:8060/item/show-list")
-            .setRequestParams(null)
-            .setResponseParams(ItemListDto::class.java)
-            .setRequestMethod(Request.Method.GET)
+        ApiDefinition.GET_ITEM_LIST
             .setListener{
-
-                // 서버에서 받아온 Response 처리
                 val dataList: MutableList<MainItem> = mutableListOf()
 
-                for(x in 0..2){
+                for(x in 0 until it.itemDto.size){
                     dataList.add(MainItem(
                         it.itemDto[x].picture,
                         it.itemDto[x].period,
@@ -76,13 +62,9 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
 
                 initRecycler(dataList)
 
-                // 서버 통신 완료 후 ProgressDialog 종료
-                progressDialog.dismiss()
+                dialog.dismiss()
             }
             .build(requireContext())
-
-        println("아이디 저장 여부 " + PreferenceUtil(requireContext()).init().getString(PREFERENCE_ID))
-        println("비밀번호 저장 여부 " + PreferenceUtil(requireContext()).init().getString(PREFERENCE_PW))
     }
 
     private fun initRecycler(itemList: MutableList<MainItem>) {
