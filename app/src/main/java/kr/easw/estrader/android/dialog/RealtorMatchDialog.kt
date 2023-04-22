@@ -15,6 +15,8 @@ import kr.easw.estrader.android.definitions.PREFERENCE_REALTOR_ID
 import kr.easw.estrader.android.model.dto.FcmRequest
 import kr.easw.estrader.android.model.dto.LookUpItemRequest
 import kr.easw.estrader.android.util.PreferenceUtil
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 // 만약에 phase가 1인 fcm을 받았을 경우
 class RealtorMatchDialog : AppCompatActivity() {
@@ -78,7 +80,7 @@ class RealtorMatchDialog : AppCompatActivity() {
         ApiDefinition.REALTOR_SHOW_ITEM
             .setRequestParams(
                 LookUpItemRequest(
-                    intent.getStringExtra("itemImage")!!
+                    URLEncoder.encode(intent.getStringExtra("itemImage")!!, StandardCharsets.UTF_8.toString())!!
                 )
             )
             .setListener {
