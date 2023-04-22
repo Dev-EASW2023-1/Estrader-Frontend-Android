@@ -22,8 +22,11 @@ import com.google.android.material.appbar.CollapsingToolbarLayout
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.databinding.FragmentItemlookupBinding
 import kr.easw.estrader.android.definitions.ApiDefinition
+import kr.easw.estrader.android.definitions.PREFERENCE_FCM
+import kr.easw.estrader.android.definitions.PREFERENCE_ID
 import kr.easw.estrader.android.dialog.AwaitingBidDialog
 import kr.easw.estrader.android.model.dto.FcmRequest
+import kr.easw.estrader.android.util.PreferenceUtil
 
 /**
  * 사용자 전용 부동산 매각 상세정보 Fragment
@@ -108,9 +111,12 @@ class ItemLookUpFragment : Fragment() {
                 ApiDefinition.SEND_FCM
                     .setRequestParams(
                         FcmRequest(
-                            "asdasd",
-                            "안녕!",
-                            "난 야옹이야."
+                            PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_ID)!!,
+                            "test4",
+                            arguments?.getString(ARG_POSITION).toString(),
+                            "1",
+                            "안녕",
+                            "난 야옹이야~"
                         )
                     )
                     .setListener {

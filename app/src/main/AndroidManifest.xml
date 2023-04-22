@@ -1,28 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="kr.easw.estrader.android">
+    package="kr.easw.estrader.android" >
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
     <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:allowBackup="true"
-        android:usesCleartextTraffic="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.Estrader"
         android:noHistory="true"
         android:requestLegacyExternalStorage="true"
-        tools:targetApi="31">
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Estrader"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31" >
 
-        <!-- 기본 알림 아이콘 및 색상 설정  -->
+        <!-- 기본 알림 아이콘 및 색상 설정 -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_launcher_foreground" />
@@ -30,6 +32,9 @@
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/black" />
 
+        <activity
+            android:name=".activity.MainActivity"
+            android:exported="false" />
         <activity
             android:name=".dialog.SuccessDelegationDialog"
             android:exported="false" />
@@ -41,23 +46,23 @@
             android:exported="false" />
         <activity
             android:name=".activity.MainListActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".dialog.RealtorMatchDialog"
             android:exported="false" />
         <activity
-            android:name=".activity.RealtorMainActivity"
+            android:name=".activity.RealtorMainListActivity"
             android:exported="false" />
         <activity
             android:name=".activity.PdfEditor"
             android:exported="false" />
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.RealtorMainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:windowSoftInputMode="adjustPan"
-            android:theme="@style/Theme.Estrader.NoActionBar">
+            android:theme="@style/Theme.Estrader.NoActionBar"
+            android:windowSoftInputMode="adjustPan" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -67,12 +72,11 @@
 
         <service
             android:name=".service.MessagingService"
-            android:exported="false">
+            android:exported="false" >
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
     </application>
 
 </manifest>

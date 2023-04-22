@@ -1,101 +1,215 @@
 package kr.easw.estrader.android.activity
 
+import android.Manifest
+import android.app.AlertDialog
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import androidx.appcompat.app.AlertDialog
+import android.util.Log
+import android.view.MotionEvent
+import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
+import androidx.core.app.ActivityCompat
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.messaging.FirebaseMessaging
+import kr.easw.estrader.android.R
 import kr.easw.estrader.android.databinding.ActivityRealtormainBinding
-import kr.easw.estrader.android.fragment.DelegateCompletionFragment
-import kr.easw.estrader.android.fragment.DelegateFragment
+import kr.easw.estrader.android.definitions.PREFERENCE_REALTOR_FCM
+import kr.easw.estrader.android.fragment.RealtorLoginFragment
+import kr.easw.estrader.android.fragment.RealtorRegisterFragment
+import kr.easw.estrader.android.util.PreferenceUtil
 
 /**
- * 대리인 전용 메인화면 Activity
- * 상단 탭에서 대리위임 신청 리스트 (DelegateFragment), 대리위임 완료 리스트 (DelegateCompletionFragment) 이동
- *
- * 지금은 5초 뒤 "김덕배 님이 대리 위임을 신청하셨습니다." 팝업 출력
- * 추후 사용자 앱에서 FCM 전송 후, 팝업 출력
+ * 대리인 전용 로그인, 회원 가입 activity
+ * PDF 저장과 FCM에 대한 권한 요청
+ * 상단 탭에서 로그인 (RealtorLoginFragment), 회원가입 (RealtorRegisterFragment) 이동
+ * LOGIN 버튼을 누르면 RealtorDialog 로 이동
  */
 class RealtorMainActivity : AppCompatActivity() {
-    private lateinit var activityBinding: ActivityRealtormainBinding
-    private lateinit var viewPager: ViewPager2
-    private lateinit var tabLayout: TabLayout
-    private lateinit var mHandler: Handler
+    private lateinit var binding: ActivityRealtormainBinding
+    private lateinit var resultLauncher: ActivityResultLauncher<Array<String>>
+    private lateinit var deniedList: List<String>
+    private val activityTag = "ActivityLog"
+
+    private val signInTextView: TextView by lazy {
+        binding.signIn
+    }
+    private val signUpTextView: TextView by lazy {
+        binding.signUp
+    }
 
     companion object {
-        const val NUM_TABS = 2
-        val tabTitleArray = arrayOf(
-            "대리 위임 진행 목록",
-            "입찰 완료 목록",
-        )
+        const val requestFinal = 444
+
+        // android 11에서 기존 권한 (android.permission.WRITE_EXTERNAL_STORAGE) 무시
+        val permissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            arrayOf(
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.READ_CONTACTS
+            )
+        } else {
+            arrayOf(
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_CONTACTS
+            )
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        activityBinding = ActivityRealtormainBinding.inflate(layoutInflater)
-        setContentView(activityBinding.root)
+        Log.d(activityTag, "onCreate()")
+        binding = ActivityRealtormainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         initFields()
-        initTabLayout()
 
-        mHandler = Handler(Looper.getMainLooper())
-        // 5초 뒤 "김덕배 님이 대리 위임을 신청하셨습니다." 팝업 확인 후, AwaitingBidDialog 이동
-        mHandler.postDelayed({
-            showDialog()
-        }, 3000)
+        // 로그인 Fragment init
+        initFragment()
+
+        FirebaseMessaging.getInstance().token
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val token = task.result
+                    PreferenceUtil(this)
+                        .init().start()
+                        .setString(PREFERENCE_REALTOR_FCM, token.toString())
+                    Log.d("FIREBASE_TOKEN****************", token.toString())
+                }
+            }
+
+        // 권한 요청
+        permissionRequest()
+
+        //로그인 Textview 클릭 이벤트
+        signInTextView.setOnClickListener {
+            signInClick()
+        }
+
+        //회원 가입 Textview 클릭 이벤트
+        signUpTextView.setOnClickListener {
+            signUpClick()
+        }
+
+        window.setSoftInputMode(
+            WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
+        )
     }
 
     private fun initFields() {
-        viewPager = activityBinding.viewPager
-        tabLayout = activityBinding.tabLayout
+        Log.d(activityTag, "액티비티 변수 생성")
+        signInTextView
+        signUpTextView
     }
 
+    private fun initFragment() {
+        Log.d(activityTag, "Transaction: begin")
+        supportFragmentManager
+            .beginTransaction()
+            .replace(binding.containerView.id, RealtorLoginFragment())
+            .commit()
+        Log.d(activityTag, "Transaction: end")
+    }
 
-    private fun initTabLayout() {
-        //ViewPager2 adapter, 범위 밖의 Fragment 객체는 FragmentManager 에서 제거, 제거된 Fragment 상태는 FragmentStatePagerAdapter 내부 저장
-        viewPager.adapter =
-            object : FragmentStateAdapter(supportFragmentManager, lifecycle) {
-                override fun getItemCount(): Int {
-                    return NUM_TABS
+    //로그인 Textview 클릭 이벤트
+    private fun signInClick() {
+        supportFragmentManager
+            .beginTransaction()
+            .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+            .replace(binding.containerView.id, RealtorLoginFragment())
+            .commit()
+    }
+
+    //회원 가입 Textview 클릭 이벤트
+    private fun signUpClick() {
+        supportFragmentManager
+            .beginTransaction()
+            .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+            .replace(binding.containerView.id, RealtorRegisterFragment())
+            .commit()
+    }
+
+    private fun permissionRequest() {
+        resultLauncher = registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { result ->
+            // 거부된 권한 목록 저장
+            deniedList = result.filter {
+                !it.value
+            }.map {
+                it.key
+            }
+
+            // 거부된 권한 목록 남아 있으면 권한 재요청
+            when {
+                deniedList.isNotEmpty() -> {
+                    requestAgain(deniedList.toTypedArray())
                 }
-
-                override fun createFragment(position: Int): Fragment {
-                    return when (position) {
-                        0 -> DelegateFragment()
-                        else -> DelegateCompletionFragment()
-                    }
+                else -> {
+                    Snackbar.make(binding.root, "All request are permitted", Snackbar.LENGTH_SHORT)
+                        .show()
                 }
             }
-        // TabLayout 각 tab 의 구성 값 설정
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.text = tabTitleArray[position]
-        }.attach()
+        }
+        resultLauncher.launch(permissions)
     }
 
-    private fun showDialog() {
+    // requestCode 보내고 권한 재요청
+    private fun requestAgain(its: Array<String>) {
         AlertDialog.Builder(this)
-            .setTitle("알림")
-            .setMessage("김덕배 님이 대리 위임을 신청하셨습니다.")
+            .setTitle("권한 재요청")
+            .setMessage("권한이 필요합니다. 권한 요청을 다시 수락하시겠습니까?")
             .setPositiveButton("확인") { _, _ ->
-                // TODO("대리 위임 완료 리스트 추가")
+                ActivityCompat.requestPermissions(
+                    this,
+                    its,
+                    requestFinal
+                )
             }
             .setNegativeButton("취소") { _, _ ->
+                Snackbar.make(binding.root, "권한 재요청을 취소하셨습니다.", Snackbar.LENGTH_SHORT)
+                    .show()
             }
             .create()
             .show()
     }
 
-    // Runnable, Handler 객체 모두 메모리 누수 유발 방지
-    override fun onDestroy() {
-        super.onDestroy()
-        // Handler 모든 콜백 및 메시지 제거
-        mHandler.removeCallbacksAndMessages(null)
-        //  이전 Handler 객체와 연결을 끊고 새로운 Looper 로 새 Handler 객체 초기화
-        mHandler = Handler(Looper.getMainLooper())
+    //requestCode 받고 권한 요청에 대한 결과 처리
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String?>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == requestFinal) {
+
+            // 또 권한 거부 시 거부된 권한 목록 저장
+            val permission = permissions.toList().filter {
+                ActivityCompat.checkSelfPermission(
+                    this,
+                    it!!
+                ) == PackageManager.PERMISSION_DENIED
+            }
+
+            // 메시지 출력
+            if (permission.isNotEmpty()) {
+                Snackbar.make(binding.root, "권한 재요청을 취소하셨습니다.", Snackbar.LENGTH_SHORT)
+                    .show()
+            } else {
+                Snackbar.make(binding.root, "All request are permitted", Snackbar.LENGTH_SHORT)
+                    .show()
+            }
+        }
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        val imm: InputMethodManager =
+            getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+        return super.dispatchTouchEvent(ev)
     }
 }

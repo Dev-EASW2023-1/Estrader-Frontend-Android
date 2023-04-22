@@ -13,6 +13,8 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.activity.MainActivity
+import kr.easw.estrader.android.dialog.RealtorMatchDialog
+import kr.easw.estrader.android.dialog.SuccessDelegationDialog
 
 class MessagingService : FirebaseMessagingService() {
     private lateinit var notificationManager: NotificationManager
@@ -32,14 +34,11 @@ class MessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         initNotification()
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            createNotificationChannel()
-        }
+//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            createNotificationChannel()
+//        }
 
-        remoteMessage.notification?.let {
-            Log.d("FirebaseMessagingService*************", "Message Notification Body: ${it.body}")
-            sendNotification(remoteMessage.notification!!)
-        }
+        switchToActivity(remoteMessage.data)
     }
 
     // 발생 이벤트를 알리는 NotificationManager, 알림을 생성하는 NotificationCompat.Builder 초기화
@@ -82,5 +81,22 @@ class MessagingService : FirebaseMessagingService() {
             .setAutoCancel(true)
 
         notificationManager.notify(0, notificationBuilder.build())
+    }
+
+    private fun switchToActivity(data: Map<String, String>) {
+        val intent = when(data["phase"]){
+            "1" -> Intent(this, RealtorMatchDialog::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                putExtra("itemImage", data["itemImage"])
+                putExtra("targetId", data["userId"])
+            }
+            "2" -> Intent(this, SuccessDelegationDialog::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            }
+            else -> Intent(this, MainActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            }
+        }
+        startActivity(intent)
     }
 }

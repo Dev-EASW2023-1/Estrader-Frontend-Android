@@ -35,7 +35,10 @@ data class SignInResponse(
 )
 
 data class FcmRequest(
-    val userid: String,
+    val userId: String,
+    val targetId: String,
+    val itemImage: String,
+    val phase: String,
     val title: String,
     val body: String
 )

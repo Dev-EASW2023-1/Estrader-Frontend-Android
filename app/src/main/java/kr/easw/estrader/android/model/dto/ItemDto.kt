@@ -12,3 +12,7 @@ data class ItemDto (
 data class ItemListDto (
     val itemDto: List<ItemDto>
 )
+
+data class LookUpItemRequest(
+    val picture: String
+)

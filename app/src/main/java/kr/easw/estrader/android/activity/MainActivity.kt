@@ -42,13 +42,6 @@ class MainActivity : AppCompatActivity() {
         binding.signUp
     }
 
-//    // 처음 화면 시작 시 Fragment 2번 호출 문제 발생,
-//    // 기존에 만들어 둔 Fragment 있으면 띄우고, 없으면 Fragment 새로 생성
-//    private val loginFragment: LoginFragment by lazy {
-//        supportFragmentManager.findFragmentById(binding.containerView.id) as LoginFragment?
-//            ?: LoginFragment.newInstance()
-//    }
-
     companion object {
         const val requestFinal = 444
 
@@ -102,7 +95,9 @@ class MainActivity : AppCompatActivity() {
             signUpClick()
         }
 
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+        window.setSoftInputMode(
+            WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
+        )
     }
 
     private fun initFields() {
