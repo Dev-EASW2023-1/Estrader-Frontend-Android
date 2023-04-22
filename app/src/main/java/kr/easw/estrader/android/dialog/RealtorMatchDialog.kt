@@ -8,18 +8,18 @@ import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.activity.PdfEditor
 import kr.easw.estrader.android.definitions.ApiDefinition
-import kr.easw.estrader.android.definitions.PREFERENCE_ID
 import kr.easw.estrader.android.definitions.PREFERENCE_REALTOR_ID
 import kr.easw.estrader.android.model.dto.FcmRequest
 import kr.easw.estrader.android.model.dto.LookUpItemRequest
 import kr.easw.estrader.android.util.PreferenceUtil
 
+// 만약에 phase가 1인 fcm을 받았을 경우
 class RealtorMatchDialog : AppCompatActivity() {
     private lateinit var alertBtn: Button
+    private lateinit var item: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +27,9 @@ class RealtorMatchDialog : AppCompatActivity() {
 
         alertBtn = findViewById(R.id.confirm_button)
 
-        showItem()
+        item =  intent.getStringExtra("itemImage")!!
+
+        showItem(item)
 
         // PdfEditor 이동
         alertBtn.setOnClickListener {
@@ -71,7 +73,7 @@ class RealtorMatchDialog : AppCompatActivity() {
             .show()
     }
 
-    private fun showItem() {
+    private fun showItem(item: String) {
         val dialog = Dialog(this)
         dialog.setContentView(ProgressBar(this))
         dialog.show()
@@ -79,7 +81,7 @@ class RealtorMatchDialog : AppCompatActivity() {
         ApiDefinition.REALTOR_SHOW_ITEM
             .setRequestParams(
                 LookUpItemRequest(
-                    intent.getStringExtra("itemImage")!!
+                    item
                 )
             )
             .setListener {
