@@ -71,11 +71,10 @@ class MessagingService : FirebaseMessagingService() {
         val pendingIntent = PendingIntent.getActivity(
             this, 0, intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
-
         notificationBuilder
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             // 알림 제목 설정
-            .setContentTitle("제목")
+            .setContentTitle(data.title)
             // 알림 내용 설정
             .setContentText(data.body)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)

@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
+import java.io.IOException
+import java.security.GeneralSecurityException
 
 /**
  * 간단한 정보를 저장해야 되는 상황이 발생할 때 사용할 수 있는 내부 DB인 SharedPreference
@@ -17,18 +19,24 @@ class PreferenceUtil(private val context: Context) {
     // SharedPreferences 암호화, AES-256 GCM 알고리즘 사용
     // Key 암호화 AES256_SIV 알고리즘, Value 암호화 AES256_GCM 알고리즘 사용
     private val prefs: SharedPreferences by lazy {
-        val masterKeyAlias = MasterKey
-            .Builder(context, MasterKey.DEFAULT_MASTER_KEY_ALIAS)
-            .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
-            .build()
+        try {
+            val masterKeyAlias = MasterKey
+                .Builder(context, MasterKey.DEFAULT_MASTER_KEY_ALIAS)
+                .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+                .build()
 
-        EncryptedSharedPreferences.create(
-            context,
-            FILE_NAME,
-            masterKeyAlias,
-            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-        )
+            EncryptedSharedPreferences.create(
+                context,
+                FILE_NAME,
+                masterKeyAlias,
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            )
+        } catch (e: GeneralSecurityException) {
+            null
+        } catch (e: IOException) {
+            null
+        } ?: throw IllegalStateException("prefs cannot be null")
     }
 
     companion object {

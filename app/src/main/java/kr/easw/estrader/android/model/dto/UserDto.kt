@@ -33,3 +33,14 @@ data class SignInResponse(
     val isSuccess: Boolean,
     val message: String
 )
+
+data class FcmRequest(
+    val userid: String,
+    val title: String,
+    val body: String
+)
+
+data class FcmResponse(
+    val isSuccess: Boolean,
+    val message: String
+)

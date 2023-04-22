@@ -1,23 +1,29 @@
 package kr.easw.estrader.android.fragment
 
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.bumptech.glide.Glide
+import com.google.android.gms.common.api.Api
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.databinding.FragmentItemlookupBinding
+import kr.easw.estrader.android.definitions.ApiDefinition
 import kr.easw.estrader.android.dialog.AwaitingBidDialog
+import kr.easw.estrader.android.model.dto.FcmRequest
 
 /**
  * 사용자 전용 부동산 매각 상세정보 Fragment
@@ -54,7 +60,7 @@ class ItemLookUpFragment : Fragment() {
     ) {
         initFields()
         // CollapsingToolbarLayout 가 축소할 때만 Toolbar 에 제목 표시
-        onOffTitleAppBar( )
+        onOffTitleAppBar()
 
         // MainListFragment 에서 보내준 이미지 URL 을 Glide 로 출력
         Glide.with(binding.mainimage)
@@ -95,16 +101,38 @@ class ItemLookUpFragment : Fragment() {
             .setTitle("대리 위임 동의")
             .setMessage("대리 위임을 신청하시겠습니까?")
             .setPositiveButton("확인") { _, _ ->
-                startActivity(
-                    Intent(requireContext(), AwaitingBidDialog::class.java).apply {
-                        flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                val dialog = Dialog(requireContext())
+                dialog.setContentView(ProgressBar(requireContext()))
+                dialog.show()
+
+                ApiDefinition.SEND_FCM
+                    .setRequestParams(
+                        FcmRequest(
+                            "asdasd",
+                            "안녕!",
+                            "난 야옹이야."
+                        )
+                    )
+                    .setListener {
+                        showToast(it.message)
+                        dialog.dismiss()
+
+                        startActivity(
+                            Intent(requireContext(), AwaitingBidDialog::class.java).apply {
+                                flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                            }
+                        )
                     }
-                )
+                    .build(requireContext())
             }
             .setNegativeButton("취소") { _, _ ->
             }
             .create()
             .show()
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
     private fun delegateReject() {
@@ -119,10 +147,7 @@ class ItemLookUpFragment : Fragment() {
         }
     }
 
-
-
-
-        private fun onOffTitleAppBar() {
+    private fun onOffTitleAppBar() {
         appBarLayout.addOnOffsetChangedListener(object : OnOffsetChangedListener {
             var isShow = true
             var scrollRange = -1
@@ -140,5 +165,4 @@ class ItemLookUpFragment : Fragment() {
             }
         })
     }
-
 }
