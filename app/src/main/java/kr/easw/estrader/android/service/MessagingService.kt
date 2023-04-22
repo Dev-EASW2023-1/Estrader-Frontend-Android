@@ -86,15 +86,15 @@ class MessagingService : FirebaseMessagingService() {
     private fun switchToActivity(data: Map<String, String>) {
         val intent = when(data["phase"]){
             "1" -> Intent(this, RealtorMatchDialog::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 putExtra("itemImage", data["itemImage"])
                 putExtra("targetId", data["userId"])
             }
             "2" -> Intent(this, SuccessDelegationDialog::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
             }
             else -> Intent(this, MainActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
             }
         }
         startActivity(intent)
