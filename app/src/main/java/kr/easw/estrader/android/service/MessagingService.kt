@@ -92,6 +92,9 @@ class MessagingService : FirebaseMessagingService() {
             }
             "2" -> Intent(this, SuccessDelegationDialog::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                putExtra("itemImage", data["itemImage"])
+                putExtra("targetId", data["userId"])
+                putExtra("userId", data["targetId"])
             }
             else -> Intent(this, MainActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK

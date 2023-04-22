@@ -15,14 +15,12 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.bumptech.glide.Glide
-import com.google.android.gms.common.api.Api
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.databinding.FragmentItemlookupBinding
 import kr.easw.estrader.android.definitions.ApiDefinition
-import kr.easw.estrader.android.definitions.PREFERENCE_FCM
 import kr.easw.estrader.android.definitions.PREFERENCE_ID
 import kr.easw.estrader.android.dialog.AwaitingBidDialog
 import kr.easw.estrader.android.model.dto.FcmRequest
