@@ -52,5 +52,5 @@ object ApiDefinition {
         .setRequestHeaders(mutableMapOf("Content-Type" to "application/json"))
         .setRequestUrl("http://172.17.0.30:8060/item/show")
         .setResponseParams(ItemDto::class.java)
-        .setRequestMethod(Request.Method.GET)
+        .setRequestMethod(Request.Method.POST)
 }

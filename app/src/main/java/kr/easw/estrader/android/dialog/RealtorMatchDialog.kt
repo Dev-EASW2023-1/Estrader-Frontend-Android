@@ -19,7 +19,6 @@ import kr.easw.estrader.android.util.PreferenceUtil
 // 만약에 phase가 1인 fcm을 받았을 경우
 class RealtorMatchDialog : AppCompatActivity() {
     private lateinit var alertBtn: Button
-    private lateinit var item: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,9 +26,7 @@ class RealtorMatchDialog : AppCompatActivity() {
 
         alertBtn = findViewById(R.id.confirm_button)
 
-        item =  intent.getStringExtra("itemImage")!!
-
-        showItem(item)
+        showItem()
 
         // PdfEditor 이동
         alertBtn.setOnClickListener {
@@ -73,7 +70,7 @@ class RealtorMatchDialog : AppCompatActivity() {
             .show()
     }
 
-    private fun showItem(item: String) {
+    private fun showItem() {
         val dialog = Dialog(this)
         dialog.setContentView(ProgressBar(this))
         dialog.show()
@@ -81,7 +78,7 @@ class RealtorMatchDialog : AppCompatActivity() {
         ApiDefinition.REALTOR_SHOW_ITEM
             .setRequestParams(
                 LookUpItemRequest(
-                    item
+                    intent.getStringExtra("itemImage")!!
                 )
             )
             .setListener {
