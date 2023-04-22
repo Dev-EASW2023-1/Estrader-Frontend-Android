@@ -46,9 +46,26 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
-            android:text="사건번호 : 2023타경 1234\n 물건유형 : 아파트/상가/주택\n 입찰기일 : 2123년 4월 15일 \n 오전10시 30분 "
+            android:text="사건번호 : 2023타경 "
             android:textColor="#FFFFFF"
             android:textSize="12pt" />
+        <TextView
+            android:id="@+id/awaitingbid_textView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:text="최저가 : 123,123,123,123"
+            android:textColor="#FFFFFF"
+            android:textSize="12pt" />
+        <TextView
+            android:id="@+id/awaitingbid_textView3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:text="입찰기일 : 2123년 4월 15일 \n 오전10시 30분 "
+            android:textColor="#FFFFFF"
+            android:textSize="12pt" />
+
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="wrap_content"
