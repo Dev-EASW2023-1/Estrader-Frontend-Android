@@ -21,11 +21,12 @@
             app:lottie_loop="true" />
 
         <TextView
-            android:id="@+id/awaitingbid_titleView"
+            android:id="@+id/awaitingbid_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
             android:text="입찰을 수락 \n하시겠습니까?"
+            android:layout_marginBottom="20dp"
             android:textColor="#FFFFFF"
             android:textSize="15pt"
             android:textStyle="bold" />
@@ -36,29 +37,28 @@
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
             android:text="수원지방법원 경매 3계"
+            android:layout_marginBottom="10dp"
             android:textColor="#FFFFFF"
             android:textSize="15pt"
             android:textStyle="bold" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center_horizontal"
                 android:text="사건번호 : "
                 android:textColor="#FFFFFF"
                 android:textSize="12pt" />
 
             <TextView
                 android:id="@+id/casenumber"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center_horizontal"
                 android:text="2023타경 "
                 android:textColor="#FFFFFF"
                 android:textSize="12pt" />
@@ -66,24 +66,22 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center_horizontal"
                 android:text="최저가 : "
                 android:textColor="#FFFFFF"
                 android:textSize="12pt" />
 
             <TextView
                 android:id="@+id/reserveprice"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center_horizontal"
                 android:text="123,123,123,123"
                 android:textColor="#FFFFFF"
                 android:textSize="12pt" />
@@ -91,25 +89,23 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center_horizontal"
                 android:text="입찰기일 : "
                 android:textColor="#FFFFFF"
                 android:textSize="12pt" />
 
             <TextView
                 android:id="@+id/auctionperiod"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                android:text="2123년 4월 15일 \n 오전10시 30분 "
+                android:text="2123년 4월 15일 \n오전10시 30분"
                 android:textColor="#FFFFFF"
                 android:textSize="12pt" />
 

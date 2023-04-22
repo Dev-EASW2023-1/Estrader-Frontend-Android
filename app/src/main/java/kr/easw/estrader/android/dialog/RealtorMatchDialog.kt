@@ -16,11 +16,9 @@ import kr.easw.estrader.android.definitions.PREFERENCE_REALTOR_ID
 import kr.easw.estrader.android.model.dto.FcmRequest
 import kr.easw.estrader.android.model.dto.LookUpItemRequest
 import kr.easw.estrader.android.util.PreferenceUtil
-import org.w3c.dom.Text
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
-// 만약에 phase가 1인 fcm을 받았을 경우
 class RealtorMatchDialog : AppCompatActivity() {
     private lateinit var alertBtn: Button
     private lateinit var auctionHouse : TextView
@@ -33,7 +31,6 @@ class RealtorMatchDialog : AppCompatActivity() {
         setContentView(R.layout.fragment_realtormatch)
 
         alertBtn = findViewById(R.id.confirm_button)
-
         auctionHouse = findViewById(R.id.auctionHouse)
         casenumber = findViewById(R.id.casenumber)
         reserveprice = findViewById(R.id.reserveprice)
@@ -41,13 +38,9 @@ class RealtorMatchDialog : AppCompatActivity() {
 
         showItem()
 
-        // PdfEditor 이동
         alertBtn.setOnClickListener {
             alertClick()
-
-
         }
-
     }
 
     private fun alertClick() {
@@ -89,7 +82,6 @@ class RealtorMatchDialog : AppCompatActivity() {
     private fun showItem() {
         val dialog = Dialog(this)
         dialog.setContentView(ProgressBar(this))
-
         dialog.show()
 
         ApiDefinition.REALTOR_SHOW_ITEM
@@ -107,9 +99,6 @@ class RealtorMatchDialog : AppCompatActivity() {
             }
 
             .build(this)
-
-
-
     }
 
     private fun showToast(message: String) {
