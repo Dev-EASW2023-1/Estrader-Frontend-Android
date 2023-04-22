@@ -46,7 +46,7 @@ object ApiDefinition {
         .setRequestHeaders(mutableMapOf("Content-Type" to "application/json"))
         .setRequestUrl("http://172.17.0.30:8060/representative/fcm")
         .setResponseParams(FcmResponse::class.java)
-        .setRequestMethod(Request.Method.PATCH)
+        .setRequestMethod(Request.Method.POST)
 
     val REALTOR_SHOW_ITEM = RestRequestTemplate.Builder<LookUpItemRequest, ItemDto>()
         .setRequestHeaders(mutableMapOf("Content-Type" to "application/json"))
