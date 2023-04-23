@@ -12,6 +12,7 @@ import android.os.ParcelFileDescriptor
 import android.provider.MediaStore
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.FileProvider
 import com.tom_roush.pdfbox.android.PDFBoxResourceLoader
 import com.tom_roush.pdfbox.pdmodel.PDDocument
@@ -20,6 +21,7 @@ import com.tom_roush.pdfbox.pdmodel.common.PDRectangle
 import com.tom_roush.pdfbox.pdmodel.font.PDFont
 import com.tom_roush.pdfbox.pdmodel.font.PDType0Font
 import kr.easw.estrader.android.BuildConfig
+import kr.easw.estrader.android.databinding.FragmentDelegateitemBinding
 import kr.easw.estrader.android.databinding.FragmentPdfviewBinding
 import java.io.File
 import java.io.IOException
@@ -41,7 +43,9 @@ import java.io.IOException
  **/
 
 class PdfEditor : AppCompatActivity() {
+
     private lateinit var binding: FragmentPdfviewBinding
+    private lateinit var binding2: FragmentDelegateitemBinding
 
     companion object {
         // TODO("좌표를 상수로 저장")
@@ -50,13 +54,14 @@ class PdfEditor : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = FragmentPdfviewBinding.inflate(layoutInflater)
-
+        binding2 = FragmentDelegateitemBinding.inflate(layoutInflater)
         PDFBoxResourceLoader.init(applicationContext)
         editPdf()
     }
 
     private fun editPdf() {
         try {
+
             val inputStream = assets.open("기일입찰표.pdf")
             val document = PDDocument.load(inputStream)
             val page = document.getPage(0)
@@ -136,6 +141,7 @@ class PdfEditor : AppCompatActivity() {
                     pdfimage(document)
                 } else {
                     startActivity(openPdf)
+                    setContentView(binding2.root)
                 }
             } else {
                 val dir = File(
@@ -188,6 +194,7 @@ class PdfEditor : AppCompatActivity() {
                     pdfimage(document)
                 } else {
                     startActivity(openPdf)
+                    setContentView(binding2.root)
                 }
 
 
