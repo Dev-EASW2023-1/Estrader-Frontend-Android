@@ -226,7 +226,6 @@ class PdfEditor : AppCompatActivity() {
                 currentPage.width, currentPage.height, Bitmap.Config.ARGB_8888
             )
             currentPage.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
-            setContentView(kr.easw.estrader.android.R.layout.fragment_pdfview)
             binding.pdfview.setImageBitmap(bitmap)
             setContentView(binding.root)
 
