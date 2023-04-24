@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
@@ -24,7 +25,10 @@ import kr.easw.estrader.android.definitions.ApiDefinition
 import kr.easw.estrader.android.definitions.PREFERENCE_ID
 import kr.easw.estrader.android.dialog.AwaitingBidDialog
 import kr.easw.estrader.android.model.dto.FcmRequest
+import kr.easw.estrader.android.model.dto.LookUpItemRequest
 import kr.easw.estrader.android.util.PreferenceUtil
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 /**
  * 사용자 전용 부동산 매각 상세정보 Fragment
@@ -39,6 +43,15 @@ class ItemLookUpFragment : Fragment() {
     private lateinit var delegate: Button
     private lateinit var cancle: Button
     private lateinit var toolbar: Toolbar
+    private val casenumber : TextView by lazy {
+        binding.casenumber
+    }
+    private val reserveprice : TextView by lazy {
+        binding.reserveprice
+    }
+    private val location: TextView by lazy {
+        binding.location
+    }
 
     companion object {
         private const val ARG_POSITION = "position"
@@ -68,6 +81,8 @@ class ItemLookUpFragment : Fragment() {
             .load(arguments?.getString(ARG_POSITION).toString())
             .into(binding.mainimage)
 
+        showItem()
+
         // "대리 위임 동의" 팝업 확인 후, AwaitingBidDialog 로 이동
         delegate.setOnClickListener {
             delegateAccept()
@@ -95,6 +110,9 @@ class ItemLookUpFragment : Fragment() {
         delegate = binding.confirmButton2
         cancle = binding.confirmButton
         toolbar = binding.toolbar
+        casenumber
+        reserveprice
+        location
     }
 
     private fun delegateAccept() {
@@ -133,6 +151,27 @@ class ItemLookUpFragment : Fragment() {
             }
             .create()
             .show()
+    }
+
+    private fun showItem() {
+        val dialog = Dialog(requireContext())
+        dialog.setContentView(ProgressBar(requireContext()))
+        dialog.show()
+
+        ApiDefinition.SHOW_ITEM
+            .setRequestParams(
+                LookUpItemRequest(
+                    URLEncoder.encode(arguments?.getString(ARG_POSITION).toString(), StandardCharsets.UTF_8.toString())!!
+                )
+            )
+            .setListener {
+                location.text = it.location
+                casenumber.text = it.information
+                reserveprice.text = it.reserveprice
+                dialog.dismiss()
+            }
+
+            .build(requireContext())
     }
 
     private fun showToast(message: String) {
