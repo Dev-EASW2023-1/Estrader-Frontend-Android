@@ -63,17 +63,33 @@
                 android:orientation="vertical"
                 android:padding="20dp">
 
-                <TextView
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/agentdelegation_border"
-                    android:padding="10dp"
-                    android:text="매물관리번호 2020타경 28592"
-                    android:textColor="#95A1AC"
-                    android:textSize="@dimen/heading_size" />
+                    android:gravity="start"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="매물관리번호"
+                        android:textColor="#95A1AC"
+                        android:textSize="@dimen/heading_size" />
+
+                    <TextView
+                        android:id="@+id/casenumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="2020타경 28592"
+                        android:textColor="#95A1AC"
+                        android:textSize="@dimen/heading_size" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <TextView
-                    android:id="@+id/tv_hello"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -83,7 +99,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_hello2"
+                    android:id="@+id/location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="대구광역시 중구 공평로8길 53-4"
@@ -160,6 +176,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/reserveprice"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="0.5"
