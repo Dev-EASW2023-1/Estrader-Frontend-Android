@@ -70,17 +70,76 @@ class PdfEditor : AppCompatActivity() {
             val fontStream = assets.open("nanumgothictext.ttf")
             val font: PDFont = PDType0Font.load(document, fontStream)
 
-            contentStream.beginText()
-            contentStream.setFont(font, 20f)
-            contentStream.setLeading(14.5f)
-            contentStream.newLineAtOffset(220f, 600f)
-            contentStream.showText("땅주인")
+            val onecm = 28.346f //실제 1cm가 약 28.346f
 
-            contentStream.newLineAtOffset(195f, 5f)
-            contentStream.setFont(font, 12f)
-            contentStream.showText("010-1234-5678")
+            /**
+             * 입찰기일부터 물건번호까지
+             */
+            contentStream.beginText()
+            contentStream.set(onecm*14f, onecm*23.4f, 9f, "2020", font, 0f)
+            contentStream.set(onecm*1.2f, 0f, 9f, "04", font, 0f)
+            contentStream.set(onecm*1.2f, 0f, 9f, "03", font, 0f)
+            contentStream.set(-onecm*3f, -onecm*0.9f, 12f, "물건번호", font, 0f)
+            contentStream.set(-onecm*8f, -2f, 12f, "2023", font, 0f)
+            contentStream.set(onecm*3.5f, 0f, 12f, "123123", font, 0f)
 
             contentStream.endText()
+
+
+            /**
+             * 구매자 부분 인적사항
+             */
+            contentStream.beginText()
+            contentStream.set(onecm*7.762f, 603f, 20f, "구매인", font, 0f)
+            contentStream.set(onecm*6.879f, 2f, 12f, "010-1234-5678", font, 0f)
+            contentStream.set(-onecm*7f , -onecm*0.95f, 12f, "960806-123456", font, 0f)
+            contentStream.set(onecm*6.2f , 0f, 12f, "110111-110111", font, 0f)
+            contentStream.set(-onecm*6.2f, -onecm*0.8f, 10f, "충청남도 홍성군 머시기", font, 0f)
+            contentStream.endText()
+            /**
+             * 대리인 부분 인적사항
+             */
+            contentStream.beginText()
+            contentStream.set(onecm*7.762f, onecm*18.8f, 20f, "대리인", font, 0f)
+            contentStream.set(onecm*8f, 2f, 12f, "친척", font, 0f)
+            contentStream.set(-onecm*8.121f , -onecm*0.88f, 12f, "960806-123456", font, 0f)
+            contentStream.set(onecm*7.4f, 0f, 10f, "010-1234-4564", font, 0f)
+            contentStream.set(-onecm*7.4f, -onecm*0.65f, 10f, "충청북도 청주 머시기", font, 0f)
+            contentStream.endText()
+            /**
+             * 입찰금액 및 보증금액
+             */
+            contentStream.beginText()
+            contentStream.set(onecm*3.8f, onecm*15.1f, 20f, "1", font, 0f)
+            contentStream.set(onecm*0.5f, 0f, 20f, "2", font, 0f)
+            contentStream.set(onecm*0.55f, 0f, 20f, "3", font, 0f)//십억
+            contentStream.set(onecm*0.5f, 0f, 20f, "4", font, 0f)
+            contentStream.set(onecm*0.5f, 0f, 20f, "5", font, 0f)
+            contentStream.set(onecm*0.5f, 0f, 20f, "6", font, 0f)//백만
+            contentStream.set(onecm*0.5f, 0f, 20f, "7", font, 0f)
+            contentStream.set(onecm*0.5f, 0f, 20f, "8", font, 0f)
+            contentStream.set(onecm*0.55f, 0f, 20f, "9", font, 0f)//천
+            contentStream.set(onecm*0.5f, 0f, 20f, "0", font, 0f)
+            contentStream.set(onecm*0.5f, 0f, 20f, "1", font, 0f)
+            contentStream.set(onecm*0.55f, 0f, 20f, "2", font, 0f)
+            /**
+             * 밑에는 보증금액 -> 입찰에 참여할 때는 통상 경매 물건의 최저매각가격의 10분의 1에 해당하는 금액을 매수신청의 보증을 제공(「민사집행법」 제113조, 「민사집행규칙」 제63조제1항 및 제71조)
+             */
+            contentStream.set(onecm*2.2f, 0f, 20f, "7", font, 0f)
+            contentStream.set(onecm*0.45f, 0f, 20f, "1", font, 0f)
+            contentStream.set(onecm*0.5f, 0f, 20f, "2", font, 0f)//십억
+            contentStream.set(onecm*0.45f, 0f, 20f, "3", font, 0f)
+            contentStream.set(onecm*0.45f, 0f, 20f, "4", font, 0f)
+            contentStream.set(onecm*0.45f, 0f, 20f, "5", font, 0f)//백만
+            contentStream.set(onecm*0.5f, 0f, 20f, "6", font, 0f)
+            contentStream.set(onecm*0.45f, 0f, 20f, "7", font, 0f)
+            contentStream.set(onecm*0.5f, 0f, 20f, "8", font, 0f)//천
+            contentStream.set(onecm*0.55f, 0f, 20f, "9", font, 0f)
+            contentStream.set(onecm*0.49f, 0f, 20f, "0", font, 0f)
+
+            contentStream.endText()
+
+
             contentStream.close()
 
             if (Build.VERSION.SDK_INT >= 29) {
@@ -92,6 +151,13 @@ class PdfEditor : AppCompatActivity() {
         } catch (e: IOException) {
             e.printStackTrace()
         }
+    }
+
+    fun PDPageContentStream.set (x: Float, y: Float, fontSize: Float, text: String, font: PDFont, leading: Float){
+        newLineAtOffset(x,y)
+        setFont(font, fontSize)
+        showText(text)
+        setLeading(leading)
     }
 
     // 파일 저장 + URL 따와서 PDF 뷰어로 열기
