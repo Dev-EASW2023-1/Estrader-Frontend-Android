@@ -10,6 +10,14 @@
         android:maxSdkVersion="28" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
+    <!-- 다른 앱과 상호 작용 시 앱의 manifest 파일에 요소 추가 필요 -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:mimeType="application/*" />
+        </intent>
+    </queries>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -22,6 +30,10 @@
         android:theme="@style/Theme.Estrader"
         android:usesCleartextTraffic="true"
         tools:targetApi="31" >
+
+        <!-- file 에 대해 content URI 생성 -->
+        <!-- android:grantUriPermissions 가 true 일 때, read, write 임시 권한 획득 가능 -->
+        <!-- FileProvider 는 미리 설정한 폴더에 있는 file 들에 대해서 URI 생성 -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="kr.easw.estrader.android.provider"
@@ -41,8 +53,7 @@
             android:resource="@color/black" />
 
         <activity
-            android:name=".activity.PdfEditor"
-
+            android:name=".activity.MainActivity"
             android:exported="false" />
         <activity
             android:name=".dialog.SuccessDelegationDialog"
@@ -65,11 +76,9 @@
             android:exported="false" />
         <activity
             android:name=".activity.RealtorMainActivity"
-
             android:exported="false" />
         <activity
-            android:name=".activity.MainActivity"
-
+            android:name=".activity.PdfEditor"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Estrader.NoActionBar"

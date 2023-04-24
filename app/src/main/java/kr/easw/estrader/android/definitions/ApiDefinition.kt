@@ -59,4 +59,10 @@ object ApiDefinition {
         .setRequestUrl("http://172.17.0.30:8060/contract/complete")
         .setResponseParams(ContractResponse::class.java)
         .setRequestMethod(Request.Method.POST)
+
+    val GET_CONTRACT_ITEM = RestRequestTemplate.Builder<ItemInContractDto, ItemListDto>()
+        .setRequestHeaders(mutableMapOf("Content-Type" to "application/json"))
+        .setRequestUrl("http://172.17.0.30:8060/contract/item")
+        .setResponseParams(ItemListDto::class.java)
+        .setRequestMethod(Request.Method.POST)
 }

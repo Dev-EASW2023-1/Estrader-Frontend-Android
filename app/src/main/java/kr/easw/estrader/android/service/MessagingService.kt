@@ -34,10 +34,6 @@ class MessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         initNotification()
 
-//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            createNotificationChannel()
-//        }
-
         switchToActivity(remoteMessage.data)
     }
 
@@ -89,6 +85,7 @@ class MessagingService : FirebaseMessagingService() {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 putExtra("itemImage", data["itemImage"])
                 putExtra("targetId", data["userId"])
+                putExtra("userId", data["targetId"])
             }
             "2" -> Intent(this, SuccessDelegationDialog::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK

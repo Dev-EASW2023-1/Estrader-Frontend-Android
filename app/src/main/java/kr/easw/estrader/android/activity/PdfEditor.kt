@@ -1,5 +1,6 @@
 package kr.easw.estrader.android.activity
 
+import android.annotation.TargetApi
 import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Bitmap
@@ -7,22 +8,20 @@ import android.graphics.pdf.PdfRenderer
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.os.Environment.DIRECTORY_DOCUMENTS
 import android.os.ParcelFileDescriptor
 import android.provider.MediaStore
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.FileProvider
 import com.tom_roush.pdfbox.android.PDFBoxResourceLoader
 import com.tom_roush.pdfbox.pdmodel.PDDocument
 import com.tom_roush.pdfbox.pdmodel.PDPageContentStream
-import com.tom_roush.pdfbox.pdmodel.common.PDRectangle
 import com.tom_roush.pdfbox.pdmodel.font.PDFont
 import com.tom_roush.pdfbox.pdmodel.font.PDType0Font
 import kr.easw.estrader.android.BuildConfig
-import kr.easw.estrader.android.databinding.FragmentDelegateitemBinding
+import kr.easw.estrader.android.databinding.ActivityPdfBinding
 import kr.easw.estrader.android.databinding.FragmentPdfviewBinding
+import kr.easw.estrader.android.fragment.DelegateItemFragment
 import java.io.File
 import java.io.IOException
 
@@ -44,8 +43,8 @@ import java.io.IOException
 
 class PdfEditor : AppCompatActivity() {
 
-    private lateinit var binding: FragmentPdfviewBinding
-    private lateinit var binding2: FragmentDelegateitemBinding
+    private lateinit var imageViewBinding: FragmentPdfviewBinding
+    private lateinit var activityBinding: ActivityPdfBinding
 
     companion object {
         // TODO("좌표를 상수로 저장")
@@ -53,15 +52,14 @@ class PdfEditor : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = FragmentPdfviewBinding.inflate(layoutInflater)
-        binding2 = FragmentDelegateitemBinding.inflate(layoutInflater)
+        imageViewBinding = FragmentPdfviewBinding.inflate(layoutInflater)
+        activityBinding = ActivityPdfBinding.inflate(layoutInflater)
         PDFBoxResourceLoader.init(applicationContext)
         editPdf()
     }
 
     private fun editPdf() {
         try {
-
             val inputStream = assets.open("기일입찰표.pdf")
             val document = PDDocument.load(inputStream)
             val page = document.getPage(0)
@@ -71,12 +69,8 @@ class PdfEditor : AppCompatActivity() {
 
             val fontStream = assets.open("nanumgothictext.ttf")
             val font: PDFont = PDType0Font.load(document, fontStream)
-            val mediaBox: PDRectangle = page.mediaBox
-
-
 
             contentStream.beginText()
-            println("폰트 인식 되냐? ${font.type}")
             contentStream.setFont(font, 20f)
             contentStream.setLeading(14.5f)
             contentStream.newLineAtOffset(220f, 600f)
@@ -89,148 +83,124 @@ class PdfEditor : AppCompatActivity() {
             contentStream.endText()
             contentStream.close()
 
-            /**
-             * val outputFile = File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "입찰표.pdf")
-             * 이거는 앱의  private한 공간 중, 다운로드 디렉토리에 저장
-             * /storage/emulated/0/Android/data/your.package.name/files/Download/에 저장이 됨
-             * 이렇게 하면 앱이 지워질때 pdf도 지워지지만 사용자가 접근할 수 없음 그래서 따로 저장
-             */
-
-
             if (Build.VERSION.SDK_INT >= 29) {
-                val dir = File(
-                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-                    "입찰표"
-                )
-                if (!dir.exists()) {
-                    dir.mkdirs()
-                }
-                val contentValues = ContentValues().apply {
-                    put(MediaStore.MediaColumns.DISPLAY_NAME, "기일입찰표.pdf")
-                    put(MediaStore.MediaColumns.MIME_TYPE, "application/pdf")
-                    put(
-                        MediaStore.MediaColumns.RELATIVE_PATH,
-                        "${Environment.DIRECTORY_DOWNLOADS}/입찰표"
-                    )
-                }
-                val contentResolver = applicationContext.contentResolver
-                val uri =
-                    contentResolver.insert(
-                        MediaStore.Files.getContentUri("external"),
-                        contentValues
-                    )
-
-                uri?.let {
-                    contentResolver.openOutputStream(it)?.use { outputStream ->
-
-                        document.save(outputStream)
-                        document.close()
-                    }
-                }
-                val openPdf = Intent(Intent.ACTION_VIEW).apply {
-                    setDataAndType(uri, "application/pdf")
-                    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-
-                }
-                if (openPdf.resolveActivity(packageManager) == null) {
-                    Toast.makeText(
-                        applicationContext,
-                        "PDF 파일을 열 수 있는 앱이 설치되어 있지 않습니다.",
-                        Toast.LENGTH_LONG
-                    ).show()
-                    pdfimage(document)
-                } else {
-                    startActivity(openPdf)
-                    setContentView(binding2.root)
-                }
+                aboveQPDFViewer(document)
             } else {
-                val dir = File(
-                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-                    "입찰표"
-                )
-                if (!dir.exists()) {
-                    dir.mkdirs()
-                }
-
-                val outputFile = File(dir, "기일입찰표.pdf")
-                val uri = FileProvider.getUriForFile(
-                    this,
-                    "${BuildConfig.APPLICATION_ID}.provider",
-                    outputFile
-                )
-
-                document.save(outputFile)
-                document.close()
-                if (outputFile.exists()) {
-                    val pdfRenderer = PdfRenderer(
-                        ParcelFileDescriptor.open(
-                            outputFile, ParcelFileDescriptor.MODE_READ_ONLY
-                        )
-                    )
-                    val currentPage = pdfRenderer.openPage(0)
-                    val bitmap = Bitmap.createBitmap(
-                        currentPage.width, currentPage.height, Bitmap.Config.ARGB_8888
-                    )
-                    currentPage.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
-                    setContentView(kr.easw.estrader.android.R.layout.fragment_pdfview)
-                    binding.pdfview.setImageBitmap(bitmap)
-                    setContentView(binding.root)
-
-                    currentPage.close()
-                    pdfRenderer.close()
-
-                }
-                val openPdf = Intent(Intent.ACTION_VIEW).apply {
-                    setDataAndType(uri, "application/pdf")
-                    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                }
-
-                if (openPdf.resolveActivity(packageManager) == null) {
-                    Toast.makeText(
-                        applicationContext,
-                        "PDF 파일을 열 수 있는 앱이 설치되어 있지 않습니다.",
-                        Toast.LENGTH_LONG
-                    ).show()
-                    pdfimage(document)
-                } else {
-                    startActivity(openPdf)
-                    setContentView(binding2.root)
-                }
-
-
+                belowQPDFViewer(document)
             }
-
 
         } catch (e: IOException) {
             e.printStackTrace()
         }
-
     }
 
-    fun pdfimage(document: PDDocument) {
+    // 파일 저장 + URL 따와서 PDF 뷰어로 열기
+    @TargetApi(Build.VERSION_CODES.Q)
+    private fun aboveQPDFViewer(document: PDDocument){
+        // 추가한 record 의 새로운 URL 리턴
+        val uri = contentResolver.insert(
+            // External Storage 의 URI 획득
+            MediaStore.Files.getContentUri("external"),
+            ContentValues().apply {
+                put(MediaStore.MediaColumns.DISPLAY_NAME, "기일입찰표.pdf")
+                put(MediaStore.MediaColumns.MIME_TYPE, "application/pdf")
+                put(MediaStore.MediaColumns.RELATIVE_PATH, "${Environment.DIRECTORY_DOWNLOADS}/입찰표")
+            }
+        )
+
+        // 파일 URL 로 데이터 저장
+        uri?.let {
+            contentResolver.openOutputStream(it).use { outputStream ->
+                document.save(outputStream)
+                document.close()
+            }
+        }
+
+        // ACTION_VIEW 를 이용해 PDF 뷰어 호출
+        // Intent 에 setData 를 통해 uri 설정 후, Intent.setFlags() 를 통해 권한 부여
+        val openPdf = Intent(Intent.ACTION_VIEW).apply {
+            setDataAndType(uri, "application/pdf")
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
+
+        if (openPdf.resolveActivity(packageManager) == null) {
+            showToast()
+            pdfImageView()
+
+        } else {
+            startActivity(openPdf)
+            setContentView(activityBinding.root)
+
+            supportFragmentManager
+                .beginTransaction()
+                .replace(activityBinding.containerView.id, DelegateItemFragment())
+                .commit()
+        }
+    }
+
+    // 파일 저장 + URL 따와서 PDF 뷰어로 열기
+    private fun belowQPDFViewer(document: PDDocument){
+        // 공개 Directory
+        val outputFile = File(
+            File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+            "입찰표"), "기일입찰표.pdf"
+        )
+
+        // 공유할 File 객체 생성 후, FileProvider.getUriForFile() 에 File 을 넘기고 URL 생성
+        val uri = FileProvider.getUriForFile(
+            this,
+            "${BuildConfig.APPLICATION_ID}.provider",
+            outputFile
+        )
+
+        document.save(outputFile)
+        document.close()
+
+        val openPdf = Intent(Intent.ACTION_VIEW).apply {
+            setDataAndType(uri, "application/pdf")
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
+
+        if (openPdf.resolveActivity(packageManager) == null) {
+            showToast()
+            pdfImageView()
+        } else {
+            startActivity(openPdf)
+            setContentView(activityBinding.root)
+
+            supportFragmentManager
+                .beginTransaction()
+                .replace(activityBinding.containerView.id, DelegateItemFragment())
+                .commit()
+        }
+    }
+
+    // 단순히 파일 찾고 ImageView 로 출력
+    private fun pdfImageView() {
         val outputFile = File(
             Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
             "기일입찰표.pdf"
         )
-        document.save(outputFile.absoluteFile)
-        document.close()
 
         if (outputFile.exists()) {
-            val pdfRenderer = PdfRenderer(
+            PdfRenderer(
                 ParcelFileDescriptor.open(
-                    outputFile, ParcelFileDescriptor.MODE_READ_ONLY
-                )
-            )
-            val currentPage = pdfRenderer.openPage(0)
-            val bitmap = Bitmap.createBitmap(
-                currentPage.width, currentPage.height, Bitmap.Config.ARGB_8888
-            )
-            currentPage.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
-            binding.pdfview.setImageBitmap(bitmap)
-            setContentView(binding.root)
+                    outputFile, ParcelFileDescriptor.MODE_READ_ONLY)
+            ).use {
+                it.openPage(0).apply {
+                    this.use {
+                        val bitmap = Bitmap.createBitmap(this.width, this.height, Bitmap.Config.ARGB_8888)
+                        this.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
 
-            currentPage.close()
-            pdfRenderer.close()
+                        imageViewBinding.pdfview.setImageBitmap(bitmap)
+                        setContentView(imageViewBinding.root)
+                    }
+                }
+            }
         }
+    }
+
+    private fun showToast() {
+        Toast.makeText(this, "PDF 파일을 열 수 있는 앱이 설치되어 있지 않습니다.", Toast.LENGTH_SHORT).show()
     }
 }

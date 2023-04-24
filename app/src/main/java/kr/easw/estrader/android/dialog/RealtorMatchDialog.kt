@@ -11,8 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.activity.PdfEditor
-import kr.easw.estrader.android.definitions.ApiDefinition
-import kr.easw.estrader.android.definitions.PREFERENCE_REALTOR_ID
+import kr.easw.estrader.android.definitions.*
 import kr.easw.estrader.android.model.dto.FcmRequest
 import kr.easw.estrader.android.model.dto.LookUpItemRequest
 import kr.easw.estrader.android.util.PreferenceUtil
@@ -64,6 +63,12 @@ class RealtorMatchDialog : AppCompatActivity() {
                     )
                     .setListener {
                         showToast(it.message)
+
+                        if(it.isSuccess){
+                            PreferenceUtil(this).init().start().setString(PREFERENCE_ID, intent.getStringExtra("targetId")!!)
+                            PreferenceUtil(this).init().start().setString(PREFERENCE_PICTURE_URL,intent.getStringExtra("itemImage")!!)
+                        }
+
                         dialog.dismiss()
 
                         startActivity(

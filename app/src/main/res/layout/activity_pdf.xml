@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!--
+        androidx.fragment.app.FragmentContainerView
+        동작은 잘 되지만, Preview 표시 오류 존재
+    -->
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/container_view"
+        android:name="kr.easw.estrader.android.fragment.LoginFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
