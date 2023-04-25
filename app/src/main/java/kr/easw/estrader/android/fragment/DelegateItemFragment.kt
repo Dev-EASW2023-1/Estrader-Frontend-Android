@@ -75,9 +75,9 @@ class DelegateItemFragment : Fragment() {
                 )
             )
             .setListener {
-                casenumber.text = it.itemDto[0].information
-                reserveprice.text = it.itemDto[0].reserveprice
-                location.text = it.itemDto[0].location
+                casenumber.text = it.information
+                reserveprice.text = it.reserveprice
+                location.text = it.location
                 dialog.dismiss()
             }
 
