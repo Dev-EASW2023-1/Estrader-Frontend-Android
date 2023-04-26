@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="kr.easw.estrader.android" >
+    package="kr.easw.estrader.android">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-
-    <!-- 다른 앱과 상호 작용 시 앱의 manifest 파일에 요소 추가 필요 -->
+    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 다른 앱과 상호 작용 시 앱의 manifest 파일에 요소 추가 필요 -->
     <queries>
         <intent>
             <action android:name="android.intent.action.VIEW" />
+
             <data android:mimeType="application/*" />
         </intent>
     </queries>
@@ -29,29 +29,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Estrader"
         android:usesCleartextTraffic="true"
-        tools:targetApi="31" >
-
+        tools:targetApi="31">
         <!-- file 에 대해 content URI 생성 -->
         <!-- android:grantUriPermissions 가 true 일 때, read, write 임시 권한 획득 가능 -->
         <!-- FileProvider 는 미리 설정한 폴더에 있는 file 들에 대해서 URI 생성 -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="kr.easw.estrader.android.provider"
-            android:grantUriPermissions="true"
-            android:exported="false">
+            android:exported="false"
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
-        </provider>
-
-        <!-- 기본 알림 아이콘 및 색상 설정 -->
+        </provider> <!-- 기본 알림 아이콘 및 색상 설정 -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_launcher_foreground" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/black" />
-
+        <activity
+            android:name=".dialog.ErrorDialog"
+            android:exported="false" />
         <activity
             android:name=".activity.MainActivity"
             android:exported="false" />
@@ -75,14 +74,14 @@
             android:name=".activity.RealtorMainListActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.RealtorMainActivity"
+            android:name=".activity.PdfEditor"
             android:exported="false" />
         <activity
-            android:name=".activity.PdfEditor"
+            android:name=".activity.RealtorMainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Estrader.NoActionBar"
-            android:windowSoftInputMode="adjustPan" >
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -92,7 +91,7 @@
 
         <service
             android:name=".service.MessagingService"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

@@ -6,6 +6,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
@@ -13,8 +14,11 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.activity.MainActivity
+import kr.easw.estrader.android.activity.PdfEditor
+import kr.easw.estrader.android.dialog.ErrorDialog
 import kr.easw.estrader.android.dialog.RealtorMatchDialog
 import kr.easw.estrader.android.dialog.SuccessDelegationDialog
+import kr.easw.estrader.android.extensions.startActivity
 
 class MessagingService : FirebaseMessagingService() {
     private lateinit var notificationManager: NotificationManager
@@ -80,23 +84,11 @@ class MessagingService : FirebaseMessagingService() {
     }
 
     private fun switchToActivity(data: Map<String, String>) {
-        val intent = when(data["phase"]){
-            "1" -> Intent(this, RealtorMatchDialog::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                putExtra("itemImage", data["itemImage"])
-                putExtra("targetId", data["userId"])
-                putExtra("userId", data["targetId"])
-            }
-            "2" -> Intent(this, SuccessDelegationDialog::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                putExtra("itemImage", data["itemImage"])
-                putExtra("targetId", data["userId"])
-                putExtra("userId", data["targetId"])
-            }
-            else -> Intent(this, MainActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            }
+        when(data["phase"]){
+            "1" -> startActivity<RealtorMatchDialog>(data)
+            "2" -> startActivity<SuccessDelegationDialog>(data)
+            "3" -> startActivity<PdfEditor>(data)
+            else -> startActivity<ErrorDialog>(data)
         }
-        startActivity(intent)
     }
 }

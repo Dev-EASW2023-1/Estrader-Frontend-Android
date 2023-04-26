@@ -44,11 +44,9 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
         dialog.setContentView(ProgressBar(requireContext()))
         dialog.show()
 
-        // Volley Builder 패턴을 통한 네트워크 통신
         ApiDefinition.GET_ITEM_LIST
             .setListener{
                 val dataList: MutableList<MainItem> = mutableListOf()
-
                 for(x in 0 until it.itemDto.size){
                     dataList.add(MainItem(
                         it.itemDto[x].photo,
@@ -59,9 +57,7 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
                         it.itemDto[x].biddingPeriod
                     ))
                 }
-
                 initRecycler(dataList)
-
                 dialog.dismiss()
             }
             .build(requireContext())

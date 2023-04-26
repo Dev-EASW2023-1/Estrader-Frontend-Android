@@ -34,7 +34,6 @@ class RegisterFragment : Fragment() {
     private val binding get() = _binding!!
     private var validate = false
     private var validateUserId: String = ""
-    private val fragmentTag = "RegisterFragmentLog"
     private val registerButton: Button by lazy {
         binding.btnNext
     }
@@ -171,38 +170,6 @@ class RegisterFragment : Fragment() {
 
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-    }
-
-    // 생명 주기 테스트 용
-    override fun onDestroyView() {
-        Log.d(fragmentTag, "onDestroyView()")
-        super.onDestroyView()
-        _binding = null
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        Log.d(fragmentTag, "onAttach()")
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.d(fragmentTag, "onStart()")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d(fragmentTag, "onResume()")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d(fragmentTag, "onStop()")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d(fragmentTag, "onDestroy()")
     }
 }
 

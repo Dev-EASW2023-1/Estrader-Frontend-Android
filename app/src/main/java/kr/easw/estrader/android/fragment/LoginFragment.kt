@@ -31,7 +31,6 @@ import kr.easw.estrader.android.util.PreferenceUtil
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
-    private val fragmentTag = "LoginFragmentLog"
     private val loginButton: Button by lazy {
         binding.btnNext
     }
@@ -44,7 +43,6 @@ class LoginFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d(fragmentTag, "onCreate()")
 
         requireActivity().window.setSoftInputMode(
             WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
@@ -57,13 +55,10 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
-        Log.d(fragmentTag, "onCreateView()")
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Log.d(fragmentTag, "onViewCreated()")
-
         initFields()
 
         loginButton.setOnClickListener {
@@ -119,37 +114,5 @@ class LoginFragment : Fragment() {
 
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-    }
-
-    // 생명 주기 테스트 용
-    override fun onDestroyView() {
-        Log.d(fragmentTag, "onDestroyView()")
-        super.onDestroyView()
-        _binding = null
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        Log.d(fragmentTag, "onAttach()")
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.d(fragmentTag, "onStart()")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d(fragmentTag, "onResume()")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d(fragmentTag, "onStop()")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d(fragmentTag, "onDestroy()")
     }
 }

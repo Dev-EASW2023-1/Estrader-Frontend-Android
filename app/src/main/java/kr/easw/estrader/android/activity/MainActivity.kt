@@ -14,6 +14,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.commit
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.messaging.FirebaseMessaging
 import kr.easw.estrader.android.R
@@ -25,7 +26,7 @@ import kr.easw.estrader.android.util.PreferenceUtil
 
 /**
  * 로그인, 회원 가입 activity
- * PDF 저장과 FCM에 대한 권한 요청
+ * PDF 저장 권한 요청
  * 상단 탭에서 로그인 (LoginFragment), 회원가입 (RegisterFragment) 이동
  * LOGIN 버튼을 누르면 MainListActivity 로 이동
  */
@@ -33,8 +34,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var resultLauncher: ActivityResultLauncher<Array<String>>
     private lateinit var deniedList: List<String>
-    private val activityTag = "ActivityLog"
-
     private val signInTextView: TextView by lazy {
         binding.signIn
     }
@@ -45,7 +44,7 @@ class MainActivity : AppCompatActivity() {
     companion object {
         const val requestFinal = 444
 
-        // android 11에서 기존 권한 (android.permission.WRITE_EXTERNAL_STORAGE) 무시
+        // android 10에서 기존 권한 (android.permission.WRITE_EXTERNAL_STORAGE) 무시
         val permissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             arrayOf(
                 Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -62,13 +61,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d(activityTag, "onCreate()")
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         initFields()
 
-        // 로그인 Fragment init
         initFragment()
 
         FirebaseMessaging.getInstance().token
@@ -82,57 +79,48 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-        // 권한 요청
         permissionRequest()
 
-        //로그인 Textview 클릭 이벤트
         signInTextView.setOnClickListener {
             signInClick()
         }
-
-        //회원 가입 Textview 클릭 이벤트
         signUpTextView.setOnClickListener {
             signUpClick()
         }
 
+        // 키보드 화면 덮는 현상 방지
         window.setSoftInputMode(
             WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
         )
     }
 
     private fun initFields() {
-        Log.d(activityTag, "액티비티 변수 생성")
         signInTextView
         signUpTextView
     }
 
     private fun initFragment() {
-        Log.d(activityTag, "Transaction: begin")
         supportFragmentManager
             .beginTransaction()
             .replace(binding.containerView.id, LoginFragment())
             .commit()
-        Log.d(activityTag, "Transaction: end")
     }
 
-    //로그인 Textview 클릭 이벤트
     private fun signInClick() {
-        supportFragmentManager
-            .beginTransaction()
-            .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-            .replace(binding.containerView.id, LoginFragment())
-            .commit()
+        supportFragmentManager.commit {
+            setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+            replace(binding.containerView.id, LoginFragment())
+        }
     }
 
-    //회원 가입 Textview 클릭 이벤트
     private fun signUpClick() {
-        supportFragmentManager
-            .beginTransaction()
-            .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-            .replace(binding.containerView.id, RegisterFragment())
-            .commit()
+        supportFragmentManager.commit {
+            setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+            replace(binding.containerView.id, RegisterFragment())
+        }
     }
 
+    // 권한 요청
     private fun permissionRequest() {
         resultLauncher = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
@@ -206,10 +194,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+    // 화면 상호 작용 시 자동 소프트 키보드 숨김
+    override fun dispatchTouchEvent(event: MotionEvent): Boolean {
         val imm: InputMethodManager =
             getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
-        return super.dispatchTouchEvent(ev)
+        return super.dispatchTouchEvent(event)
     }
 }

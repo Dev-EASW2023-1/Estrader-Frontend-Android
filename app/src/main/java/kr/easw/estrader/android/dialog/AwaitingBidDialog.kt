@@ -11,7 +11,6 @@ import kr.easw.estrader.android.R
  * 추후 대리인 앱에서 대리위임 수락 후, SuccessDelegationDialog 이동 수정 예정
  */
 class AwaitingBidDialog : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_awaitingbid)

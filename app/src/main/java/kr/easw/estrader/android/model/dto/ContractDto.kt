@@ -3,7 +3,10 @@ package kr.easw.estrader.android.model.dto
 data class ContractRequest(
     val userId: String,
     val realtorId: String,
-    val itemId: String
+    val itemId: String,
+    val phase: String,
+    val title: String,
+    val body: String
 )
 
 data class ContractResponse(

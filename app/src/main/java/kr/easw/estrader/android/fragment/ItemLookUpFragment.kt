@@ -2,7 +2,8 @@ package kr.easw.estrader.android.fragment
 
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
+import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,11 +25,10 @@ import kr.easw.estrader.android.databinding.FragmentItemlookupBinding
 import kr.easw.estrader.android.definitions.ApiDefinition
 import kr.easw.estrader.android.definitions.PREFERENCE_ID
 import kr.easw.estrader.android.dialog.AwaitingBidDialog
+import kr.easw.estrader.android.extensions.startActivity
 import kr.easw.estrader.android.model.dto.FcmRequest
 import kr.easw.estrader.android.model.dto.LookUpItemRequest
 import kr.easw.estrader.android.util.PreferenceUtil
-import java.net.URLEncoder
-import java.nio.charset.StandardCharsets
 
 /**
  * 사용자 전용 부동산 매각 상세정보 Fragment
@@ -40,9 +40,13 @@ class ItemLookUpFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var collapsingToolbarLayout: CollapsingToolbarLayout
     private lateinit var appBarLayout: AppBarLayout
-    private lateinit var delegate: Button
-    private lateinit var cancle: Button
     private lateinit var toolbar: Toolbar
+    private val delegate: Button by lazy {
+        binding.confirmButton2
+    }
+    private val cancle: Button by lazy {
+        binding.confirmButton
+    }
     private val caseNumber : TextView by lazy {
         binding.caseNumber
     }
@@ -89,17 +93,12 @@ class ItemLookUpFragment : Fragment() {
 
         showItem()
 
-        // "대리 위임 동의" 팝업 확인 후, AwaitingBidDialog 로 이동
         delegate.setOnClickListener {
             delegateAccept()
         }
-
-        // "대리 위임 동의" 팝업 취소 이벤트 처리
         cancle.setOnClickListener {
             delegateReject()
         }
-
-        // 툴바 navigationIcon 클릭 이벤트 처리
         binding.toolbar.setNavigationOnClickListener {
             toolbarNavClick()
         }
@@ -113,9 +112,9 @@ class ItemLookUpFragment : Fragment() {
     private fun initFields() {
         collapsingToolbarLayout = binding.collapsingLayout
         appBarLayout = binding.appbarLayout
-        delegate = binding.confirmButton2
-        cancle = binding.confirmButton
         toolbar = binding.toolbar
+        delegate
+        cancle
         caseNumber
         itemType
         location
@@ -139,21 +138,19 @@ class ItemLookUpFragment : Fragment() {
                             "test4",
                             arguments?.getString(ARG_POSITION).toString(),
                             "1",
-                            "안녕",
-                            "난 야옹이야~"
+                            "제목",
+                            "내용"
                         )
                     )
                     .setListener {
                         showToast(it.message)
                         dialog.dismiss()
-
-                        startActivity(
-                            Intent(requireContext(), AwaitingBidDialog::class.java).apply {
-                                flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        if(it.isSuccess){
+                            requireContext().startActivity<AwaitingBidDialog>{
+                                flags = FLAG_ACTIVITY_SINGLE_TOP or FLAG_ACTIVITY_CLEAR_TOP
                             }
-                        )
-                    }
-                    .build(requireContext())
+                        }
+                    }.build(requireContext())
             }
             .setNegativeButton("취소") { _, _ ->
             }
@@ -169,7 +166,7 @@ class ItemLookUpFragment : Fragment() {
         ApiDefinition.SHOW_ITEM
             .setRequestParams(
                 LookUpItemRequest(
-                    URLEncoder.encode(arguments?.getString(ARG_POSITION).toString(), StandardCharsets.UTF_8.toString())!!
+                    arguments?.getString(ARG_POSITION).toString()
                 )
             )
             .setListener {
@@ -180,7 +177,6 @@ class ItemLookUpFragment : Fragment() {
                 note.text = it.note
                 dialog.dismiss()
             }
-
             .build(requireContext())
     }
 
