@@ -36,15 +36,15 @@ object ApiDefinition {
         .setResponseParams(FcmResponse::class.java)
         .setRequestMethod(Request.Method.POST)
 
-    val REALTOR_LOGIN_PROCESS = RestRequestTemplate.Builder<RepresentativeSignInRequest, RepresentativeSignInResponse>()
+    val REALTOR_LOGIN_PROCESS = RestRequestTemplate.Builder<RealtorSignInRequest, RealtorSignInResponse>()
         .setRequestHeaders(mutableMapOf("Content-Type" to "application/json"))
-        .setRequestUrl("http://172.17.0.30:8060/representative/login")
-        .setResponseParams(RepresentativeSignInResponse::class.java)
+        .setRequestUrl("http://172.17.0.30:8060/realtor/login")
+        .setResponseParams(RealtorSignInResponse::class.java)
         .setRequestMethod(Request.Method.PATCH)
 
     val REALTOR_SEND_FCM = RestRequestTemplate.Builder<FcmRequest, FcmResponse>()
         .setRequestHeaders(mutableMapOf("Content-Type" to "application/json"))
-        .setRequestUrl("http://172.17.0.30:8060/representative/fcm")
+        .setRequestUrl("http://172.17.0.30:8060/realtor/fcm")
         .setResponseParams(FcmResponse::class.java)
         .setRequestMethod(Request.Method.POST)
 
@@ -70,5 +70,11 @@ object ApiDefinition {
         .setRequestHeaders(mutableMapOf("Content-Type" to "application/json"))
         .setRequestUrl("http://172.17.0.30:8060/contract/item")
         .setResponseParams(ItemDto::class.java)
+        .setRequestMethod(Request.Method.POST)
+
+    val GET_CONTRACT_INFO = RestRequestTemplate.Builder<ContractInfoRequest, ContractInfoResponse>()
+        .setRequestHeaders(mutableMapOf("Content-Type" to "application/json"))
+        .setRequestUrl("http://172.17.0.30:8060/contract/find-info")
+        .setResponseParams(ContractInfoResponse::class.java)
         .setRequestMethod(Request.Method.POST)
 }

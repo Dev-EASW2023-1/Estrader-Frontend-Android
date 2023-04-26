@@ -20,7 +20,7 @@ import kr.easw.estrader.android.definitions.PREFERENCE_REALTOR_FCM
 import kr.easw.estrader.android.definitions.PREFERENCE_REALTOR_ID
 import kr.easw.estrader.android.definitions.PREFERENCE_REALTOR_PW
 import kr.easw.estrader.android.dialog.RealtorDialog
-import kr.easw.estrader.android.model.dto.RepresentativeSignInRequest
+import kr.easw.estrader.android.model.dto.RealtorSignInRequest
 import kr.easw.estrader.android.util.HashUtil
 import kr.easw.estrader.android.util.PreferenceUtil
 
@@ -92,7 +92,7 @@ class RealtorLoginFragment : Fragment() {
 
         ApiDefinition.REALTOR_LOGIN_PROCESS
             .setRequestParams(
-                RepresentativeSignInRequest(
+                RealtorSignInRequest(
                     userId,
                     HashUtil.sha256(userPw),
                     PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_REALTOR_FCM)!!

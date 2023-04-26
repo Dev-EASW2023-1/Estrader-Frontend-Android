@@ -21,16 +21,21 @@ import kr.easw.estrader.android.util.PreferenceUtil
 class DelegateItemFragment : Fragment() {
     private var _binding: FragmentDelegateitemBinding? = null
     private val binding get() = _binding!!
-    private val casenumber : TextView by lazy {
-        binding.casenumber
+    private val caseNumber : TextView by lazy {
+        binding.caseNumber
     }
-    private val reserveprice : TextView by lazy {
-        binding.reserveprice
+    private val itemType: TextView by lazy {
+        binding.itemType
     }
     private val location: TextView by lazy {
         binding.location
     }
-
+    private val reservePrice : TextView by lazy {
+        binding.reservePrice
+    }
+    private val note: TextView by lazy {
+        binding.note
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -56,9 +61,11 @@ class DelegateItemFragment : Fragment() {
     }
 
     private fun initFields() {
-        casenumber
-        reserveprice
+        caseNumber
+        itemType
         location
+        reservePrice
+        note
     }
 
     private fun showItem() {
@@ -75,9 +82,11 @@ class DelegateItemFragment : Fragment() {
                 )
             )
             .setListener {
-                casenumber.text = it.information
-                reserveprice.text = it.reserveprice
+                caseNumber.text = it.caseNumber
+                itemType.text = it.itemType
                 location.text = it.location
+                reservePrice.text = it.minimumBidPrice
+                note.text = it.note
                 dialog.dismiss()
             }
 

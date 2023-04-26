@@ -43,14 +43,20 @@ class ItemLookUpFragment : Fragment() {
     private lateinit var delegate: Button
     private lateinit var cancle: Button
     private lateinit var toolbar: Toolbar
-    private val casenumber : TextView by lazy {
-        binding.casenumber
+    private val caseNumber : TextView by lazy {
+        binding.caseNumber
     }
-    private val reserveprice : TextView by lazy {
-        binding.reserveprice
+    private val itemType: TextView by lazy {
+        binding.itemType
     }
     private val location: TextView by lazy {
         binding.location
+    }
+    private val reservePrice : TextView by lazy {
+        binding.reservePrice
+    }
+    private val note: TextView by lazy {
+        binding.note
     }
 
     companion object {
@@ -110,9 +116,11 @@ class ItemLookUpFragment : Fragment() {
         delegate = binding.confirmButton2
         cancle = binding.confirmButton
         toolbar = binding.toolbar
-        casenumber
-        reserveprice
+        caseNumber
+        itemType
         location
+        reservePrice
+        note
     }
 
     private fun delegateAccept() {
@@ -165,9 +173,11 @@ class ItemLookUpFragment : Fragment() {
                 )
             )
             .setListener {
+                caseNumber.text = it.caseNumber
+                itemType.text = it.itemType
                 location.text = it.location
-                casenumber.text = it.information
-                reserveprice.text = it.reserveprice
+                reservePrice.text = it.minimumBidPrice
+                note.text = it.note
                 dialog.dismiss()
             }
 

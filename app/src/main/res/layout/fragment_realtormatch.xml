@@ -21,7 +21,6 @@
             app:lottie_loop="true" />
 
         <TextView
-            android:id="@+id/awaitingbid_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
@@ -56,7 +55,7 @@
                 android:textSize="12pt" />
 
             <TextView
-                android:id="@+id/casenumber"
+                android:id="@+id/caseNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="2023타경 "
@@ -79,7 +78,7 @@
                 android:textSize="12pt" />
 
             <TextView
-                android:id="@+id/reserveprice"
+                android:id="@+id/reservePrice"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="123,123,123,123"
@@ -102,7 +101,7 @@
                 android:textSize="12pt" />
 
             <TextView
-                android:id="@+id/auctionperiod"
+                android:id="@+id/auctionPeriod"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="2123년 4월 15일 \n오전10시 30분"

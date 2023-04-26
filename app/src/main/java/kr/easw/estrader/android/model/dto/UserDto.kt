@@ -1,11 +1,13 @@
 package kr.easw.estrader.android.model.dto
 
 data class RegisterDataRequest(
-    val userid: String,
+    val userId: String,
     val password: String,
-    val residentid: String,
-    val phonenum: String,
+    val name: String,
+    val residentNumber: String,
+    val phoneNumber: String,
     val address: String,
+    val corporateRegistrationNumber: String,
     val fcmToken: String
 )
 
@@ -15,7 +17,7 @@ data class RegisterDataResponse(
 )
 
 data class SignupCheckRequest(
-    val userid: String
+    val userId: String
 )
 
 data class SignupCheckResponse(
@@ -24,7 +26,7 @@ data class SignupCheckResponse(
 )
 
 data class SignInRequest(
-    val userid: String,
+    val userId: String,
     val password: String,
     val fcmToken: String
 )

@@ -1,12 +1,15 @@
 package kr.easw.estrader.android.model.dto
 
 data class ItemDto (
-    val picture: String,
-    val information: String,
-    val period: String,
+    val caseNumber: String,
+    val court: String,
     val location: String,
-    val reserveprice: String,
-    val auctionperiod: String
+    val minimumBidPrice: String,
+    val photo: String,
+    val biddingPeriod: String,
+    val itemType: String,
+    val note: String,
+    val managementNumber: String
 )
 
 data class ItemListDto (
@@ -14,5 +17,5 @@ data class ItemListDto (
 )
 
 data class LookUpItemRequest(
-    val picture: String
+    val photo: String
 )

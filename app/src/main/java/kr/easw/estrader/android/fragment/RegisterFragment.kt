@@ -146,6 +146,8 @@ class RegisterFragment : Fragment() {
                     "테스트",
                     "테스트",
                     "테스트",
+                    "테스트",
+                    "테스트",
                     PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_FCM)!!
                 )
             )

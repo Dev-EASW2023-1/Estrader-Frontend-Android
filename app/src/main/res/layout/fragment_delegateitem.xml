@@ -53,7 +53,7 @@
                         android:textSize="@dimen/heading_size" />
 
                     <TextView
-                        android:id="@+id/casenumber"
+                        android:id="@+id/caseNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="10dp"
@@ -64,6 +64,7 @@
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <TextView
+                    android:id="@+id/itemType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -91,47 +92,14 @@
                 android:padding="20dp">
 
                 <TextView
-                    android:id="@+id/tv_hello3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
                     android:text="상세정보"
                     android:textColor="#000000"
                     android:textSize="@dimen/title_size"
                     android:textStyle="bold" />
-
-                <GridLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:columnCount="2"
-                    android:rowCount="1">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_columnWeight="0.5"
-                        android:layout_gravity="center_vertical"
-                        android:text="소재지"
-                        android:textColor="#000000"
-                        android:textSize="@dimen/heading_size"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_columnWeight="0.5"
-                        android:layout_gravity="center_vertical"
-                        android:text="철근콘크리트구조 (철근)콘크리트지붕 4층 다가구주택 1층 철근콘크리트구조 계단실 11.88㎡ 2층 철근콘크리트구조 4가구 113.68㎡ 2층 철근콘크리트구조 사무소 51.41㎡ 3층 철근콘크리트구조 6가구 160.05㎡ 4층 철근콘크리트구조 3가구 157.23㎡"
-                        android:textColor="#000000"
-                        android:textSize="@dimen/heading_size" />
-
-                </GridLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_margin="10dp"
-                    android:background="#aaa" />
 
                 <GridLayout
                     android:layout_width="match_parent"
@@ -150,7 +118,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/reserveprice"
+                        android:id="@+id/reservePrice"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="0.5"
@@ -184,6 +152,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/note"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="0.5"

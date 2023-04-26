@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils.replace
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -11,6 +12,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.activity.PdfEditor
+import kr.easw.estrader.android.databinding.ActivityLoginBinding
+import kr.easw.estrader.android.databinding.FragmentRealtormatchBinding
 import kr.easw.estrader.android.definitions.*
 import kr.easw.estrader.android.model.dto.FcmRequest
 import kr.easw.estrader.android.model.dto.LookUpItemRequest
@@ -19,21 +22,34 @@ import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
 class RealtorMatchDialog : AppCompatActivity() {
-    private lateinit var alertBtn: Button
-    private lateinit var auctionHouse : TextView
-    private lateinit var casenumber : TextView
-    private lateinit var reserveprice : TextView
-    private lateinit var auctionperiod: TextView
+    private lateinit var binding: FragmentRealtormatchBinding
+    private val alertBtn: Button by lazy {
+        binding.confirmButton
+    }
+    private val auctionHouse : TextView by lazy {
+        binding.auctionHouse
+    }
+    private val caseNumber : TextView by lazy {
+        binding.caseNumber
+    }
+    private val reservePrice : TextView by lazy {
+        binding.reservePrice
+    }
+    private val auctionPeriod: TextView by lazy {
+        binding.auctionPeriod
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_realtormatch)
+        binding = FragmentRealtormatchBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        alertBtn = findViewById(R.id.confirm_button)
-        auctionHouse = findViewById(R.id.auctionHouse)
-        casenumber = findViewById(R.id.casenumber)
-        reserveprice = findViewById(R.id.reserveprice)
-        auctionperiod = findViewById(R.id.auctionperiod)
+        alertBtn
+        auctionHouse
+        caseNumber
+        reservePrice
+        auctionPeriod
 
         showItem()
 
@@ -96,13 +112,12 @@ class RealtorMatchDialog : AppCompatActivity() {
                 )
             )
             .setListener {
-                auctionHouse.text = it.location
-                casenumber.text = it.information
-                reserveprice.text = it.reserveprice
-                auctionperiod.text = it.auctionperiod.replace("\n", "")
+                auctionHouse.text = it.court
+                caseNumber.text = it.caseNumber
+                reservePrice.text = it.minimumBidPrice
+                auctionPeriod.text = it.biddingPeriod.replace("\n", "")
                 dialog.dismiss()
             }
-
             .build(this)
     }
 

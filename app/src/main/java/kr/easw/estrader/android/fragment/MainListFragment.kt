@@ -51,12 +51,12 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
 
                 for(x in 0 until it.itemDto.size){
                     dataList.add(MainItem(
-                        it.itemDto[x].picture,
-                        it.itemDto[x].period,
-                        it.itemDto[x].information,
+                        it.itemDto[x].photo,
+                        it.itemDto[x].court,
+                        it.itemDto[x].caseNumber,
                         it.itemDto[x].location,
-                        it.itemDto[x].auctionperiod,
-                        it.itemDto[x].reserveprice
+                        it.itemDto[x].minimumBidPrice,
+                        it.itemDto[x].biddingPeriod
                     ))
                 }
 
