@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.broadcast.FragmentChangeReceiver
 import kr.easw.estrader.android.extensions.replaceFragment
-import kr.easw.estrader.android.fragment.delegation.AwaitingFragment
 import kr.easw.estrader.android.fragment.delegation.RealtorAwaitingFragment
 
 /**
@@ -20,7 +19,7 @@ class RealtorAwaitingActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_realtorwait)
+        setContentView(R.layout.activity_realtorawaiting)
 
         supportFragmentManager.replaceFragment<RealtorAwaitingFragment>(
             R.id.container_view,

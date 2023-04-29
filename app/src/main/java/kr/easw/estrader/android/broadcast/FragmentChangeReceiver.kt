@@ -18,8 +18,8 @@ class FragmentChangeReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val bundle = bundleOf(
             "itemImage" to intent.getStringExtra("itemImage"),
-            "targetId" to intent.getStringExtra("userId"),
-            "userId" to intent.getStringExtra("targetId")
+            "targetId" to intent.getStringExtra("targetId"),
+            "userId" to intent.getStringExtra("userId")
         )
 
         val fragmentManager = (context as AppCompatActivity).supportFragmentManager
