@@ -59,9 +59,6 @@
             android:name=".activity.user.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".fragment.delegation.SuccessDelegationFragment"
-            android:exported="false" />
-        <activity
             android:name=".activity.realtor.RealtorAwaitingActivity"
             android:exported="false" />
         <activity
@@ -71,9 +68,6 @@
             android:name=".activity.user.MainListActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".fragment.delegation.RealtorMatchFragment"
-            android:exported="false" />
         <activity
             android:name=".activity.realtor.RealtorMainListActivity"
             android:exported="false" />
