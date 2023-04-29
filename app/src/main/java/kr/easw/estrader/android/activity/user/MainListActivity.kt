@@ -1,12 +1,11 @@
-package kr.easw.estrader.android.activity
+package kr.easw.estrader.android.activity.user
 
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
-import kr.easw.estrader.android.R
 import kr.easw.estrader.android.databinding.ActivityMainlistBinding
-import kr.easw.estrader.android.fragment.MainListFragment
+import kr.easw.estrader.android.fragment.user.MainListFragment
 
 /**
  * 사용자 전용 메인화면 activity

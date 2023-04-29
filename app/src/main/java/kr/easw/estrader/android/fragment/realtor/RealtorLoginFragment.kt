@@ -1,10 +1,9 @@
-package kr.easw.estrader.android.fragment
+package kr.easw.estrader.android.fragment.realtor
 
 import android.app.Dialog
-import android.content.Context
-import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
+import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +18,8 @@ import kr.easw.estrader.android.definitions.ApiDefinition
 import kr.easw.estrader.android.definitions.PREFERENCE_REALTOR_FCM
 import kr.easw.estrader.android.definitions.PREFERENCE_REALTOR_ID
 import kr.easw.estrader.android.definitions.PREFERENCE_REALTOR_PW
-import kr.easw.estrader.android.dialog.RealtorDialog
+import kr.easw.estrader.android.activity.realtor.RealtorAwaitingActivity
+import kr.easw.estrader.android.extensions.startActivity
 import kr.easw.estrader.android.model.dto.RealtorSignInRequest
 import kr.easw.estrader.android.util.HashUtil
 import kr.easw.estrader.android.util.PreferenceUtil
@@ -31,7 +31,6 @@ import kr.easw.estrader.android.util.PreferenceUtil
 class RealtorLoginFragment : Fragment() {
     private var _binding: FragmentRealtorLoginBinding? = null
     private val binding get() = _binding!!
-    private val fragmentTag = "LoginFragmentLog"
     private val loginButton: Button by lazy {
         binding.btnNext
     }
@@ -44,8 +43,8 @@ class RealtorLoginFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d(fragmentTag, "onCreate()")
 
+        // 키보드 화면 덮는 현상 방지
         requireActivity().window.setSoftInputMode(
             WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
         )
@@ -57,12 +56,10 @@ class RealtorLoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentRealtorLoginBinding.inflate(inflater, container, false)
-        Log.d(fragmentTag, "onCreateView()")
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Log.d(fragmentTag, "onViewCreated()")
 
         initFields()
 
@@ -106,9 +103,9 @@ class RealtorLoginFragment : Fragment() {
                         .setString(PREFERENCE_REALTOR_ID, userId)
                         .setString(PREFERENCE_REALTOR_PW, HashUtil.sha256(userPw))
 
-                    startActivity(Intent(requireContext(), RealtorDialog::class.java).apply {
-                        flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    })
+                    requireActivity().startActivity<RealtorAwaitingActivity> {
+                        flags = FLAG_ACTIVITY_SINGLE_TOP or FLAG_ACTIVITY_CLEAR_TOP
+                    }
                     requireActivity().finish()
                 }
 
@@ -121,35 +118,8 @@ class RealtorLoginFragment : Fragment() {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
-    // 생명 주기 테스트 용
     override fun onDestroyView() {
-        Log.d(fragmentTag, "onDestroyView()")
         super.onDestroyView()
         _binding = null
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        Log.d(fragmentTag, "onAttach()")
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.d(fragmentTag, "onStart()")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d(fragmentTag, "onResume()")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d(fragmentTag, "onStop()")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d(fragmentTag, "onDestroy()")
     }
 }

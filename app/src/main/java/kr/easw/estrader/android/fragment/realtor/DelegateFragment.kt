@@ -1,4 +1,4 @@
-package kr.easw.estrader.android.fragment
+package kr.easw.estrader.android.fragment.realtor
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,18 +7,21 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kr.easw.estrader.android.databinding.ElementDelegateitemBinding
-import kr.easw.estrader.android.databinding.FragmentDelegatecompletionBinding
-import kr.easw.estrader.android.model.data.DelegateCompletionHolder
-import kr.easw.estrader.android.model.dto.DelegateCompletionItem
+import kr.easw.estrader.android.databinding.FragmentDelegateBinding
+import kr.easw.estrader.android.fragment.BaseFragment
+import kr.easw.estrader.android.model.data.DelegateHolder
+import kr.easw.estrader.android.model.dto.DelegateItem
 import java.lang.ref.WeakReference
 
 /**
  * 대리인 전용 메인화면 Fragment
- * 대리위임 완료 목록
+ * 대리위임 신청 목록
+ *
+ * 사용 미정
  */
-class DelegateCompletionFragment : BaseFragment<FragmentDelegatecompletionBinding>(FragmentDelegatecompletionBinding::inflate){
+class DelegateFragment : BaseFragment<FragmentDelegateBinding>(FragmentDelegateBinding::inflate) {
 
-    private var dataList: MutableList<DelegateCompletionItem>? = null
+    private var dataList: MutableList<DelegateItem>? = null
     private var itemClickListener: WeakReference<OnItemClickListener>? = null
     private var recyclerBinding: ElementDelegateitemBinding? = null
 
@@ -38,30 +41,14 @@ class DelegateCompletionFragment : BaseFragment<FragmentDelegatecompletionBindin
     // ViewHolder 에 사용할 DateList 초기화
     private fun initializeData() {
         dataList = mutableListOf(
-            DelegateCompletionItem(
+            DelegateItem(
                 "남재경",
                 "대구지방법원",
                 "2022타경112663",
                 "대구광역시 중구",
                 "1,489,129,980",
                 "03-27\n ~ \n04-07"
-            ), DelegateCompletionItem(
-                "김성준",
-                "대구지방법원",
-                "2022타경112663",
-                "대구광역시 중구",
-                "1,489,129,980",
-                "03-27\n ~ \n04-07"
-            ),
-            DelegateCompletionItem(
-                "엄선용",
-                "대구지방법원",
-                "2022타경111158",
-                "대구광역시 수성구",
-                "438,000,000",
-                "03-27\n ~ \n04-07"
-            ),
-            DelegateCompletionItem(
+            ), DelegateItem(
                 "허석무",
                 "대구지방법원",
                 "2022타경111158",
@@ -69,7 +56,15 @@ class DelegateCompletionFragment : BaseFragment<FragmentDelegatecompletionBindin
                 "438,000,000",
                 "03-27\n ~ \n04-07"
             ),
-            DelegateCompletionItem(
+            DelegateItem(
+                "김성준",
+                "대구지방법원",
+                "2022타경112663",
+                "대구광역시 중구",
+                "1,489,129,980",
+                "03-27\n ~ \n04-07"
+            ),
+            DelegateItem(
                 "최이루",
                 "대구지방법원",
                 "2022타경111158",
@@ -77,30 +72,38 @@ class DelegateCompletionFragment : BaseFragment<FragmentDelegatecompletionBindin
                 "438,000,000",
                 "03-27\n ~ \n04-07"
             ),
-            DelegateCompletionItem(
+            DelegateItem(
                 "임정수",
                 "대구지방법원",
                 "2022타경112663",
                 "대구광역시 중구",
                 "1,489,129,980",
                 "03-27\n ~ \n04-07"
+            ),
+            DelegateItem(
+                "엄선용",
+                "대구지방법원",
+                "2022타경111158",
+                "대구광역시 수성구",
+                "438,000,000",
+                "03-27\n ~ \n04-07"
             )
         )
     }
 
     private fun initRecycler() {
-        val recyclerViewAdapter = object : RecyclerView.Adapter<DelegateCompletionHolder>() {
+        val recyclerViewAdapter = object : RecyclerView.Adapter<DelegateHolder>() {
             override fun onCreateViewHolder(
                 parent: ViewGroup, viewType: Int
-            ): DelegateCompletionHolder {
+            ): DelegateHolder {
                 recyclerBinding = ElementDelegateitemBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
-                return DelegateCompletionHolder(recyclerBinding, itemClickListener?.get())
+                return DelegateHolder(recyclerBinding, itemClickListener?.get())
             }
 
             override fun onBindViewHolder(
-                holder: DelegateCompletionHolder, position: Int
+                holder: DelegateHolder, position: Int
             ) {
                 holder.bind(dataList!![position])
             }
@@ -114,7 +117,7 @@ class DelegateCompletionFragment : BaseFragment<FragmentDelegatecompletionBindin
             }
         }
 
-        (binding as FragmentDelegatecompletionBinding).delegatecompletionRecyclerView.apply {
+        (binding as FragmentDelegateBinding).delegateRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             adapter = recyclerViewAdapter
         }

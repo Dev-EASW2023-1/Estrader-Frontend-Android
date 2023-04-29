@@ -1,4 +1,4 @@
-package kr.easw.estrader.android.fragment
+package kr.easw.estrader.android.fragment.realtor
 
 
 import android.app.Dialog
@@ -13,13 +13,13 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import kr.easw.estrader.android.databinding.FragmentDelegateitemBinding
 import kr.easw.estrader.android.definitions.ApiDefinition
-import kr.easw.estrader.android.definitions.PREFERENCE_ID
-import kr.easw.estrader.android.definitions.PREFERENCE_PICTURE_URL
-import kr.easw.estrader.android.definitions.PREFERENCE_REALTOR_ID
 import kr.easw.estrader.android.model.dto.ItemInContractDto
-import kr.easw.estrader.android.util.PreferenceUtil
 
-class DelegateItemFragment : Fragment() {
+/**
+ * 대리인 전용 부동산 매각 상세정보 Fragment
+ * 대리 위임 계약 체결 완료 후 물건 정보 확인 가능
+ */
+class RealtorLookUpFragment : Fragment() {
     private var _binding: FragmentDelegateitemBinding? = null
     private val binding get() = _binding!!
     private val caseNumber : TextView by lazy {
@@ -39,7 +39,7 @@ class DelegateItemFragment : Fragment() {
     }
 
     companion object {
-        fun setArguments(userId: String, targetId: String, itemImage: String) = DelegateItemFragment().apply {
+        fun setArguments(userId: String, targetId: String, itemImage: String) = RealtorLookUpFragment().apply {
             arguments = bundleOf(
                 "userId" to userId,
                 "targetId" to targetId,

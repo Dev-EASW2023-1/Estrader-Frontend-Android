@@ -9,11 +9,11 @@
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
-    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 다른 앱과 상호 작용 시 앱의 manifest 파일에 요소 추가 필요 -->
+
+    <!-- 다른 앱과 상호 작용 시 앱의 manifest 파일에 요소 추가 필요 -->
     <queries>
         <intent>
             <action android:name="android.intent.action.VIEW" />
-
             <data android:mimeType="application/*" />
         </intent>
     </queries>
@@ -30,6 +30,7 @@
         android:theme="@style/Theme.Estrader"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
         <!-- file 에 대해 content URI 생성 -->
         <!-- android:grantUriPermissions 가 true 일 때, read, write 임시 권한 획득 가능 -->
         <!-- FileProvider 는 미리 설정한 폴더에 있는 file 들에 대해서 URI 생성 -->
@@ -41,43 +42,46 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
-        </provider> <!-- 기본 알림 아이콘 및 색상 설정 -->
+        </provider>
+
+        <!-- 기본 알림 아이콘 및 색상 설정 -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_launcher_foreground" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/black" />
+
         <activity
-            android:name=".dialog.ErrorDialog"
+            android:name=".activity.ErrorActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.user.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".dialog.SuccessDelegationDialog"
+            android:name=".fragment.delegation.SuccessDelegationFragment"
             android:exported="false" />
         <activity
-            android:name=".dialog.RealtorDialog"
+            android:name=".activity.realtor.RealtorAwaitingActivity"
             android:exported="false" />
         <activity
-            android:name=".dialog.AwaitingBidDialog"
+            android:name=".activity.user.AwaitingActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.MainListActivity"
+            android:name=".activity.user.MainListActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".dialog.RealtorMatchDialog"
+            android:name=".fragment.delegation.RealtorMatchFragment"
             android:exported="false" />
         <activity
-            android:name=".activity.RealtorMainListActivity"
+            android:name=".activity.realtor.RealtorMainListActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.PDFActivity"
+            android:name=".activity.realtor.PDFActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.RealtorMainActivity"
+            android:name=".activity.realtor.RealtorMainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Estrader.NoActionBar"
@@ -89,6 +93,11 @@
             </intent-filter>
         </activity>
 
+        <receiver
+            android:name=".broadcast.FragmentChangeReceiver"
+            android:exported="false">
+        </receiver>
+
         <service
             android:name=".service.MessagingService"
             android:exported="false">
@@ -96,6 +105,7 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
     </application>
 
 </manifest>

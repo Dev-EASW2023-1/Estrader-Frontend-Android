@@ -1,4 +1,4 @@
-package kr.easw.estrader.android.activity
+package kr.easw.estrader.android.activity.realtor
 
 import android.os.Bundle
 import android.os.Handler
@@ -11,15 +11,16 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kr.easw.estrader.android.databinding.ActivityRealtormainlistBinding
-import kr.easw.estrader.android.fragment.DelegateCompletionFragment
-import kr.easw.estrader.android.fragment.DelegateFragment
+import kr.easw.estrader.android.fragment.realtor.DelegateCompletionFragment
+import kr.easw.estrader.android.fragment.realtor.DelegateFragment
 
 /**
  * 대리인 전용 메인화면 Activity
  * 상단 탭에서 대리위임 신청 리스트 (DelegateFragment), 대리위임 완료 리스트 (DelegateCompletionFragment) 이동
  *
  * 지금은 5초 뒤 "김덕배 님이 대리 위임을 신청하셨습니다." 팝업 출력
- * 추후 사용자 앱에서 FCM 전송 후, 팝업 출력
+ *
+ * 사용 미정
  */
 class RealtorMainListActivity : AppCompatActivity() {
     private lateinit var activityBinding: ActivityRealtormainlistBinding

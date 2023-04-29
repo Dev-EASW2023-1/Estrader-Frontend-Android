@@ -1,4 +1,4 @@
-package kr.easw.estrader.android.fragment
+package kr.easw.estrader.android.fragment.user
 
 import android.app.Dialog
 import android.os.Bundle
@@ -13,6 +13,7 @@ import kr.easw.estrader.android.R
 import kr.easw.estrader.android.databinding.ElementItemlistBinding
 import kr.easw.estrader.android.databinding.FragmentMainlistBinding
 import kr.easw.estrader.android.definitions.ApiDefinition
+import kr.easw.estrader.android.fragment.BaseFragment
 import kr.easw.estrader.android.model.data.MainHolder
 import kr.easw.estrader.android.model.dto.MainItem
 import java.lang.ref.WeakReference
@@ -100,7 +101,9 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
 
                 // Bundle 을 이용해 position 에 해당하는 이미지 URL 넘기기
                 requireActivity().supportFragmentManager.commit {
-                    replace(R.id.framelayout, ItemLookUpFragment.indexImage(itemList[position].iconDrawable))
+                    replace(R.id.framelayout,
+                        ItemLookUpFragment.indexImage(itemList[position].iconDrawable)
+                    )
                 }
             }
         })

@@ -1,4 +1,4 @@
-package kr.easw.estrader.android.activity
+package kr.easw.estrader.android.activity.realtor
 
 import android.Manifest
 import android.app.AlertDialog
@@ -19,8 +19,9 @@ import com.google.firebase.messaging.FirebaseMessaging
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.databinding.ActivityRealtormainBinding
 import kr.easw.estrader.android.definitions.PREFERENCE_REALTOR_FCM
-import kr.easw.estrader.android.fragment.RealtorLoginFragment
-import kr.easw.estrader.android.fragment.RealtorRegisterFragment
+import kr.easw.estrader.android.extensions.replaceFragment
+import kr.easw.estrader.android.fragment.realtor.RealtorLoginFragment
+import kr.easw.estrader.android.fragment.realtor.RealtorRegisterFragment
 import kr.easw.estrader.android.util.PreferenceUtil
 
 /**
@@ -33,7 +34,6 @@ class RealtorMainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRealtormainBinding
     private lateinit var resultLauncher: ActivityResultLauncher<Array<String>>
     private lateinit var deniedList: List<String>
-    private val activityTag = "ActivityLog"
 
     private val signInTextView: TextView by lazy {
         binding.signIn
@@ -62,7 +62,6 @@ class RealtorMainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d(activityTag, "onCreate()")
         binding = ActivityRealtormainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -95,42 +94,40 @@ class RealtorMainActivity : AppCompatActivity() {
             signUpClick()
         }
 
+        // 키보드 화면 덮는 현상 방지
         window.setSoftInputMode(
             WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
         )
     }
 
     private fun initFields() {
-        Log.d(activityTag, "액티비티 변수 생성")
         signInTextView
         signUpTextView
     }
 
     private fun initFragment() {
-        Log.d(activityTag, "Transaction: begin")
-        supportFragmentManager
-            .beginTransaction()
-            .replace(binding.containerView.id, RealtorLoginFragment())
-            .commit()
-        Log.d(activityTag, "Transaction: end")
+        supportFragmentManager.replaceFragment<RealtorLoginFragment>(
+            binding.containerView.id,
+            null
+        )
     }
 
     //로그인 Textview 클릭 이벤트
     private fun signInClick() {
-        supportFragmentManager
-            .beginTransaction()
-            .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-            .replace(binding.containerView.id, RealtorLoginFragment())
-            .commit()
+        supportFragmentManager.replaceFragment<RealtorLoginFragment>(
+            binding.containerView.id,
+            R.anim.slide_in_right,
+            R.anim.slide_out_left
+        )
     }
 
     //회원 가입 Textview 클릭 이벤트
     private fun signUpClick() {
-        supportFragmentManager
-            .beginTransaction()
-            .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-            .replace(binding.containerView.id, RealtorRegisterFragment())
-            .commit()
+        supportFragmentManager.replaceFragment<RealtorRegisterFragment>(
+            binding.containerView.id,
+            R.anim.slide_in_right,
+            R.anim.slide_out_left
+        )
     }
 
     private fun permissionRequest() {
@@ -206,10 +203,11 @@ class RealtorMainActivity : AppCompatActivity() {
         }
     }
 
-    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+    // 화면 상호 작용 시 자동 소프트 키보드 숨김
+    override fun dispatchTouchEvent(event: MotionEvent): Boolean {
         val imm: InputMethodManager =
             getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
-        return super.dispatchTouchEvent(ev)
+        return super.dispatchTouchEvent(event)
     }
 }

@@ -1,10 +1,9 @@
-package kr.easw.estrader.android.fragment
+package kr.easw.estrader.android.fragment.user
 
 import android.app.Dialog
-import android.content.Context
-import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
+import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,12 +13,13 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputLayout
-import kr.easw.estrader.android.activity.MainListActivity
+import kr.easw.estrader.android.activity.user.MainListActivity
 import kr.easw.estrader.android.databinding.FragmentRegisterBinding
 import kr.easw.estrader.android.definitions.ApiDefinition
 import kr.easw.estrader.android.definitions.PREFERENCE_FCM
 import kr.easw.estrader.android.definitions.PREFERENCE_ID
 import kr.easw.estrader.android.definitions.PREFERENCE_PW
+import kr.easw.estrader.android.extensions.startActivity
 import kr.easw.estrader.android.model.dto.RegisterDataRequest
 import kr.easw.estrader.android.model.dto.SignupCheckRequest
 import kr.easw.estrader.android.util.HashUtil
@@ -53,6 +53,7 @@ class RegisterFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // 키보드 화면 덮는 현상 방지
         requireActivity().window.setSoftInputMode(
             WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
         )
@@ -157,9 +158,9 @@ class RegisterFragment : Fragment() {
                         .setString(PREFERENCE_ID, userId)
                         .setString(PREFERENCE_PW, HashUtil.sha256(userPw))
 
-                    startActivity(Intent(requireContext(), MainListActivity::class.java).apply {
-                        flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    })
+                    requireActivity().startActivity<MainListActivity> {
+                        flags = FLAG_ACTIVITY_SINGLE_TOP or FLAG_ACTIVITY_CLEAR_TOP
+                    }
                     requireActivity().finish()
                 }
 
@@ -170,6 +171,11 @@ class RegisterFragment : Fragment() {
 
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
 

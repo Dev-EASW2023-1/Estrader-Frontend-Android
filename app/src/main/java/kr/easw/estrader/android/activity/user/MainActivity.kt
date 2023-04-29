@@ -1,4 +1,4 @@
-package kr.easw.estrader.android.activity
+package kr.easw.estrader.android.activity.user
 
 import android.Manifest
 import android.app.AlertDialog
@@ -20,8 +20,9 @@ import com.google.firebase.messaging.FirebaseMessaging
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.databinding.ActivityLoginBinding
 import kr.easw.estrader.android.definitions.PREFERENCE_FCM
-import kr.easw.estrader.android.fragment.LoginFragment
-import kr.easw.estrader.android.fragment.RegisterFragment
+import kr.easw.estrader.android.extensions.replaceFragment
+import kr.easw.estrader.android.fragment.user.LoginFragment
+import kr.easw.estrader.android.fragment.user.RegisterFragment
 import kr.easw.estrader.android.util.PreferenceUtil
 
 /**
@@ -100,24 +101,26 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initFragment() {
-        supportFragmentManager
-            .beginTransaction()
-            .replace(binding.containerView.id, LoginFragment())
-            .commit()
+        supportFragmentManager.replaceFragment<LoginFragment> (
+            binding.containerView.id,
+            null
+        )
     }
 
     private fun signInClick() {
-        supportFragmentManager.commit {
-            setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-            replace(binding.containerView.id, LoginFragment())
-        }
+        supportFragmentManager.replaceFragment<LoginFragment> (
+            binding.containerView.id,
+            R.anim.slide_in_right,
+            R.anim.slide_out_left
+        )
     }
 
     private fun signUpClick() {
-        supportFragmentManager.commit {
-            setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-            replace(binding.containerView.id, RegisterFragment())
-        }
+        supportFragmentManager.replaceFragment<RegisterFragment> (
+            binding.containerView.id,
+            R.anim.slide_in_right,
+            R.anim.slide_out_left
+        )
     }
 
     // 권한 요청

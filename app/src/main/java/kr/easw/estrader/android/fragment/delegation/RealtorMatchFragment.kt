@@ -1,13 +1,16 @@
-package kr.easw.estrader.android.dialog
+package kr.easw.estrader.android.fragment.delegation
 
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import kr.easw.estrader.android.databinding.FragmentRealtormatchBinding
 import kr.easw.estrader.android.definitions.ApiDefinition
 import kr.easw.estrader.android.definitions.PREFERENCE_REALTOR_ID
@@ -15,8 +18,9 @@ import kr.easw.estrader.android.model.dto.FcmRequest
 import kr.easw.estrader.android.model.dto.LookUpItemRequest
 import kr.easw.estrader.android.util.PreferenceUtil
 
-class RealtorMatchDialog : AppCompatActivity() {
-    private lateinit var binding: FragmentRealtormatchBinding
+class RealtorMatchFragment : Fragment() {
+    private var _binding: FragmentRealtormatchBinding? = null
+    private val binding get() = _binding!!
     private val alertBtn: Button by lazy {
         binding.confirmButton
     }
@@ -33,11 +37,16 @@ class RealtorMatchDialog : AppCompatActivity() {
         binding.auctionPeriod
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = FragmentRealtormatchBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentRealtormatchBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initFields()
 
         showItem()
@@ -56,19 +65,19 @@ class RealtorMatchDialog : AppCompatActivity() {
     }
 
     private fun alertClick() {
-        AlertDialog.Builder(this)
+        AlertDialog.Builder(requireContext())
             .setMessage("입찰표 PDF를 출력합니다. 잠시 기다려주세요.")
             .setPositiveButton("확인") { _, _ ->
-                val dialog = Dialog(this)
-                dialog.setContentView(ProgressBar(this))
+                val dialog = Dialog(requireContext())
+                dialog.setContentView(ProgressBar(requireContext()))
                 dialog.show()
 
                 ApiDefinition.REALTOR_SEND_FCM
                     .setRequestParams(
                         FcmRequest(
-                            PreferenceUtil(this).init().start().getString(PREFERENCE_REALTOR_ID)!!,
-                            intent.getStringExtra("targetId")!!,
-                            intent.getStringExtra("itemImage")!!,
+                            PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_REALTOR_ID)!!,
+                            arguments?.getString("targetId")!!,
+                            arguments?.getString("itemImage")!!,
                             "2",
                             "제목",
                             "내용"
@@ -78,21 +87,21 @@ class RealtorMatchDialog : AppCompatActivity() {
                         showToast(it.message)
                         dialog.dismiss()
                     }
-                    .build(this)
+                    .build(requireContext())
             }
             .create()
             .show()
     }
 
     private fun showItem() {
-        val dialog = Dialog(this)
-        dialog.setContentView(ProgressBar(this))
+        val dialog = Dialog(requireContext())
+        dialog.setContentView(ProgressBar(requireContext()))
         dialog.show()
 
         ApiDefinition.REALTOR_SHOW_ITEM
             .setRequestParams(
                 LookUpItemRequest(
-                    intent.getStringExtra("itemImage")!!
+                    arguments?.getString("itemImage")!!
                 )
             )
             .setListener {
@@ -102,10 +111,15 @@ class RealtorMatchDialog : AppCompatActivity() {
                 auctionPeriod.text = it.biddingPeriod.replace("\n", "")
                 dialog.dismiss()
             }
-            .build(this)
+            .build(requireContext())
     }
 
     private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

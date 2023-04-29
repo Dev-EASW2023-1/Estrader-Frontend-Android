@@ -1,13 +1,12 @@
-package kr.easw.estrader.android.dialog
+package kr.easw.estrader.android.activity
 
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
 import kr.easw.estrader.android.R
 
-class RealtorDialog : AppCompatActivity() {
+class ErrorActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_realtorwait)
+        setContentView(R.layout.activity_error)
     }
 }
-

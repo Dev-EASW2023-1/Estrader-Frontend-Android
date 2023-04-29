@@ -1,4 +1,4 @@
-package kr.easw.estrader.android.activity
+package kr.easw.estrader.android.activity.realtor
 
 import android.annotation.TargetApi
 import android.app.Dialog
@@ -26,7 +26,7 @@ import kr.easw.estrader.android.BuildConfig
 import kr.easw.estrader.android.databinding.ActivityPdfBinding
 import kr.easw.estrader.android.databinding.FragmentPdfviewBinding
 import kr.easw.estrader.android.definitions.ApiDefinition
-import kr.easw.estrader.android.fragment.DelegateItemFragment
+import kr.easw.estrader.android.fragment.realtor.RealtorLookUpFragment
 import kr.easw.estrader.android.model.dto.ContractInfoRequest
 import java.io.File
 import java.io.IOException
@@ -248,7 +248,7 @@ class PDFActivity : AppCompatActivity() {
                 setContentView(activityBinding.root)
                 supportFragmentManager.commit {
                     replace(activityBinding.containerView.id,
-                        DelegateItemFragment.setArguments(
+                        RealtorLookUpFragment.setArguments(
                             intent.getStringExtra("targetId")!!,
                             intent.getStringExtra("userId")!!,
                             intent.getStringExtra("itemImage")!!
@@ -294,7 +294,7 @@ class PDFActivity : AppCompatActivity() {
                 setContentView(activityBinding.root)
                 supportFragmentManager.commit {
                     replace(activityBinding.containerView.id,
-                        DelegateItemFragment.setArguments(
+                        RealtorLookUpFragment.setArguments(
                             intent.getStringExtra("targetId")!!,
                             intent.getStringExtra("userId")!!,
                             intent.getStringExtra("itemImage")!!

@@ -1,8 +1,6 @@
-package kr.easw.estrader.android.fragment
+package kr.easw.estrader.android.fragment.realtor
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,7 +22,6 @@ class RealtorRegisterFragment : Fragment() {
     private val binding get() = _binding!!
     private var validate = false
     private var validateUserId: String = ""
-    private val fragmentTag = "RegisterFragmentLog"
     private val registerButton: Button by lazy {
         binding.btnNext
     }
@@ -44,6 +41,7 @@ class RealtorRegisterFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // 키보드 화면 덮는 현상 방지
         requireActivity().window.setSoftInputMode(
             WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
         )
@@ -106,36 +104,9 @@ class RealtorRegisterFragment : Fragment() {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
-    // 생명 주기 테스트 용
     override fun onDestroyView() {
-        Log.d(fragmentTag, "onDestroyView()")
         super.onDestroyView()
         _binding = null
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        Log.d(fragmentTag, "onAttach()")
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.d(fragmentTag, "onStart()")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d(fragmentTag, "onResume()")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d(fragmentTag, "onStop()")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d(fragmentTag, "onDestroy()")
     }
 }
 

@@ -1,4 +1,4 @@
-package kr.easw.estrader.android.fragment
+package kr.easw.estrader.android.fragment.user
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -24,7 +24,7 @@ import kr.easw.estrader.android.R
 import kr.easw.estrader.android.databinding.FragmentItemlookupBinding
 import kr.easw.estrader.android.definitions.ApiDefinition
 import kr.easw.estrader.android.definitions.PREFERENCE_ID
-import kr.easw.estrader.android.dialog.AwaitingBidDialog
+import kr.easw.estrader.android.activity.user.AwaitingActivity
 import kr.easw.estrader.android.extensions.startActivity
 import kr.easw.estrader.android.model.dto.FcmRequest
 import kr.easw.estrader.android.model.dto.LookUpItemRequest
@@ -146,7 +146,7 @@ class ItemLookUpFragment : Fragment() {
                         showToast(it.message)
                         dialog.dismiss()
                         if(it.isSuccess){
-                            requireContext().startActivity<AwaitingBidDialog>{
+                            requireActivity().startActivity<AwaitingActivity> {
                                 flags = FLAG_ACTIVITY_SINGLE_TOP or FLAG_ACTIVITY_CLEAR_TOP
                             }
                         }
