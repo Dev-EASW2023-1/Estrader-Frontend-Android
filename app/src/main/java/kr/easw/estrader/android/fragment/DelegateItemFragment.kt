@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import kr.easw.estrader.android.databinding.FragmentDelegateitemBinding
@@ -36,6 +37,17 @@ class DelegateItemFragment : Fragment() {
     private val note: TextView by lazy {
         binding.note
     }
+
+    companion object {
+        fun setArguments(userId: String, targetId: String, itemImage: String) = DelegateItemFragment().apply {
+            arguments = bundleOf(
+                "userId" to userId,
+                "targetId" to targetId,
+                "itemImage" to itemImage
+            )
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -51,7 +63,7 @@ class DelegateItemFragment : Fragment() {
         showItem()
 
         Glide.with(binding.mainimage)
-            .load(PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_PICTURE_URL)!!)
+            .load(arguments?.getString("itemImage").toString())
             .into(binding.mainimage)
     }
 
@@ -76,9 +88,9 @@ class DelegateItemFragment : Fragment() {
         ApiDefinition.GET_CONTRACT_ITEM
             .setRequestParams(
                 ItemInContractDto(
-                    PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_ID)!!,
-                    PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_REALTOR_ID)!!,
-                    PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_PICTURE_URL)!!
+                    arguments?.getString("userId").toString(),
+                    arguments?.getString("targetId").toString(),
+                    arguments?.getString("itemImage").toString()
                 )
             )
             .setListener {

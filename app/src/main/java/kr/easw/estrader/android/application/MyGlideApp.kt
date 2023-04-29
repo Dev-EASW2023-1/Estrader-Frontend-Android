@@ -1,4 +1,4 @@
-package kr.easw.estrader.android.activity
+package kr.easw.estrader.android.application
 
 import android.content.Context
 import com.bumptech.glide.Glide

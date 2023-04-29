@@ -2,7 +2,7 @@ package kr.easw.estrader.android.model.data
 
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import kr.easw.estrader.android.activity.GlideApp
+import kr.easw.estrader.android.application.GlideApp
 import kr.easw.estrader.android.databinding.ElementDelegateitemBinding
 import kr.easw.estrader.android.databinding.ElementItemlistBinding
 import kr.easw.estrader.android.fragment.BaseFragment

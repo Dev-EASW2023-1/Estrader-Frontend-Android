@@ -74,7 +74,7 @@
             android:name=".activity.RealtorMainListActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.PdfEditor"
+            android:name=".activity.PDFActivity"
             android:exported="false" />
         <activity
             android:name=".activity.RealtorMainActivity"
