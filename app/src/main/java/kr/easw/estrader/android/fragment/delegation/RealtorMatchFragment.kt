@@ -11,9 +11,11 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import kr.easw.estrader.android.R
 import kr.easw.estrader.android.databinding.FragmentRealtormatchBinding
 import kr.easw.estrader.android.definitions.ApiDefinition
 import kr.easw.estrader.android.definitions.PREFERENCE_REALTOR_ID
+import kr.easw.estrader.android.extensions.replaceFragment
 import kr.easw.estrader.android.model.dto.FcmRequest
 import kr.easw.estrader.android.model.dto.LookUpItemRequest
 import kr.easw.estrader.android.util.PreferenceUtil
@@ -85,6 +87,12 @@ class RealtorMatchFragment : Fragment() {
                     )
                     .setListener {
                         showToast(it.message)
+                        if(it.isSuccess){
+                            requireActivity().supportFragmentManager.replaceFragment<AwaitingFragment>(
+                                R.id.container_view,
+                                null
+                            )
+                        }
                         dialog.dismiss()
                     }
                     .build(requireContext())
