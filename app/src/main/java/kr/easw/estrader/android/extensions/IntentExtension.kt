@@ -3,15 +3,10 @@ package kr.easw.estrader.android.extensions
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils.replace
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.commit
-import kr.easw.estrader.android.R
 
 inline fun <reified T: AppCompatActivity> Context.startActivity (
     vararg extras: Pair<String, Any?>,

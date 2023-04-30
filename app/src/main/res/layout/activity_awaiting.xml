@@ -4,9 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <!--
+        androidx.fragment.app.FragmentContainerView
+        동작은 잘 되지만, Preview 표시 오류 존재
+    -->
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/container_view"
-        android:name="kr.easw.estrader.android.fragment.user.LoginFragment"
+        android:name="kr.easw.estrader.android.fragment.delegation.user.AwaitingFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

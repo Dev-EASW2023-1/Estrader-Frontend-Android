@@ -1,4 +1,4 @@
-package kr.easw.estrader.android.fragment.delegation
+package kr.easw.estrader.android.fragment.delegation.realtor
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -12,16 +12,17 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import kr.easw.estrader.android.R
-import kr.easw.estrader.android.databinding.FragmentRealtormatchBinding
+import kr.easw.estrader.android.databinding.FragmentRealtorMatchBinding
 import kr.easw.estrader.android.definitions.ApiDefinition
 import kr.easw.estrader.android.definitions.PREFERENCE_REALTOR_ID
 import kr.easw.estrader.android.extensions.replaceFragment
+import kr.easw.estrader.android.fragment.delegation.user.AwaitingFragment
 import kr.easw.estrader.android.model.dto.FcmRequest
 import kr.easw.estrader.android.model.dto.LookUpItemRequest
 import kr.easw.estrader.android.util.PreferenceUtil
 
 class RealtorMatchFragment : Fragment() {
-    private var _binding: FragmentRealtormatchBinding? = null
+    private var _binding: FragmentRealtorMatchBinding? = null
     private val binding get() = _binding!!
     private val alertBtn: Button by lazy {
         binding.confirmButton
@@ -44,7 +45,7 @@ class RealtorMatchFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentRealtormatchBinding.inflate(inflater, container, false)
+        _binding = FragmentRealtorMatchBinding.inflate(inflater, container, false)
         return binding.root
     }
 

@@ -7,11 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.broadcast.FragmentChangeReceiver
 import kr.easw.estrader.android.extensions.replaceFragment
-import kr.easw.estrader.android.fragment.delegation.AwaitingFragment
+import kr.easw.estrader.android.fragment.delegation.user.AwaitingFragment
 
 /**
  * 사용자 전용 대리위임 신청 중 Dialog
- *
+ * 앱이 다른 activity 전환 or 백그라운드에 있을 때 BroadcastReceiver 등록 해제
  */
 class AwaitingActivity : AppCompatActivity() {
     private var broadcastReceiver : BroadcastReceiver? = null

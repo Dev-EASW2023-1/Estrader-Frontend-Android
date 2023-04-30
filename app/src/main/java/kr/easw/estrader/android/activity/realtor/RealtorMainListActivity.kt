@@ -10,9 +10,9 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import kr.easw.estrader.android.databinding.ActivityRealtormainlistBinding
-import kr.easw.estrader.android.fragment.realtor.DelegateCompletionFragment
-import kr.easw.estrader.android.fragment.realtor.DelegateFragment
+import kr.easw.estrader.android.databinding.ActivityRealtorMainlistBinding
+import kr.easw.estrader.android.fragment.realtor.DelegateCompletedFragment
+import kr.easw.estrader.android.fragment.realtor.DelegateWaitingFragment
 
 /**
  * 대리인 전용 메인화면 Activity
@@ -23,7 +23,7 @@ import kr.easw.estrader.android.fragment.realtor.DelegateFragment
  * 사용 미정
  */
 class RealtorMainListActivity : AppCompatActivity() {
-    private lateinit var activityBinding: ActivityRealtormainlistBinding
+    private lateinit var activityBinding: ActivityRealtorMainlistBinding
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
     private lateinit var mHandler: Handler
@@ -38,7 +38,7 @@ class RealtorMainListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        activityBinding = ActivityRealtormainlistBinding.inflate(layoutInflater)
+        activityBinding = ActivityRealtorMainlistBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
 
         initFields()
@@ -67,8 +67,8 @@ class RealtorMainListActivity : AppCompatActivity() {
 
                 override fun createFragment(position: Int): Fragment {
                     return when (position) {
-                        0 -> DelegateFragment()
-                        else -> DelegateCompletionFragment()
+                        0 -> DelegateWaitingFragment()
+                        else -> DelegateCompletedFragment()
                     }
                 }
             }

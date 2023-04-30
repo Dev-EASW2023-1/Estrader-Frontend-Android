@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import kr.easw.estrader.android.databinding.FragmentDelegateitemBinding
+import kr.easw.estrader.android.databinding.FragmentRealtorItemlookupBinding
 import kr.easw.estrader.android.definitions.ApiDefinition
 import kr.easw.estrader.android.model.dto.ItemInContractDto
 
@@ -20,7 +20,7 @@ import kr.easw.estrader.android.model.dto.ItemInContractDto
  * 대리 위임 계약 체결 완료 후 물건 정보 확인 가능
  */
 class RealtorLookUpFragment : Fragment() {
-    private var _binding: FragmentDelegateitemBinding? = null
+    private var _binding: FragmentRealtorItemlookupBinding? = null
     private val binding get() = _binding!!
     private val caseNumber : TextView by lazy {
         binding.caseNumber
@@ -51,7 +51,7 @@ class RealtorLookUpFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentDelegateitemBinding.inflate(inflater, container, false)
+        _binding = FragmentRealtorItemlookupBinding.inflate(inflater, container, false)
         return binding.root
     }
 

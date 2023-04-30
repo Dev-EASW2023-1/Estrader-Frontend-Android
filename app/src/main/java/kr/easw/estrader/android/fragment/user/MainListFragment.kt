@@ -10,7 +10,7 @@ import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kr.easw.estrader.android.R
-import kr.easw.estrader.android.databinding.ElementItemlistBinding
+import kr.easw.estrader.android.databinding.ElementItemBinding
 import kr.easw.estrader.android.databinding.FragmentMainlistBinding
 import kr.easw.estrader.android.definitions.ApiDefinition
 import kr.easw.estrader.android.fragment.BaseFragment
@@ -25,7 +25,7 @@ import java.lang.ref.WeakReference
 class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistBinding::inflate){
 
     private var itemClickListener: WeakReference<OnItemClickListener>? = null
-    private var recyclerBinding: ElementItemlistBinding? = null
+    private var recyclerBinding: ElementItemBinding? = null
 
     override fun onViewCreated(
         view: View,
@@ -69,7 +69,7 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
             override fun onCreateViewHolder(
                 parent: ViewGroup, viewType: Int
             ): MainHolder {
-                recyclerBinding = ElementItemlistBinding.inflate(
+                recyclerBinding = ElementItemBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
                 return MainHolder(recyclerBinding, itemClickListener?.get())

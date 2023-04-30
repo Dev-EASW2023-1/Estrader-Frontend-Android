@@ -1,10 +1,9 @@
-package kr.easw.estrader.android.fragment.delegation
+package kr.easw.estrader.android.fragment.delegation.user
 
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
-import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.activity.user.MainListActivity
-import kr.easw.estrader.android.databinding.FragmentSuccessfuldelegationBinding
+import kr.easw.estrader.android.databinding.FragmentRealtorSuccessDelegationBinding
 import kr.easw.estrader.android.definitions.ApiDefinition
 import kr.easw.estrader.android.extensions.startActivity
 import kr.easw.estrader.android.model.dto.ContractRequest
@@ -25,17 +24,16 @@ import kr.easw.estrader.android.model.dto.ContractRequest
  * 확인 누르면 "전 화면으로 돌아갑니다." 팝업 후, MainListActivity 이동
  */
 class SuccessDelegationFragment : Fragment() {
-    private var _binding: FragmentSuccessfuldelegationBinding? = null
+    private var _binding: FragmentRealtorSuccessDelegationBinding? = null
     private val binding get() = _binding!!
     private lateinit var alertBtn: Button
-    private lateinit var mediaPlayer: MediaPlayer
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSuccessfuldelegationBinding.inflate(inflater, container, false)
+        _binding = FragmentRealtorSuccessDelegationBinding.inflate(inflater, container, false)
         return binding.root
     }
 

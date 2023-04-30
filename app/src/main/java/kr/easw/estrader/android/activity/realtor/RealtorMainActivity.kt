@@ -17,7 +17,7 @@ import androidx.core.app.ActivityCompat
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.messaging.FirebaseMessaging
 import kr.easw.estrader.android.R
-import kr.easw.estrader.android.databinding.ActivityRealtormainBinding
+import kr.easw.estrader.android.databinding.ActivityRealtorMainBinding
 import kr.easw.estrader.android.definitions.PREFERENCE_REALTOR_FCM
 import kr.easw.estrader.android.extensions.replaceFragment
 import kr.easw.estrader.android.fragment.realtor.RealtorLoginFragment
@@ -31,7 +31,7 @@ import kr.easw.estrader.android.util.PreferenceUtil
  * LOGIN 버튼을 누르면 RealtorDialog 로 이동
  */
 class RealtorMainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityRealtormainBinding
+    private lateinit var binding: ActivityRealtorMainBinding
     private lateinit var resultLauncher: ActivityResultLauncher<Array<String>>
     private lateinit var deniedList: List<String>
 
@@ -62,7 +62,7 @@ class RealtorMainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityRealtormainBinding.inflate(layoutInflater)
+        binding = ActivityRealtorMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         initFields()

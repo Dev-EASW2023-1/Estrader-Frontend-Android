@@ -14,11 +14,10 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.fragment.app.commit
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.messaging.FirebaseMessaging
 import kr.easw.estrader.android.R
-import kr.easw.estrader.android.databinding.ActivityLoginBinding
+import kr.easw.estrader.android.databinding.ActivityMainBinding
 import kr.easw.estrader.android.definitions.PREFERENCE_FCM
 import kr.easw.estrader.android.extensions.replaceFragment
 import kr.easw.estrader.android.fragment.user.LoginFragment
@@ -32,7 +31,7 @@ import kr.easw.estrader.android.util.PreferenceUtil
  * LOGIN 버튼을 누르면 MainListActivity 로 이동
  */
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityLoginBinding
+    private lateinit var binding: ActivityMainBinding
     private lateinit var resultLauncher: ActivityResultLauncher<Array<String>>
     private lateinit var deniedList: List<String>
     private val signInTextView: TextView by lazy {
@@ -62,7 +61,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         initFields()

@@ -1,14 +1,14 @@
-package kr.easw.estrader.android.fragment.delegation
+package kr.easw.estrader.android.fragment.delegation.user
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import kr.easw.estrader.android.databinding.FragmentAwaitingbidBinding
+import kr.easw.estrader.android.databinding.FragmentAwaitingBinding
 
 class AwaitingFragment : Fragment() {
-    private var _binding: FragmentAwaitingbidBinding? = null
+    private var _binding: FragmentAwaitingBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -16,7 +16,7 @@ class AwaitingFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAwaitingbidBinding.inflate(inflater, container, false)
+        _binding = FragmentAwaitingBinding.inflate(inflater, container, false)
         return binding.root
     }
 

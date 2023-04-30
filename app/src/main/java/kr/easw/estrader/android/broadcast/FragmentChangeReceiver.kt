@@ -10,9 +10,13 @@ import kr.easw.estrader.android.activity.realtor.PDFActivity
 import kr.easw.estrader.android.extensions.replaceFragment
 import kr.easw.estrader.android.extensions.startActivity
 import kr.easw.estrader.android.activity.ErrorActivity
-import kr.easw.estrader.android.fragment.delegation.RealtorMatchFragment
-import kr.easw.estrader.android.fragment.delegation.SuccessDelegationFragment
+import kr.easw.estrader.android.fragment.delegation.realtor.RealtorMatchFragment
+import kr.easw.estrader.android.fragment.delegation.user.SuccessDelegationFragment
 
+/**
+ * FCM 메시지 수신 시 이벤트 발생 BroadcastReceiver
+ * FCM 메시지 Phase 값에 맞게 Fragment or Activity 화면 전환
+ */
 class FragmentChangeReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {

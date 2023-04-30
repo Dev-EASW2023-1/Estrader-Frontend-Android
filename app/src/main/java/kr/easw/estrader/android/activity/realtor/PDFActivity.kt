@@ -24,7 +24,7 @@ import com.tom_roush.pdfbox.pdmodel.font.PDType0Font
 import kotlinx.coroutines.*
 import kr.easw.estrader.android.BuildConfig
 import kr.easw.estrader.android.databinding.ActivityPdfBinding
-import kr.easw.estrader.android.databinding.FragmentPdfviewBinding
+import kr.easw.estrader.android.databinding.FragmentPdfImageviewBinding
 import kr.easw.estrader.android.definitions.ApiDefinition
 import kr.easw.estrader.android.fragment.realtor.RealtorLookUpFragment
 import kr.easw.estrader.android.model.dto.ContractInfoRequest
@@ -49,7 +49,7 @@ import java.io.IOException
  **/
 
 class PDFActivity : AppCompatActivity() {
-    private lateinit var imageViewBinding: FragmentPdfviewBinding
+    private lateinit var imageViewBinding: FragmentPdfImageviewBinding
     private lateinit var activityBinding: ActivityPdfBinding
     private val scope = CoroutineScope(Dispatchers.Main)
 
@@ -60,7 +60,7 @@ class PDFActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        imageViewBinding = FragmentPdfviewBinding.inflate(layoutInflater)
+        imageViewBinding = FragmentPdfImageviewBinding.inflate(layoutInflater)
         activityBinding = ActivityPdfBinding.inflate(layoutInflater)
 
         PDFBoxResourceLoader.init(applicationContext)

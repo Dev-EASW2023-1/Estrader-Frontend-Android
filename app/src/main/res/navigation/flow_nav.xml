@@ -9,7 +9,7 @@
         android:id="@+id/loginFragment"
         android:name="kr.easw.estrader.android.fragment.user.LoginFragment"
         android:label="LoginFragment"
-        tools:layout="@layout/activity_login"
+        tools:layout="@layout/activity_main"
         >
         <action
             android:id="@+id/action_loginFragment_to_mainListFragment"
