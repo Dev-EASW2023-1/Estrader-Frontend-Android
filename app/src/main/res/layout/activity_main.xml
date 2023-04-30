@@ -3,27 +3,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:background="@color/color_main">
 
     <!--
         androidx.fragment.app.FragmentContainerView
         동작은 잘 되지만, Preview 표시 오류 존재
     -->
 
-    <ImageView
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@color/color_main"
-        android:contentDescription="@string/header_logo"
+        android:layout_height="150dp"
+        android:orientation="vertical"
+        android:gravity="center"
         app:layout_constraintBottom_toTopOf="@+id/main_body"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/intro_icon"
+            android:contentDescription="@string/header_logo"
+            app:tint="@color/white" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <ScrollView
         android:id="@+id/main_body"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/color_main"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
         app:layout_constraintTop_toBottomOf="@+id/imageView">
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -44,7 +55,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="12dp"
                 android:text="@string/hello_guide"
                 android:textColor="#585757"
                 android:textSize="@dimen/heading_size" />
@@ -52,7 +63,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
+                android:padding="15dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -62,7 +73,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
                     android:text="@string/sign_in"
-                    android:textSize="@dimen/heading_size" />
+                    android:textSize="@dimen/subtitle_size"
+                    android:textColor="#585757" />
 
                 <TextView
                     android:id="@+id/sign_up"
@@ -70,7 +82,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:text="@string/sign_up"
-                    android:textSize="@dimen/heading_size" />
+                    android:textSize="@dimen/subtitle_size"
+                    android:textColor="#585757" />
 
             </LinearLayout>
 

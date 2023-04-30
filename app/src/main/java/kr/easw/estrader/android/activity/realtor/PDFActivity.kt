@@ -63,7 +63,7 @@ class PDFActivity : AppCompatActivity() {
         imageViewBinding = FragmentPdfImageviewBinding.inflate(layoutInflater)
         activityBinding = ActivityPdfBinding.inflate(layoutInflater)
 
-        PDFBoxResourceLoader.init(applicationContext)
+        PDFBoxResourceLoader.init(this)
         editPDF()
     }
 

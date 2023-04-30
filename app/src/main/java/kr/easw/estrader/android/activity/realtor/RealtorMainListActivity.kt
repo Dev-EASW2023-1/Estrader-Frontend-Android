@@ -2,8 +2,6 @@ package kr.easw.estrader.android.activity.realtor
 
 import android.os.Bundle
 import android.os.Handler
-import android.os.Looper
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -17,8 +15,6 @@ import kr.easw.estrader.android.fragment.realtor.DelegateWaitingFragment
 /**
  * 대리인 전용 메인화면 Activity
  * 상단 탭에서 대리위임 신청 리스트 (DelegateFragment), 대리위임 완료 리스트 (DelegateCompletionFragment) 이동
- *
- * 지금은 5초 뒤 "김덕배 님이 대리 위임을 신청하셨습니다." 팝업 출력
  *
  * 사용 미정
  */
@@ -43,12 +39,6 @@ class RealtorMainListActivity : AppCompatActivity() {
 
         initFields()
         initTabLayout()
-
-        mHandler = Handler(Looper.getMainLooper())
-        // 5초 뒤 "김덕배 님이 대리 위임을 신청하셨습니다." 팝업 확인 후, AwaitingBidDialog 이동
-        mHandler.postDelayed({
-            showDialog()
-        }, 3000)
     }
 
     private fun initFields() {
@@ -78,25 +68,10 @@ class RealtorMainListActivity : AppCompatActivity() {
         }.attach()
     }
 
-    private fun showDialog() {
-        AlertDialog.Builder(this)
-            .setTitle("알림")
-            .setMessage("김덕배 님이 대리 위임을 신청하셨습니다.")
-            .setPositiveButton("확인") { _, _ ->
-                // TODO("대리 위임 완료 리스트 추가")
-            }
-            .setNegativeButton("취소") { _, _ ->
-            }
-            .create()
-            .show()
-    }
-
     // Runnable, Handler 객체 모두 메모리 누수 유발 방지
     override fun onDestroy() {
         super.onDestroy()
         // Handler 모든 콜백 및 메시지 제거
         mHandler.removeCallbacksAndMessages(null)
-        //  이전 Handler 객체와 연결을 끊고 새로운 Looper 로 새 Handler 객체 초기화
-        mHandler = Handler(Looper.getMainLooper())
     }
 }
