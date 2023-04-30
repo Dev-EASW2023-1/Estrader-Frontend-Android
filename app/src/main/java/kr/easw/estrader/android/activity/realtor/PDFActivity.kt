@@ -237,8 +237,6 @@ class PDFActivity : AppCompatActivity() {
 
         // Main thread 사용 (UI 작업)
         withContext(Dispatchers.Main) {
-            println("view 작업할 때 스레드 작업: ${Thread.currentThread().name}")
-
             if (openPdf.resolveActivity(packageManager) == null) {
                 showToast()
                 pdfImageView()

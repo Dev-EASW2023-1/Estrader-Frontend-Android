@@ -3,15 +3,15 @@ package kr.easw.estrader.android.model.data
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kr.easw.estrader.android.application.GlideApp
-import kr.easw.estrader.android.databinding.ElementDelegateitemBinding
-import kr.easw.estrader.android.databinding.ElementItemlistBinding
+import kr.easw.estrader.android.databinding.ElementItemBinding
+import kr.easw.estrader.android.databinding.ElementRealtoritemBinding
 import kr.easw.estrader.android.fragment.BaseFragment
 import kr.easw.estrader.android.model.dto.DelegateCompletionItem
 import kr.easw.estrader.android.model.dto.DelegateItem
 import kr.easw.estrader.android.model.dto.MainItem
 
 class MainHolder(
-    private val binding: ElementItemlistBinding?,
+    private val binding: ElementItemBinding?,
     listener: BaseFragment.OnItemClickListener?
 ) : RecyclerView.ViewHolder(binding!!.root) {
     private val auctionHouse: TextView = binding!!.auctionhouse
@@ -43,7 +43,7 @@ class MainHolder(
 }
 
 class DelegateHolder(
-    binding: ElementDelegateitemBinding?,
+    binding: ElementRealtoritemBinding?,
     listener: BaseFragment.OnItemClickListener?
 ) : RecyclerView.ViewHolder(binding!!.root) {
     private val username: TextView = binding!!.username
@@ -73,7 +73,7 @@ class DelegateHolder(
 }
 
 class DelegateCompletionHolder(
-    binding: ElementDelegateitemBinding?,
+    binding: ElementRealtoritemBinding?,
     listener: BaseFragment.OnItemClickListener?
 ) : RecyclerView.ViewHolder(binding!!.root) {
     private val username: TextView = binding!!.username
