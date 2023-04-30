@@ -1,7 +1,6 @@
 package kr.easw.estrader.android.activity.realtor
 
 import android.os.Bundle
-import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -22,7 +21,6 @@ class RealtorMainListActivity : AppCompatActivity() {
     private lateinit var activityBinding: ActivityRealtorMainlistBinding
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
-    private lateinit var mHandler: Handler
 
     companion object {
         const val NUM_TABS = 2
@@ -66,12 +64,5 @@ class RealtorMainListActivity : AppCompatActivity() {
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = tabTitleArray[position]
         }.attach()
-    }
-
-    // Runnable, Handler 객체 모두 메모리 누수 유발 방지
-    override fun onDestroy() {
-        super.onDestroy()
-        // Handler 모든 콜백 및 메시지 제거
-        mHandler.removeCallbacksAndMessages(null)
     }
 }

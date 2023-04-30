@@ -7,5 +7,5 @@
     <font
         app:font="@font/chosungu"
         app:fontStyle="normal"
-        app:fontWeight="700" />
+        app:fontWeight="300" />
 </font-family>

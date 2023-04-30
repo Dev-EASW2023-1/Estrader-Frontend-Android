@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_main">
@@ -16,25 +15,58 @@
 
         <com.airbnb.lottie.LottieAnimationView
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="250dp"
+            android:layout_marginBottom="20dp"
             app:lottie_autoPlay="true"
-            app:lottie_fileName="loading.json"
-            android:layout_marginBottom="130dp"
+            app:lottie_fileName="loading_awaiting.json"
             app:lottie_loop="true" />
 
         <TextView
-            android:id="@+id/awaitingbid_textView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:gravity="center_horizontal"
-            android:text="대리 받는중"
+            android:gravity="start"
+            android:text="대리위임 \n대기 중입니다."
             android:textColor="#FFFFFF"
-            android:textSize="20pt"
+            android:textSize="42dp"
             android:textStyle="bold"/>
 
-
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:gravity="start"
+            android:text="잠시 기다려주십시오."
+            android:textColor="#FFFFFF"
+            android:textSize="28dp" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="40dp"
+        android:contentDescription="@string/floating"
+        android:src="@drawable/home_icon_resize"
+        app:tint="@color/color_main"
+        app:backgroundTint="@color/white"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@id/fab"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:contentDescription="@string/floating"
+        android:src="@drawable/ic_add"
+        app:tint="@color/color_main"
+        app:backgroundTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

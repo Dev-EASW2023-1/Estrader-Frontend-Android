@@ -22,6 +22,7 @@
     <string name="property_photo">매물 사진</string>
     <string name="property_name">매물 명칭</string>
     <string name="intro">인트로</string>
+    <string name="floating">플로팅 액션 버튼</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
