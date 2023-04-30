@@ -82,12 +82,6 @@ class PDFActivity : AppCompatActivity() {
                     )
                 )
                 .setListener {
-
-                    println("테스트입니다! ${it.biddingPeriod}")
-                    println("테스트입니다! ${it.caseNumber}")
-                    println("테스트입니다! ${it.minimumBidPrice}")
-                    println("테스트입니다! ${it.managementNumber}")
-
                     scope.launch {
                         // background thread 사용 (파일 I/O)
                         withContext(Dispatchers.IO) {
