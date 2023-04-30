@@ -41,6 +41,7 @@ class ItemLookUpFragment : Fragment() {
     private lateinit var collapsingToolbarLayout: CollapsingToolbarLayout
     private lateinit var appBarLayout: AppBarLayout
     private lateinit var toolbar: Toolbar
+    private var toolbarTitle = " "
     private val delegate: Button by lazy {
         binding.confirmButton2
     }
@@ -175,6 +176,7 @@ class ItemLookUpFragment : Fragment() {
                 location.text = it.location
                 reservePrice.text = it.minimumBidPrice
                 note.text = it.note
+                toolbarTitle = it.caseNumber
                 dialog.dismiss()
             }
             .build(requireContext())
@@ -205,7 +207,7 @@ class ItemLookUpFragment : Fragment() {
                     scrollRange = appBarLayout.totalScrollRange
                 }
                 if (scrollRange + verticalOffset == 0) {
-                    collapsingToolbarLayout.title = "Title"
+                    collapsingToolbarLayout.title = toolbarTitle
                     isShow = true
                 } else if (isShow) {
                     collapsingToolbarLayout.title = " "

@@ -28,7 +28,7 @@
             android:gravity="start"
             android:text="대리위임 \n대기 중입니다."
             android:textColor="#FFFFFF"
-            android:textSize="42dp"
+            android:textSize="@dimen/progress_title_size"
             android:textStyle="bold"/>
 
         <TextView
@@ -38,7 +38,7 @@
             android:gravity="start"
             android:text="잠시 기다려주십시오."
             android:textColor="#FFFFFF"
-            android:textSize="28dp" />
+            android:textSize="@dimen/progress_subtitle_size" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

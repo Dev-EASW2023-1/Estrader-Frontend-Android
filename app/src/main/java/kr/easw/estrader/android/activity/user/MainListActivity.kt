@@ -1,6 +1,8 @@
 package kr.easw.estrader.android.activity.user
 
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
@@ -33,5 +35,13 @@ class MainListActivity : AppCompatActivity() {
         supportFragmentManager.commit {
             replace(activityBinding.framelayout.id, MainListFragment())
         }
+    }
+
+    // 화면 상호 작용 시 자동 소프트 키보드 숨김
+    override fun dispatchTouchEvent(event: MotionEvent): Boolean {
+        val imm: InputMethodManager =
+            getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+        return super.dispatchTouchEvent(event)
     }
 }

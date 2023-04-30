@@ -2,6 +2,10 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="fragment_slide_in_right_offset">-16dp</dimen>
 
+    <dimen name="progress_title_size">42dp</dimen>
+    <dimen name="progress_heading_size">36dp</dimen>
+    <dimen name="progress_subtitle_size">28dp</dimen>
+
     <dimen name="title_size">24dp</dimen>
     <dimen name="subtitle_size">20dp</dimen>
     <dimen name="heading_size">16dp</dimen>
