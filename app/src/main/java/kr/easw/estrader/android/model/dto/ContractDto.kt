@@ -11,7 +11,8 @@ data class ContractRequest(
 
 data class ContractResponse(
     val isSuccess: Boolean,
-    val message: String
+    val message: String,
+    val name: String
 )
 
 data class ItemInContractDto(

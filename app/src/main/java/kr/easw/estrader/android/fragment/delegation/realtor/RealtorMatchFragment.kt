@@ -16,7 +16,6 @@ import kr.easw.estrader.android.databinding.FragmentRealtorMatchBinding
 import kr.easw.estrader.android.definitions.ApiDefinition
 import kr.easw.estrader.android.definitions.PREFERENCE_REALTOR_ID
 import kr.easw.estrader.android.extensions.replaceFragment
-import kr.easw.estrader.android.fragment.delegation.user.AwaitingFragment
 import kr.easw.estrader.android.model.dto.FcmRequest
 import kr.easw.estrader.android.model.dto.LookUpItemRequest
 import kr.easw.estrader.android.util.PreferenceUtil
@@ -89,7 +88,7 @@ class RealtorMatchFragment : Fragment() {
                     .setListener {
                         showToast(it.message)
                         if(it.isSuccess){
-                            requireActivity().supportFragmentManager.replaceFragment<AwaitingFragment>(
+                            requireActivity().supportFragmentManager.replaceFragment<RealtorAwaitingFragment>(
                                 R.id.container_view,
                                 null
                             )

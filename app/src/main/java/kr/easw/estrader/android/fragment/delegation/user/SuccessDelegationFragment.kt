@@ -10,9 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import kr.easw.estrader.android.R
 import kr.easw.estrader.android.activity.user.MainListActivity
 import kr.easw.estrader.android.databinding.FragmentRealtorSuccessDelegationBinding
 import kr.easw.estrader.android.definitions.ApiDefinition
@@ -26,7 +26,12 @@ import kr.easw.estrader.android.model.dto.ContractRequest
 class SuccessDelegationFragment : Fragment() {
     private var _binding: FragmentRealtorSuccessDelegationBinding? = null
     private val binding get() = _binding!!
-    private lateinit var alertBtn: Button
+    private val alertBtn: Button by lazy {
+        binding.confirmButton
+    }
+    private val realtorName: TextView by lazy {
+        binding.realtorName
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,13 +43,17 @@ class SuccessDelegationFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        alertBtn = requireActivity().findViewById(R.id.confirm_button)
+        initFields()
 
         contractComplete()
 
         alertBtn.setOnClickListener {
             alertClick()
         }
+    }
+    private fun initFields() {
+        alertBtn
+        realtorName
     }
 
     private fun alertClick() {
@@ -78,6 +87,7 @@ class SuccessDelegationFragment : Fragment() {
             )
             .setListener {
                 showToast(it.message)
+                realtorName.text = it.name
                 dialog.dismiss()
             }
             .build(requireContext())
