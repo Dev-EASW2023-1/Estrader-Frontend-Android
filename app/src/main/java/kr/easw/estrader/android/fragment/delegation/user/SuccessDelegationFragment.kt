@@ -8,11 +8,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kr.easw.estrader.android.activity.user.MainListActivity
 import kr.easw.estrader.android.databinding.FragmentRealtorSuccessDelegationBinding
 import kr.easw.estrader.android.definitions.ApiDefinition
@@ -26,7 +26,7 @@ import kr.easw.estrader.android.model.dto.ContractRequest
 class SuccessDelegationFragment : Fragment() {
     private var _binding: FragmentRealtorSuccessDelegationBinding? = null
     private val binding get() = _binding!!
-    private val alertBtn: Button by lazy {
+    private val alertBtn: FloatingActionButton by lazy {
         binding.confirmButton
     }
     private val realtorName: TextView by lazy {
