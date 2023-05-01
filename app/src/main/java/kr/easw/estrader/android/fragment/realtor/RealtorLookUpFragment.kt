@@ -1,18 +1,21 @@
 package kr.easw.estrader.android.fragment.realtor
 
-
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import kr.easw.estrader.android.activity.realtor.RealtorAwaitingActivity
 import kr.easw.estrader.android.databinding.FragmentRealtorItemlookupBinding
 import kr.easw.estrader.android.definitions.ApiDefinition
+import kr.easw.estrader.android.extensions.startActivity
 import kr.easw.estrader.android.model.dto.ItemInContractDto
 
 /**
@@ -22,6 +25,9 @@ import kr.easw.estrader.android.model.dto.ItemInContractDto
 class RealtorLookUpFragment : Fragment() {
     private var _binding: FragmentRealtorItemlookupBinding? = null
     private val binding get() = _binding!!
+    private val backButton: Button by lazy {
+        binding.confirmButton
+    }
     private val caseNumber : TextView by lazy {
         binding.caseNumber
     }
@@ -62,6 +68,13 @@ class RealtorLookUpFragment : Fragment() {
 
         showItem()
 
+        backButton.setOnClickListener {
+            requireActivity().startActivity<RealtorAwaitingActivity> {
+                flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            }
+            requireActivity().finish()
+        }
+
         Glide.with(binding.mainimage)
             .load(arguments?.getString("itemImage").toString())
             .into(binding.mainimage)
@@ -73,6 +86,7 @@ class RealtorLookUpFragment : Fragment() {
     }
 
     private fun initFields() {
+        backButton
         caseNumber
         itemType
         location
