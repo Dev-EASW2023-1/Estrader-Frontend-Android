@@ -4,6 +4,7 @@ import android.annotation.TargetApi
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.app.usage.UsageStatsManager
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -14,6 +15,7 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.activity.user.MainActivity
+import kr.easw.estrader.android.fragment.realtor.DelegateWaitingFragment
 
 class MessagingService : FirebaseMessagingService() {
     private lateinit var notificationManager: NotificationManager
@@ -32,7 +34,6 @@ class MessagingService : FirebaseMessagingService() {
     //수신된 메시지 전달
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         initNotification()
-
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel()
         }
@@ -84,7 +85,7 @@ class MessagingService : FirebaseMessagingService() {
 
     // 상태바에 Notification 등록
     private fun sendNotification(data: RemoteMessage.Notification) {
-        val intent = Intent(this, MainActivity::class.java).apply {
+        val intent = Intent(this, DelegateWaitingFragment::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
         }
         val pendingIntent = PendingIntent.getActivity(

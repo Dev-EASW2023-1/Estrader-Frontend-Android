@@ -82,6 +82,10 @@ class PreferenceUtil(private val context: Context) {
         return prefs.getBoolean(key, defValue)
     }
 
+    fun contains(key: String): Boolean {
+        return prefs.contains(key)
+    }
+
     fun destroyPref() {
         editor?.clear()?.commit()
     }

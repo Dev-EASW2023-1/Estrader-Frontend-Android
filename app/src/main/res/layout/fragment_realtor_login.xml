@@ -51,7 +51,18 @@
             android:paddingStart="10dp"
             android:paddingEnd="0dp"
             android:textSize="@dimen/hint_size" />
-
+        <CheckBox
+            android:id="@+id/autologin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@android:color/transparent"
+            android:buttonTint="#595757"
+            android:checked="true"
+            android:text="자동로그인 "
+            android:textAlignment="center"
+            android:textColor="#4d7149"
+            android:textSize="14dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton
