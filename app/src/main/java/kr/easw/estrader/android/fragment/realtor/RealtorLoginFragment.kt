@@ -3,7 +3,6 @@ package kr.easw.estrader.android.fragment.realtor
 import android.app.Dialog
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,15 +12,13 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.core.view.contains
 import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputLayout
-import kr.easw.estrader.android.databinding.FragmentRealtorLoginBinding
 import kr.easw.estrader.android.activity.realtor.RealtorAwaitingActivity
+import kr.easw.estrader.android.databinding.FragmentRealtorLoginBinding
 import kr.easw.estrader.android.definitions.*
 import kr.easw.estrader.android.extensions.startActivity
 import kr.easw.estrader.android.model.dto.RealtorSignInRequest
-import kr.easw.estrader.android.util.HashUtil
 import kr.easw.estrader.android.util.PreferenceUtil
 
 /**
@@ -97,8 +94,6 @@ class RealtorLoginFragment : Fragment() {
                 autologin.isChecked = true
                 // If preference exists, and auto login checked, process auto login.
                 autoLogin()
-
-
             }
             // If not, ignore.
         }
@@ -110,7 +105,7 @@ class RealtorLoginFragment : Fragment() {
             if (!contains(PREFERENCE_REALTOR_ID) || !contains(PREFERENCE_REALTOR_PW)) {
                 Toast.makeText(
                     requireContext(),
-                    "발생이 불가능한 오류가 발생하였습니다.\n현재 오류 상태가 보고됩니다.",
+                    "발생이 불가능한 오류가 발생하였습니다.",
                     Toast.LENGTH_SHORT
                 ).show()
                 return
