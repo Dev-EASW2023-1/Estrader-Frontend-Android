@@ -21,7 +21,6 @@ import kr.easw.estrader.android.definitions.PREFERENCE_ID
 import kr.easw.estrader.android.definitions.PREFERENCE_PW
 import kr.easw.estrader.android.extensions.startActivity
 import kr.easw.estrader.android.model.dto.SignInRequest
-import kr.easw.estrader.android.util.HashUtil
 import kr.easw.estrader.android.util.PreferenceUtil
 
 /**
@@ -90,7 +89,7 @@ class LoginFragment : Fragment() {
             .setRequestParams(
                 SignInRequest(
                     userId,
-                    HashUtil.sha256(userPw),
+                    userPw,
                     PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_FCM)!!
                 )
             )
@@ -100,7 +99,10 @@ class LoginFragment : Fragment() {
                     PreferenceUtil(requireContext())
                         .init().start()
                         .setString(PREFERENCE_ID, userId)
-                        .setString(PREFERENCE_PW, HashUtil.sha256(userPw))
+                        .setString(PREFERENCE_PW, userPw)
+
+                    println(PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_ID)!!)
+                    println(PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_PW)!!)
 
                     requireActivity().startActivity<MainListActivity> {
                         flags = FLAG_ACTIVITY_SINGLE_TOP or FLAG_ACTIVITY_CLEAR_TOP

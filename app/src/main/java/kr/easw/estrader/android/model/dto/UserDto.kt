@@ -8,7 +8,8 @@ data class RegisterDataRequest(
     val phoneNumber: String,
     val address: String,
     val corporateRegistrationNumber: String,
-    val fcmToken: String
+    val fcmToken: String,
+    val region: String
 )
 
 data class RegisterDataResponse(

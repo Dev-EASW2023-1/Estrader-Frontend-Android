@@ -13,15 +13,14 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputLayout
+import kr.easw.estrader.android.activity.realtor.RealtorAwaitingActivity
 import kr.easw.estrader.android.databinding.FragmentRealtorLoginBinding
 import kr.easw.estrader.android.definitions.ApiDefinition
 import kr.easw.estrader.android.definitions.PREFERENCE_REALTOR_FCM
 import kr.easw.estrader.android.definitions.PREFERENCE_REALTOR_ID
 import kr.easw.estrader.android.definitions.PREFERENCE_REALTOR_PW
-import kr.easw.estrader.android.activity.realtor.RealtorAwaitingActivity
 import kr.easw.estrader.android.extensions.startActivity
 import kr.easw.estrader.android.model.dto.RealtorSignInRequest
-import kr.easw.estrader.android.util.HashUtil
 import kr.easw.estrader.android.util.PreferenceUtil
 
 /**
@@ -91,7 +90,7 @@ class RealtorLoginFragment : Fragment() {
             .setRequestParams(
                 RealtorSignInRequest(
                     userId,
-                    HashUtil.sha256(userPw),
+                    userPw,
                     PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_REALTOR_FCM)!!
                 )
             )
@@ -101,7 +100,10 @@ class RealtorLoginFragment : Fragment() {
                     PreferenceUtil(requireContext())
                         .init().start()
                         .setString(PREFERENCE_REALTOR_ID, userId)
-                        .setString(PREFERENCE_REALTOR_PW, HashUtil.sha256(userPw))
+                        .setString(PREFERENCE_REALTOR_PW, userPw)
+
+                    println(PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_REALTOR_ID)!!)
+                    println(PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_REALTOR_PW)!!)
 
                     requireActivity().startActivity<RealtorAwaitingActivity> {
                         flags = FLAG_ACTIVITY_SINGLE_TOP or FLAG_ACTIVITY_CLEAR_TOP

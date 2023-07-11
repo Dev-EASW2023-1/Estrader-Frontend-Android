@@ -22,7 +22,6 @@ import kr.easw.estrader.android.definitions.PREFERENCE_PW
 import kr.easw.estrader.android.extensions.startActivity
 import kr.easw.estrader.android.model.dto.RegisterDataRequest
 import kr.easw.estrader.android.model.dto.SignupCheckRequest
-import kr.easw.estrader.android.util.HashUtil
 import kr.easw.estrader.android.util.PreferenceUtil
 
 /**
@@ -142,13 +141,14 @@ class RegisterFragment : Fragment() {
             .setRequestParams(
                 RegisterDataRequest(
                     userId,
-                    HashUtil.sha256(userPw),
-                    "테스트",
-                    "테스트",
-                    "테스트",
-                    "테스트",
-                    "테스트",
-                    PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_FCM)!!
+                    userPw,
+                    "test",
+                    "test",
+                    "test",
+                    "test",
+                    "test",
+                    PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_FCM)!!,
+                    "test"
                 )
             )
             .setListener {
@@ -156,7 +156,10 @@ class RegisterFragment : Fragment() {
                 if (it.isSuccess) {
                     PreferenceUtil(requireContext()).init().start()
                         .setString(PREFERENCE_ID, userId)
-                        .setString(PREFERENCE_PW, HashUtil.sha256(userPw))
+                        .setString(PREFERENCE_PW, userPw)
+
+                    println(PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_ID)!!)
+                    println(PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_PW)!!)
 
                     requireActivity().startActivity<MainListActivity> {
                         flags = FLAG_ACTIVITY_SINGLE_TOP or FLAG_ACTIVITY_CLEAR_TOP
