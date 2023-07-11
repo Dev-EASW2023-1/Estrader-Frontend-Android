@@ -3,24 +3,25 @@ package kr.easw.estrader.android.fragment.realtor
 import android.app.Dialog
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.core.view.contains
 import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputLayout
-import kr.easw.estrader.android.activity.realtor.RealtorAwaitingActivity
 import kr.easw.estrader.android.databinding.FragmentRealtorLoginBinding
-import kr.easw.estrader.android.definitions.ApiDefinition
-import kr.easw.estrader.android.definitions.PREFERENCE_REALTOR_FCM
-import kr.easw.estrader.android.definitions.PREFERENCE_REALTOR_ID
-import kr.easw.estrader.android.definitions.PREFERENCE_REALTOR_PW
+import kr.easw.estrader.android.activity.realtor.RealtorAwaitingActivity
+import kr.easw.estrader.android.definitions.*
 import kr.easw.estrader.android.extensions.startActivity
 import kr.easw.estrader.android.model.dto.RealtorSignInRequest
+import kr.easw.estrader.android.util.HashUtil
 import kr.easw.estrader.android.util.PreferenceUtil
 
 /**
@@ -38,6 +39,9 @@ class RealtorLoginFragment : Fragment() {
     }
     private val userPw: TextInputLayout by lazy {
         binding.userPw
+    }
+    private val autologin: CheckBox by lazy {
+        binding.autologin
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,7 +65,7 @@ class RealtorLoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         initFields()
-
+        checkAutoLogin()
         loginButton.setOnClickListener {
             if (PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_REALTOR_FCM) == "") {
                 showToast("로그인에 실패했습니다. 다시 한 번 시도해주세요.")
@@ -79,6 +83,43 @@ class RealtorLoginFragment : Fragment() {
         loginButton
         userId
         userPw
+        autologin
+    }
+
+    private fun checkAutoLogin() {
+        PreferenceUtil(requireContext()).apply {
+            if (getBoolean(PREFERENCE_CHECK)
+                // Check ID / PW exists to prevent unexpected error.
+                && contains(PREFERENCE_REALTOR_ID)
+                && contains(PREFERENCE_REALTOR_PW)
+            ) {
+                // Set autoLoginCheck to true for failed login.
+                autologin.isChecked = true
+                // If preference exists, and auto login checked, process auto login.
+                autoLogin()
+
+
+            }
+            // If not, ignore.
+        }
+    }
+
+    private fun autoLogin() {
+        PreferenceUtil(requireContext()).apply {
+            // Double check
+            if (!contains(PREFERENCE_REALTOR_ID) || !contains(PREFERENCE_REALTOR_PW)) {
+                Toast.makeText(
+                    requireContext(),
+                    "발생이 불가능한 오류가 발생하였습니다.\n현재 오류 상태가 보고됩니다.",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return
+            }
+            loginUser(
+                PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_REALTOR_ID)!!,
+                PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_REALTOR_PW)!!
+            )
+        }
     }
 
     private fun loginUser(userId: String, userPw: String) {
@@ -101,6 +142,7 @@ class RealtorLoginFragment : Fragment() {
                         .init().start()
                         .setString(PREFERENCE_REALTOR_ID, userId)
                         .setString(PREFERENCE_REALTOR_PW, userPw)
+                        .setBoolean(PREFERENCE_CHECK, autologin.isChecked)
 
                     println(PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_REALTOR_ID)!!)
                     println(PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_REALTOR_PW)!!)

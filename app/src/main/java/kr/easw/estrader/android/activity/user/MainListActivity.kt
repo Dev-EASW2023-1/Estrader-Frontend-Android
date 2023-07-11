@@ -44,4 +44,7 @@ class MainListActivity : AppCompatActivity() {
         imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
         return super.dispatchTouchEvent(event)
     }
+    override fun onStop() {
+        super.onStop()
+    }
 }
