@@ -2,5 +2,5 @@
 <paths xmlns:android="http://schemas.android.com/apk/res/android">
     <external-path
         name="my_files"
-        path="Download/입찰표/" />
+        path="Download/bidSheet/" />
 </paths>

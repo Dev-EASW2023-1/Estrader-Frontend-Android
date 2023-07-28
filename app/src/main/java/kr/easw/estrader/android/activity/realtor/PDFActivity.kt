@@ -13,6 +13,7 @@ import android.os.ParcelFileDescriptor
 import android.provider.MediaStore
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.fragment.app.commit
@@ -30,6 +31,8 @@ import kr.easw.estrader.android.fragment.realtor.RealtorLookUpFragment
 import kr.easw.estrader.android.model.dto.ContractInfoRequest
 import java.io.File
 import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 /**
@@ -203,12 +206,15 @@ class PDFActivity : AppCompatActivity() {
     // 파일 저장 + URL 따와서 PDF 뷰어로 열기
     @TargetApi(Build.VERSION_CODES.Q)
     private suspend fun aboveQPDFViewer(document: PDDocument) {
+        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+        val fileName = "기일입찰표_${timeStamp}.pdf"
+
         // 추가한 record 의 새로운 URL 리턴
         val uri = contentResolver.insert(
             // External Storage 의 URI 획득
             MediaStore.Files.getContentUri("external"),
             ContentValues().apply {
-                put(MediaStore.MediaColumns.DISPLAY_NAME, "기일입찰표.pdf")
+                put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
                 put(MediaStore.MediaColumns.MIME_TYPE, "application/pdf")
                 put(MediaStore.MediaColumns.RELATIVE_PATH, "${Environment.DIRECTORY_DOWNLOADS}/입찰표")
             }
@@ -233,8 +239,7 @@ class PDFActivity : AppCompatActivity() {
         withContext(Dispatchers.Main) {
             if (openPdf.resolveActivity(packageManager) == null) {
                 showToast()
-                pdfImageView()
-
+                pdfImageView(searchPdfFiles(fileName)!!)
             } else {
                 startActivity(openPdf)
                 setContentView(activityBinding.root)
@@ -253,13 +258,19 @@ class PDFActivity : AppCompatActivity() {
 
     // 파일 저장 + URL 따와서 PDF 뷰어로 열기
     private suspend fun belowQPDFViewer(document: PDDocument) {
+        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+        val fileName = "BidSheet_${timeStamp}.pdf"
+
         // 공개 Directory
-        val outputFile = File(
-            File(
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-                "입찰표"
-            ), "기일입찰표.pdf"
+        val dir = File(
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+            "bidSheet"
         )
+        if (!dir.exists()) {
+            dir.mkdirs()
+        }
+
+        val outputFile = File(dir, fileName)
 
         // 공유할 File 객체 생성 후, FileProvider.getUriForFile() 에 File 을 넘기고 URL 생성
         val uri = FileProvider.getUriForFile(
@@ -268,8 +279,13 @@ class PDFActivity : AppCompatActivity() {
             outputFile
         )
 
-        document.save(outputFile)
-        document.close()
+        // 파일 URL 로 데이터 저장
+        uri?.let {
+            contentResolver.openOutputStream(it).use { outputStream ->
+                document.save(outputStream)
+                document.close()
+            }
+        }
 
         val openPdf = Intent(Intent.ACTION_VIEW).apply {
             setDataAndType(uri, "application/pdf")
@@ -280,7 +296,7 @@ class PDFActivity : AppCompatActivity() {
         withContext(Dispatchers.Main) {
             if (openPdf.resolveActivity(packageManager) == null) {
                 showToast()
-                pdfImageView()
+                pdfImageView(outputFile)
             } else {
                 startActivity(openPdf)
                 setContentView(activityBinding.root)
@@ -298,12 +314,7 @@ class PDFActivity : AppCompatActivity() {
     }
 
     // 단순히 파일 찾고 ImageView 로 출력
-    private fun pdfImageView() {
-        val outputFile = File(
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-            "기일입찰표.pdf"
-        )
-
+    private fun pdfImageView(outputFile: File) {
         if (outputFile.exists()) {
             PdfRenderer(
                 ParcelFileDescriptor.open(
@@ -320,6 +331,34 @@ class PDFActivity : AppCompatActivity() {
             }
         }
     }
+
+    // Android 10 이상은 getExternalStoragePublicDirectory 사용 불가능
+    // contentResolver.query 에서 찾은 Content 의 Uri 로 FilePath 가져 오기
+    @RequiresApi(Build.VERSION_CODES.Q)
+    private fun searchPdfFiles(fileName: String) : File? {
+        val externalUri = MediaStore.Files.getContentUri("external")
+        val projection = arrayOf(MediaStore.MediaColumns.DATA)
+        val selection = "${MediaStore.MediaColumns.DISPLAY_NAME} = ?"
+        val selectionArgs = arrayOf(fileName)
+
+        var outputFile: File? = null
+
+        contentResolver.query(
+            externalUri,
+            projection,
+            selection,
+            selectionArgs,
+            null
+        )?.use { cursor ->
+            if (cursor.moveToFirst()) {
+                val columnIndex = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA)
+                val realPath = cursor.getString(columnIndex)
+                outputFile = File(realPath)
+            }
+        }
+        return outputFile
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()
