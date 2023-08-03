@@ -49,4 +49,10 @@
         <item name="helperTextTextColor">@color/color_sub</item>
         <item name="errorTextColor">@color/color_main</item>
     </style>
+
+    <style name="SlowBottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowEnterAnimation">@anim/slow_slide_up</item>
+    </style>
+
+
 </resources>
