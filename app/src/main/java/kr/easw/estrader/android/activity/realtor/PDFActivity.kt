@@ -21,10 +21,10 @@ import kr.easw.estrader.android.definitions.PDF_URL
 import kr.easw.estrader.android.extensions.replaceFragment
 import kr.easw.estrader.android.fragment.realtor.RealtorLookUpFragment
 import kr.easw.estrader.android.model.dto.ContractInfoRequest
-import kr.easw.estrader.android.util.PDFUtil
 import kr.easw.estrader.android.util.PDFUtil.contentUri
 import kr.easw.estrader.android.util.PDFUtil.createSharedFile
 import kr.easw.estrader.android.util.PDFUtil.createUri
+import kr.easw.estrader.android.util.PDFUtil.downloadReceiver
 import kr.easw.estrader.android.util.PDFUtil.getFileFromContentUri
 import kr.easw.estrader.android.util.PDFUtil.renderPdfToImageView
 import java.io.File
@@ -155,7 +155,7 @@ class PDFActivity : AppCompatActivity() {
             downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
             downloadManager?.let { manager ->
                 val request = DownloadManager.Request(Uri.parse(PDF_URL))
-                    .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+//                    .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
                     .setRequiresCharging(false)
                     .setDestinationUri(Uri.fromFile(it))
                     .setAllowedOverMetered(true)
@@ -164,7 +164,7 @@ class PDFActivity : AppCompatActivity() {
 
                 if(!isReceiverRegistered) {
                     // Download 완료를 알려줄 BroadcastReceiver 생성
-                    downloadReceiver = PDFUtil.downloadReceiver(downloadId, manager)
+                    downloadReceiver = downloadReceiver(downloadId, manager)
                     downloadCompleteFilter = IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
                     registerReceiver(downloadReceiver, downloadCompleteFilter)
                     isReceiverRegistered = true
