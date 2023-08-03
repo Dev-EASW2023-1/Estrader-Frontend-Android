@@ -4,7 +4,6 @@ import android.annotation.TargetApi
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.app.usage.UsageStatsManager
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -14,7 +13,6 @@ import androidx.core.os.bundleOf
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import kr.easw.estrader.android.R
-import kr.easw.estrader.android.activity.user.MainActivity
 import kr.easw.estrader.android.fragment.realtor.DelegateWaitingFragment
 
 class MessagingService : FirebaseMessagingService() {
@@ -38,12 +36,14 @@ class MessagingService : FirebaseMessagingService() {
             createNotificationChannel()
         }
 
-        remoteMessage.notification?.let {
-            Log.d("FirebaseMessagingService*************", "Message Notification Body: ${it.body}")
-            sendNotification(remoteMessage.notification!!)
-        }
+//        remoteMessage.notification?.let {
+//            Log.d("FirebaseMessagingService*************", "Message Notification Body: ${it.body}")
+//            sendNotification(remoteMessage.notification!!)
+//        }
 
         remoteMessage.data.let {
+            println("${it["userId"]}가 ${it["targetId"]}한테 보냈습니다.")
+
             // 수신한 메시지 전달할 Intent 생성
             val intent = Intent("MyNotification")
 
