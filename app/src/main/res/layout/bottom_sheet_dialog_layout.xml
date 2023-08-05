@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="@drawable/rounded_dialog"
-
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <androidx.appcompat.widget.LinearLayoutCompat
 
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -31,41 +27,36 @@
             android:gravity="start"
             android:text="대리위임을\n수락하시겠습니까?"
             android:layout_marginBottom="30dp"
-            android:textColor="#000000"
+            android:textColor="@color/black"
+            android:fontFamily="@font/chosungu"
             android:textSize="@dimen/progress_heading_size"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/auctionHouse"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="start"
-            android:text="수원지방법원 경매 3계"
-            android:layout_marginBottom="30dp"
-            android:textColor="#000000"
-            android:textSize="@dimen/progress_subtitle_size"
             android:textStyle="bold" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="start"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="사건번호 : "
-                android:textColor="#000000"
-                android:textSize="@dimen/title_size" />
+                android:layout_height="wrap_content"
+                android:text="담당법원 : "
+                android:textColor="#585657"
+                android:fontFamily="@font/chosungu"
+                android:textSize="@dimen/subtitle_size"
+                app:drawableStartCompat="@drawable/court_icon_resize"
+                android:drawablePadding="5dp"/>
 
             <TextView
-                android:id="@+id/caseNumber"
+                android:id="@+id/auctionHouse"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="2023타경 "
-                android:textColor="#000000"
-                android:textSize="@dimen/title_size" />
+                android:layout_height="wrap_content"
+                android:text="대구지방법원 경매 3계"
+                android:textColor="#585657"
+                android:fontFamily="@font/chosungu"
+                android:textSize="@dimen/subtitle_size" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -73,22 +64,55 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="start"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:text="소재지 : "
+                android:textColor="#585657"
+                android:fontFamily="@font/chosungu"
+                android:textSize="@dimen/subtitle_size"
+                app:drawableStartCompat="@drawable/location_icon_resize"
+                android:drawablePadding="5dp"/>
+
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="대구광역시 중구"
+                android:textColor="#585657"
+                android:fontFamily="@font/chosungu"
+                android:textSize="@dimen/subtitle_size" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="최저가 : "
-                android:textColor="#000000"
-                android:textSize="@dimen/title_size" />
+                android:textColor="#585657"
+                android:fontFamily="@font/chosungu"
+                android:textSize="@dimen/subtitle_size"
+                app:drawableStartCompat="@drawable/contract_resize"
+                android:drawablePadding="5dp"/>
 
             <TextView
                 android:id="@+id/reservePrice"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="123,123,123,123"
-                android:textColor="#000000"
-                android:textSize="@dimen/title_size" />
+                android:layout_height="wrap_content"
+                android:text="1,489,129,980"
+                android:textColor="#585657"
+                android:fontFamily="@font/chosungu"
+                android:textSize="@dimen/subtitle_size" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -96,22 +120,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="start"
+            android:layout_marginBottom="30dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:text="입찰기일 : "
-                android:textColor="#000000"
-                android:textSize="@dimen/title_size" />
+                android:textColor="#585657"
+                android:fontFamily="@font/chosungu"
+                android:textSize="@dimen/subtitle_size"
+                app:drawableStartCompat="@drawable/bidding_period_icon_resize"
+                android:drawablePadding="5dp"/>
 
             <TextView
                 android:id="@+id/auctionPeriod"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="2123년 4월 15일 \n오전10시 30분"
-                android:textColor="#000000"
-                android:textSize="@dimen/title_size" />
+                android:layout_height="wrap_content"
+                android:text="2023년 03월 27일 ~ \n2023년 04월 07일"
+                android:textColor="#585657"
+                android:fontFamily="@font/chosungu"
+                android:textSize="@dimen/subtitle_size" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -119,37 +148,34 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginTop="40dp">
-
-            <android.widget.Button
-                android:id="@+id/reject_button"
-                android:layout_width="130dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/awaitingbid_button"
-                android:backgroundTint="#FFFFFF"
-                android:text="거절"
-                android:textColor="#000000"
-                android:textSize="@dimen/title_size"
-                android:textStyle="bold" />
+            android:orientation="vertical">
 
             <android.widget.Button
                 android:id="@+id/confirm_button"
-                android:layout_width="130dp"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:layout_marginStart="20dp"
                 android:background="@drawable/awaitingbid_button"
-                android:backgroundTint="#FFFFFF"
-                android:text="수락"
-                android:textColor="#000000"
+                android:text="@string/confirm_button"
+                android:textColor="@color/white"
                 android:textSize="@dimen/title_size"
+                android:fontFamily="@font/chosungu"
+                android:textStyle="bold" />
+
+            <android.widget.Button
+                android:id="@+id/reject_button"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:background="@color/white"
+                android:text="@string/reject_button"
+                android:textColor="#585657"
+                android:textSize="@dimen/subtitle_size"
+                android:fontFamily="@font/chosungu"
                 android:textStyle="bold" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

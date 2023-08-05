@@ -22,7 +22,11 @@
     <string name="property_photo">매물 사진</string>
     <string name="property_name">매물 명칭</string>
     <string name="intro">인트로</string>
+    <string name="thumbnail">썸네일</string>
     <string name="floating">플로팅 액션 버튼</string>
+    <string name="notificationReceived">알림을 눌러 \n절차를 진행하세요.</string>
+    <string name="confirm_button">수락할게요!</string>
+    <string name="reject_button"><u>다음에 할게요.</u></string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -20,15 +20,15 @@
         <item name="android:radioButtonStyle">@style/customRadioButtonStyle</item>
         <item name="android:checkboxStyle">@style/customCheckboxStyle</item>
         <item name="android:alertDialogTheme">@style/AppTheme.AlertDialogTheme</item>
+        <!-- BottomSheetDialog Style -->
+        <item name="bottomSheetDialogTheme">@style/SlowBottomSheetDialog</item>
     </style>
 
     <style name="Theme.Estrader.NoActionBar">
         <item name="windowActionBar">false</item>
-
         <item name="windowNoTitle">true</item>
     </style>
 
     <style name="Theme.Estrader.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
     <style name="Theme.Estrader.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
