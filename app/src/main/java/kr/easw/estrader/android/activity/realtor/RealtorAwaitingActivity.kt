@@ -59,10 +59,5 @@ class RealtorAwaitingActivity : AppCompatActivity() {
         super.onStop()
         finishRegisterReceiver()
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        finishRegisterReceiver()
-    }
 }
 
