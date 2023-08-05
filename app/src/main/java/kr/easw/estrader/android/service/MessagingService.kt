@@ -52,7 +52,11 @@ class MessagingService : FirebaseMessagingService() {
                     "대구지방법원",
                     "대구광역시 중구",
                     "1,489,129,980",
-                    "03-27\n ~ \n04-07"
+                    "03-27\n ~ \n04-07",
+                    it["targetId"]!!,
+                    it["userId"]!!,
+                    it["itemImage"]!!,
+                    it["phase"]!!
                 )
             )
 

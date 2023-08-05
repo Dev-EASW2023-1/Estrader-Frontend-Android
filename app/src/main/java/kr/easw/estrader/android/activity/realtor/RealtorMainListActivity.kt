@@ -26,7 +26,7 @@ class RealtorMainListActivity : AppCompatActivity() {
         const val NUM_TABS = 2
         val tabTitleArray = arrayOf(
             "대리 위임 진행 목록",
-            "입찰 완료 목록",
+            "대리 위임 완료 목록",
         )
     }
 

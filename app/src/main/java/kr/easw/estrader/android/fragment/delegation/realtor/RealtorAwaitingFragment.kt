@@ -1,5 +1,6 @@
 package kr.easw.estrader.android.fragment.delegation.realtor
 
+import android.app.Dialog
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
@@ -8,8 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -22,9 +22,13 @@ import kr.easw.estrader.android.R
 import kr.easw.estrader.android.activity.realtor.RealtorMainListActivity
 import kr.easw.estrader.android.databinding.ElementRealtorAwaitingBinding
 import kr.easw.estrader.android.databinding.FragmentRealtorAwaitingBinding
+import kr.easw.estrader.android.definitions.ApiDefinition
+import kr.easw.estrader.android.definitions.PREFERENCE_REALTOR_ID
 import kr.easw.estrader.android.extensions.startActivity
 import kr.easw.estrader.android.model.data.NotificationHolder
+import kr.easw.estrader.android.model.dto.FcmRequest
 import kr.easw.estrader.android.model.dto.NotificationItem
+import kr.easw.estrader.android.util.PreferenceUtil
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -184,14 +188,27 @@ class RealtorAwaitingFragment : Fragment(), View.OnClickListener {
         recyclerViewAdapter.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(position: Int) {
                 // TODO("아직 정하지 않았음.")
-                showBottomSheetDialog()
+                showBottomSheetDialog(position)
             }
         })
     }
 
-    private fun showBottomSheetDialog() {
+    private fun showBottomSheetDialog(position: Int) {
         val bottomSheetDialog = BottomSheetDialog(requireContext())
         bottomSheetDialog.setContentView(R.layout.bottom_sheet_dialog_layout)
+
+        // Find the button by its ID
+        val confirmButton = bottomSheetDialog.findViewById<Button>(R.id.confirm_button)
+        val rejectButton = bottomSheetDialog.findViewById<Button>(R.id.reject_button)
+
+        confirmButton?.setOnClickListener{
+            acceptDelegation(position)
+            bottomSheetDialog.dismiss()
+        }
+
+        rejectButton?.setOnClickListener {
+            bottomSheetDialog.dismiss()
+        }
 
         // Set the dialog to full screen
         val bottomSheet = bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
@@ -201,6 +218,33 @@ class RealtorAwaitingFragment : Fragment(), View.OnClickListener {
         }
 
         bottomSheetDialog.show()
+    }
+
+    private fun acceptDelegation(position: Int) {
+        val dialog = Dialog(requireContext())
+        dialog.setContentView(ProgressBar(requireContext()))
+        dialog.show()
+
+        ApiDefinition.REALTOR_SEND_FCM
+            .setRequestParams(
+                FcmRequest(
+                    PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_REALTOR_ID)!!,
+                    dataList[position].targetId,
+                    dataList[position].itemImage,
+                    "2",
+                    "제목",
+                    "내용"
+                )
+            )
+            .setListener {
+                showToast(it.message)
+                dialog.dismiss()
+            }
+            .build(requireContext())
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
     // FCM 이벤트 수신 시 이 콜백 메소드 실행

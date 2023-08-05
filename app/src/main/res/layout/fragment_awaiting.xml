@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_main">
@@ -13,25 +14,66 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.airbnb.lottie.LottieAnimationView
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/rounding_box"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:layout_marginBottom="20dp"
-            app:lottie_autoPlay="true"
-            app:lottie_fileName="loading_awaiting.json"
-            app:lottie_loop="true" />
+            android:layout_marginBottom="20dp">
 
-        <TextView
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/loading_imageview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/rounding_box"
+                app:layout_constraintTop_toTopOf="@id/rounding_box"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="loading_awaiting.json"
+                app:lottie_loop="true" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/complete_imageview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/rounding_box"
+                app:layout_constraintTop_toTopOf="@id/rounding_box"
+                android:visibility="invisible"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="ring-circle-fading-effect.json"
+                app:lottie_loop="true" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:gravity="start"
-            android:text="대리인을 \n찾는 중입니다."
-            android:textColor="#FFFFFF"
-            android:textSize="@dimen/progress_title_size"
-            android:textStyle="bold"/>
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/realtor_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:text="대리인을 \n찾는 중입니다."
+                android:textColor="@color/white"
+                android:textSize="@dimen/progress_title_size"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/showInfoText1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_gravity="bottom"
+                android:text="님께"
+                android:visibility="invisible"
+                android:textColor="@color/white"
+                android:textSize="@dimen/progress_subtitle_size" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <TextView
+            android:id="@+id/showInfoText2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"

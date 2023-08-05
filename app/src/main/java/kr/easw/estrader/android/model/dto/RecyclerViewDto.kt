@@ -31,5 +31,9 @@ data class NotificationItem(
     val auctionHouse: String,
     val location: String,
     val reservePrice: String,
-    val auctionPeriod: String
+    val auctionPeriod: String,
+    val userId: String,
+    val targetId: String,
+    val itemImage: String,
+    val phase: String
 )
