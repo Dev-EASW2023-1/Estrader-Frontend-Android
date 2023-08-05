@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_main">
@@ -13,15 +14,35 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.airbnb.lottie.LottieAnimationView
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/rounding_box"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:layout_marginBottom="20dp"
-            app:lottie_autoPlay="true"
-            app:lottie_fileName="loading_awaiting.json"
-            app:lottie_loop="true" />
+            android:layout_marginBottom="20dp">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/loading_imageview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/rounding_box"
+                app:layout_constraintTop_toTopOf="@id/rounding_box"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="loading_awaiting.json"
+                app:lottie_loop="true" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/rounding_box"
+                app:layout_constraintTop_toTopOf="@id/rounding_box"
+                android:scrollbarFadeDuration="0"
+                android:scrollbars="vertical" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
+            android:id="@+id/showInfoText1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
@@ -29,9 +50,10 @@
             android:text="대리위임 \n대기 중입니다."
             android:textColor="#FFFFFF"
             android:textSize="@dimen/progress_title_size"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/showInfoText2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
@@ -42,6 +64,21 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
+    <TextView
+        android:id="@+id/notification_badge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textColor="#FFF"
+        android:textSize="@dimen/fab_margin"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:elevation="7dp"
+        android:background="@drawable/realtor_awaiting_notification_badge"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="@id/fab"
+        app:layout_constraintEnd_toEndOf="@id/fab" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_home"
         android:layout_width="wrap_content"
@@ -50,7 +87,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginEnd="40dp"
         android:contentDescription="@string/floating"
-        android:src="@drawable/home_icon_resize"
+        android:src="@drawable/bell_icon"
         app:tint="@color/color_main"
         app:backgroundTint="@color/white"
         android:visibility="invisible"

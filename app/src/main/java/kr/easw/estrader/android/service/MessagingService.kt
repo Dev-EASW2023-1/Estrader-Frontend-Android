@@ -14,6 +14,8 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.fragment.realtor.DelegateWaitingFragment
+import kr.easw.estrader.android.model.dto.NotificationItem
+import org.greenrobot.eventbus.EventBus
 
 class MessagingService : FirebaseMessagingService() {
     private lateinit var notificationManager: NotificationManager
@@ -44,21 +46,31 @@ class MessagingService : FirebaseMessagingService() {
         remoteMessage.data.let {
             println("${it["userId"]}가 ${it["targetId"]}한테 보냈습니다.")
 
-            // 수신한 메시지 전달할 Intent 생성
-            val intent = Intent("MyNotification")
+            // EventBus 이용, 이벤트 발생
+            EventBus.getDefault().post(
+                NotificationItem(
+                    "대구지방법원",
+                    "대구광역시 중구",
+                    "1,489,129,980",
+                    "03-27\n ~ \n04-07"
+                )
+            )
 
-            // 데이터 전달
-            intent.apply {
-                putExtras(bundleOf(
-                    "userId" to it["targetId"],
-                    "targetId" to it["userId"],
-                    "itemImage" to it["itemImage"],
-                    "phase" to it["phase"]
-                ))
-            }
-
-            // BroadcastReceiver 전송
-            sendBroadcast(intent)
+//            // 수신한 메시지 전달할 Intent 생성
+//            val intent = Intent("MyNotification")
+//
+//            // 데이터 전달
+//            intent.apply {
+//                putExtras(bundleOf(
+//                    "userId" to it["targetId"],
+//                    "targetId" to it["userId"],
+//                    "itemImage" to it["itemImage"],
+//                    "phase" to it["phase"]
+//                ))
+//            }
+//
+//            // BroadcastReceiver 전송
+//            sendBroadcast(intent)
         }
     }
 

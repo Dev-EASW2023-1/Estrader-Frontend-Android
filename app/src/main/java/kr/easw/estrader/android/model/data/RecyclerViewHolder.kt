@@ -4,11 +4,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kr.easw.estrader.android.application.GlideApp
 import kr.easw.estrader.android.databinding.ElementItemBinding
-import kr.easw.estrader.android.databinding.ElementRealtoritemBinding
+import kr.easw.estrader.android.databinding.ElementRealtorAwaitingBinding
+import kr.easw.estrader.android.databinding.ElementRealtorDelegationBinding
+import kr.easw.estrader.android.databinding.ElementRealtorItemBinding
 import kr.easw.estrader.android.fragment.BaseFragment
+import kr.easw.estrader.android.fragment.delegation.realtor.RealtorAwaitingFragment
 import kr.easw.estrader.android.model.dto.DelegateCompletionItem
 import kr.easw.estrader.android.model.dto.DelegateItem
 import kr.easw.estrader.android.model.dto.MainItem
+import kr.easw.estrader.android.model.dto.NotificationItem
 
 class MainHolder(
     private val binding: ElementItemBinding?,
@@ -43,7 +47,7 @@ class MainHolder(
 }
 
 class DelegateHolder(
-    binding: ElementRealtoritemBinding?,
+    binding: ElementRealtorItemBinding?,
     listener: BaseFragment.OnItemClickListener?
 ) : RecyclerView.ViewHolder(binding!!.root) {
     private val username: TextView = binding!!.username
@@ -73,7 +77,7 @@ class DelegateHolder(
 }
 
 class DelegateCompletionHolder(
-    binding: ElementRealtoritemBinding?,
+    binding: ElementRealtorDelegationBinding?,
     listener: BaseFragment.OnItemClickListener?
 ) : RecyclerView.ViewHolder(binding!!.root) {
     private val username: TextView = binding!!.username
@@ -96,6 +100,32 @@ class DelegateCompletionHolder(
         username.text = item.username
         auctionHouse.text = item.auctionHouse
         caseNumber.text = item.caseNumber
+        location.text = item.location
+        reservePrice.text = item.reservePrice
+        auctionPeriod.text = item.auctionPeriod
+    }
+}
+
+class NotificationHolder(
+    binding: ElementRealtorAwaitingBinding?,
+    listener: RealtorAwaitingFragment.OnItemClickListener?
+) : RecyclerView.ViewHolder(binding!!.root) {
+    private val auctionHouse: TextView = binding!!.auctionHouse
+    private val location: TextView = binding!!.location
+    private val reservePrice: TextView = binding!!.reservePrice
+    private val auctionPeriod: TextView = binding!!.auctionPeriod
+
+    init {
+        binding!!.root.setOnClickListener {
+            val pos = adapterPosition
+            if (pos != RecyclerView.NO_POSITION) {
+                listener?.onItemClick(pos)
+            }
+        }
+    }
+
+    fun bind(item: NotificationItem) {
+        auctionHouse.text = item.auctionHouse
         location.text = item.location
         reservePrice.text = item.reservePrice
         auctionPeriod.text = item.auctionPeriod

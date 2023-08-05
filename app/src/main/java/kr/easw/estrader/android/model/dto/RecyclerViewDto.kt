@@ -26,3 +26,10 @@ data class DelegateCompletionItem(
     val reservePrice: String,
     val auctionPeriod: String
 )
+
+data class NotificationItem(
+    val auctionHouse: String,
+    val location: String,
+    val reservePrice: String,
+    val auctionPeriod: String
+)
