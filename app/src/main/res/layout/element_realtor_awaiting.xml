@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:background="@drawable/realtor_awaiting_recyclerview"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true" />
+
+    <ImageView
+        android:id="@+id/icon_background"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/realtor_awaiting_thumbnail"
+        android:layout_alignStart="@id/username"
+        android:layout_alignEnd="@id/username"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/thumbnail" />
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/home_thumbnail_icon"
+        android:layout_alignStart="@id/username"
+        android:layout_alignEnd="@id/username"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/thumbnail"
+        app:tint="#E6FFFFFF" />
+
+    <LinearLayout
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toStartOf="@+id/auction_period"
+        android:layout_toEndOf="@+id/username"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/notification_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="알림이 도착했어요."
+            android:textSize="@dimen/heading_size"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/auction_house"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="담당법원"
+            android:textColor="#000"
+            android:textSize="@dimen/body_size" />
+
+        <TextView
+            android:id="@+id/location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="소재지"
+            android:textColor="#000"
+            android:textSize="@dimen/body_size" />
+
+        <TextView
+            android:id="@+id/reserve_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="최저입찰가"
+            android:textColor="#000"
+            android:textSize="@dimen/body_size" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/auction_period"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:text="입찰기간"
+        android:textColor="#000"
+        android:textSize="@dimen/heading_size" />
+
+</RelativeLayout>

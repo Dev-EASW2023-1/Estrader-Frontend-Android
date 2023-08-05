@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kr.easw.estrader.android.databinding.ElementRealtoritemBinding
+import kr.easw.estrader.android.databinding.ElementRealtorItemBinding
 import kr.easw.estrader.android.databinding.FragmentDelegateWaitinglistBinding
 import kr.easw.estrader.android.fragment.BaseFragment
 import kr.easw.estrader.android.model.data.DelegateHolder
@@ -23,7 +23,7 @@ class DelegateWaitingFragment : BaseFragment<FragmentDelegateWaitinglistBinding>
 
     private var dataList: MutableList<DelegateItem>? = null
     private var itemClickListener: WeakReference<OnItemClickListener>? = null
-    private var recyclerBinding: ElementRealtoritemBinding? = null
+    private var recyclerBinding: ElementRealtorItemBinding? = null
 
     override fun onViewCreated(
         view: View,
@@ -96,7 +96,7 @@ class DelegateWaitingFragment : BaseFragment<FragmentDelegateWaitinglistBinding>
             override fun onCreateViewHolder(
                 parent: ViewGroup, viewType: Int
             ): DelegateHolder {
-                recyclerBinding = ElementRealtoritemBinding.inflate(
+                recyclerBinding = ElementRealtorItemBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
                 return DelegateHolder(recyclerBinding, itemClickListener?.get())
