@@ -1,92 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="330dp"
-    android:orientation="vertical">
+    android:layout_height="match_parent"
+    android:background="@color/main_bgc"
+    android:fitsSystemWindows="true">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/userId"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <!--
+        androidx.fragment.app.FragmentContainerView
+        동작은 잘 되지만, Preview 표시 오류 존재
+    -->
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="Email Address"
-        app:helperText="Write your email."
-        app:helperTextEnabled="true"
-        app:hintAnimationEnabled="true"
-        app:hintEnabled="true">
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/main_body"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:layout_width="400dp"
+            android:layout_height="400dp"
+            android:layout_margin="30dp"
+            android:src="@drawable/mainicon"
+            >
+
+        </androidx.constraintlayout.utils.widget.ImageFilterView>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/welcom"
+
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible"
+            >
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/testmain"
+            android:textColor="@color/black"
+            android:textSize="@dimen/heading_size"
             android:layout_gravity="center"
-            android:inputType="text"
-            android:maxLines="1"
-            android:paddingStart="10dp"
-            android:paddingEnd="0dp"
-            android:textSize="@dimen/hint_size" />
+            />
 
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/userPw"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Password"
-        app:helperText="Write your password."
-        app:helperTextEnabled="true"
-        app:helperTextTextColor="#585757"
-        app:hintEnabled="true"
-        app:passwordToggleEnabled="true">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/loginNext"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="3dp"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:paddingStart="10dp"
-            android:paddingEnd="0dp"
-            android:textSize="@dimen/hint_size" />
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
 
-    </com.google.android.material.textfield.TextInputLayout>
+            android:background="@drawable/login_button_rounded_corners"
+            android:text="로그인 하기 "
+            android:textColor="#ffffff"
+            android:textSize="@dimen/subtitle_size"
+            android:textStyle="bold"
+            android:visibility="visible"
+            />
 
-<!--    <CheckBox-->
-<!--        android:id="@+id/autologin"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="@android:color/transparent"-->
-<!--        android:buttonTint="#595757"-->
-<!--        android:checked="true"-->
-<!--        android:text="자동 로그인"-->
-<!--        android:textAlignment="center"-->
-<!--        android:textColor="#4d7149"-->
-<!--        android:textSize="14dp" />-->
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnNext"
+        <TextView
+            android:id="@+id/sign_in"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp"
+            android:text="회원가입"
+            android:textColor="#585757"
+            android:textSize="@dimen/subtitle_size"
+            android:textStyle="bold"
+            />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/userId"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Email Address"
+            app:helperText="Write your email."
+            app:helperTextEnabled="true"
+            app:hintAnimationEnabled="true"
+            app:hintEnabled="true"
+            android:visibility="gone"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingStart="10dp"
+                android:paddingEnd="0dp"
+                android:textSize="@dimen/hint_size" />
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnNext2"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="30dp"
+                android:background="@drawable/login_button_rounded_corners"
+                android:text="다음"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/subtitle_size"
+                android:textStyle="bold"
+                android:visibility="visible"
+
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/userPw"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            app:helperText="Write your password."
+            app:helperTextEnabled="true"
+            app:helperTextTextColor="#585757"
+            app:hintEnabled="true"
+            app:passwordToggleEnabled="true"
+            android:visibility="gone"
+
+
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="3dp"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:paddingStart="10dp"
+                android:paddingEnd="0dp"
+                android:textSize="@dimen/hint_size" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnNext"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="30dp"
+                android:background="@drawable/login_button_rounded_corners"
+                android:text="Login"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/subtitle_size"
+                android:textStyle="bold"
+                android:visibility="gone"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="30dp"
+            android:text="Forgot Password?"
+            android:textColor="#585757"
+            android:textSize="@dimen/subtitle_size"
+            android:textStyle="bold"
+            android:visibility="gone"
+
+            />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    <ScrollView
+        android:id="@+id/main_body"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="30dp"
-        android:background="@drawable/login_button_rounded_corners"
-        android:text="Login"
-        android:textColor="#ffffff"
-        android:textSize="@dimen/subtitle_size"
-        android:textStyle="bold"/>
+        android:layout_height="0dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="30dp"
-        android:text="Forgot Password?"
-        android:textColor="#585757"
-        android:textSize="@dimen/subtitle_size"
-        android:textStyle="bold" />
-
-</androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.constraintlayout.widget.ConstraintLayout>

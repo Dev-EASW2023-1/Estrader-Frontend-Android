@@ -9,19 +9,16 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
-import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.messaging.FirebaseMessaging
-import kr.easw.estrader.android.R
 import kr.easw.estrader.android.databinding.ActivityMainBinding
 import kr.easw.estrader.android.definitions.PREFERENCE_FCM
 import kr.easw.estrader.android.extensions.replaceFragment
 import kr.easw.estrader.android.fragment.user.LoginFragment
-import kr.easw.estrader.android.fragment.user.RegisterFragment
 import kr.easw.estrader.android.util.PreferenceUtil
 
 /**
@@ -34,12 +31,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var resultLauncher: ActivityResultLauncher<Array<String>>
     private lateinit var deniedList: List<String>
-    private val signInTextView: TextView by lazy {
-        binding.signIn
-    }
-    private val signUpTextView: TextView by lazy {
-        binding.signUp
-    }
+
 
     companion object {
         const val requestFinal = 444
@@ -64,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initFields()
+
 
         initFragment()
 
@@ -81,44 +73,18 @@ class MainActivity : AppCompatActivity() {
 
         permissionRequest()
 
-        signInTextView.setOnClickListener {
-            signInClick()
-        }
-        signUpTextView.setOnClickListener {
-            signUpClick()
-        }
-
         // 키보드 화면 덮는 현상 방지
         window.setSoftInputMode(
             WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
         )
     }
 
-    private fun initFields() {
-        signInTextView
-        signUpTextView
-    }
+
 
     private fun initFragment() {
         supportFragmentManager.replaceFragment<LoginFragment> (
             binding.containerView.id,
             null
-        )
-    }
-
-    private fun signInClick() {
-        supportFragmentManager.replaceFragment<LoginFragment> (
-            binding.containerView.id,
-            R.anim.slide_in_right,
-            R.anim.slide_out_left
-        )
-    }
-
-    private fun signUpClick() {
-        supportFragmentManager.replaceFragment<RegisterFragment> (
-            binding.containerView.id,
-            R.anim.slide_in_right,
-            R.anim.slide_out_left
         )
     }
 
@@ -203,4 +169,14 @@ class MainActivity : AppCompatActivity() {
         imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
         return super.dispatchTouchEvent(event)
     }
+    override fun onBackPressed() {
+        val fragment = supportFragmentManager.findFragmentByTag(LoginFragment::class.java.simpleName)
+        if (fragment != null && fragment.isVisible) {
+                                                                        // 여기에서 프래그먼트를 종료하거나 다른 작업을 수행
+            supportFragmentManager.popBackStack()                       // 현재 프래그먼트를 백스택에서 제거
+        } else {
+            super.onBackPressed()                                       // 기본 뒤로 가기 작업 수행
+        }
+    }
+
 }

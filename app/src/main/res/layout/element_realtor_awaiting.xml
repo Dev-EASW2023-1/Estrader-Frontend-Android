@@ -36,6 +36,7 @@
         app:tint="#E6FFFFFF" />
 
     <LinearLayout
+        android:id="@+id/reserve_price2"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_centerVertical="true"

@@ -59,7 +59,9 @@
         android:hint="Password"
         app:helperTextTextColor="#585757"
         app:hintEnabled="true"
-        app:passwordToggleEnabled="true">
+        app:passwordToggleEnabled="true"
+        android:visibility="gone"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -84,7 +86,9 @@
         app:helperTextEnabled="true"
         app:helperTextTextColor="#585757"
         app:hintEnabled="true"
-        app:passwordToggleEnabled="true">
+        app:passwordToggleEnabled="true"
+        android:visibility="gone"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"

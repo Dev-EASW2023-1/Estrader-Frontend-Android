@@ -30,4 +30,8 @@
     <string name="reject_button"><u>다음에 할게요.</u></string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="testmain">새로운 부동산 경매 서비스 O2O</string>
+    <string name="name_prompt"><bord>이름을</bord> 입력해주세요.</string>
+
 </resources>

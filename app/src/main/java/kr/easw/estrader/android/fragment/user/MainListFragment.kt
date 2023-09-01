@@ -1,11 +1,11 @@
 package kr.easw.estrader.android.fragment.user
 
-import android.app.Dialog
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,6 +32,7 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
         savedInstanceState: Bundle?
     ) {
         initialize()
+
     }
 
     override fun onDestroyView() {
@@ -41,9 +42,10 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
 
     // ViewHolder 에 사용할 DateList 초기화
     private fun initialize() {
-        val dialog = Dialog(requireContext())
-        dialog.setContentView(ProgressBar(requireContext()))
-        dialog.show()
+
+        val shimmerContainer = (binding as FragmentMainlistBinding).shimmerViewContainer
+        shimmerContainer.startShimmer() // 스켈레톤 로딩 시작
+        Handler(Looper.getMainLooper()).postDelayed({
 
         ApiDefinition.GET_ITEM_LIST
             .setListener{
@@ -59,9 +61,12 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
                     ))
                 }
                 initRecycler(dataList)
-                dialog.dismiss()
+                shimmerContainer.stopShimmer() // 스켈레톤 로딩 중지
+                shimmerContainer.visibility = View.GONE // 스켈레톤 뷰 숨기기
             }
             .build(requireContext())
+        }, 3000)  // 3000ms = 3초
+        (binding as FragmentMainlistBinding).mainlistRecyclerView.visibility = View.VISIBLE // 실제 데이터 뷰 보이기
     }
 
     private fun initRecycler(itemList: MutableList<MainItem>) {

@@ -1,6 +1,7 @@
 package kr.easw.estrader.android.definitions
 
-const val SERVER_URL = "http://172.17.0.30:8060"
+const val SERVER_URL = "http://172.17.0.10:8060"
+
 //const val SERVER_URL = "http://lab.dja.kr:19094"
 const val PREFERENCE_ID = "ID"
 const val PREFERENCE_PW = "PW"
