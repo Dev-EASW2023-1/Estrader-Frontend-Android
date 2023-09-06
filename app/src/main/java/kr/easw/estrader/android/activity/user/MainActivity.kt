@@ -9,10 +9,12 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.commit
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.messaging.FirebaseMessaging
 import kr.easw.estrader.android.databinding.ActivityMainBinding
@@ -31,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var resultLauncher: ActivityResultLauncher<Array<String>>
     private lateinit var deniedList: List<String>
-
+    private lateinit var callback: OnBackPressedCallback
 
     companion object {
         const val requestFinal = 444
@@ -56,8 +58,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-
         initFragment()
 
         FirebaseMessaging.getInstance().token
@@ -73,19 +73,32 @@ class MainActivity : AppCompatActivity() {
 
         permissionRequest()
 
+        onBack()
+
         // 키보드 화면 덮는 현상 방지
         window.setSoftInputMode(
             WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
         )
     }
 
-
-
     private fun initFragment() {
         supportFragmentManager.replaceFragment<LoginFragment> (
             binding.containerView.id,
             null
         )
+    }
+
+    // onBackPressed 가 deprecated 됨에 따라, OnBackPressedDispatcher 사용
+    private fun onBack() {
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                supportFragmentManager.commit {
+                    replace(binding.containerView.id, LoginFragment())
+                }
+                println("콜백 동작")
+            }
+        }
+        this.onBackPressedDispatcher.addCallback(this, callback)
     }
 
     // 권한 요청
@@ -169,14 +182,4 @@ class MainActivity : AppCompatActivity() {
         imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
         return super.dispatchTouchEvent(event)
     }
-    override fun onBackPressed() {
-        val fragment = supportFragmentManager.findFragmentByTag(LoginFragment::class.java.simpleName)
-        if (fragment != null && fragment.isVisible) {
-                                                                        // 여기에서 프래그먼트를 종료하거나 다른 작업을 수행
-            supportFragmentManager.popBackStack()                       // 현재 프래그먼트를 백스택에서 제거
-        } else {
-            super.onBackPressed()                                       // 기본 뒤로 가기 작업 수행
-        }
-    }
-
 }
