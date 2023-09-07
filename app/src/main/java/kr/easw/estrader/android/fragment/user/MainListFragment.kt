@@ -1,14 +1,13 @@
 package kr.easw.estrader.android.fragment.user
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.facebook.shimmer.ShimmerFrameLayout
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.databinding.ElementItemBinding
 import kr.easw.estrader.android.databinding.FragmentMainlistBinding
@@ -28,6 +27,7 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
 
     private var itemClickListener: WeakReference<OnItemClickListener>? = null
     private var recyclerBinding: ElementItemBinding? = null
+    private lateinit var shimmerContainer: ShimmerFrameLayout
 
     override fun onViewCreated(
         view: View,
@@ -43,31 +43,27 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
 
     // ViewHolder 에 사용할 DateList 초기화
     private fun initialize() {
-        val shimmerContainer = (binding as FragmentMainlistBinding).shimmerViewContainer
+        shimmerContainer = (binding as FragmentMainlistBinding).shimmerViewContainer
         shimmerContainer.startShimmer() // 스켈레톤 로딩 시작
-        Handler(Looper.getMainLooper()).postDelayed({
-
-        ApiDefinition.GET_ITEM_LIST
-            .setListener{
-                val dataList: MutableList<MainItem> = mutableListOf()
-                for(x in 0 until it.itemDto.size){
-                    dataList.add(MainItem(
-                        it.itemDto[x].photo,
-                        it.itemDto[x].court,
-                        it.itemDto[x].caseNumber,
-                        it.itemDto[x].location,
-                        it.itemDto[x].minimumBidPrice,
-                        it.itemDto[x].biddingPeriod
-                    ))
+            ApiDefinition.GET_ITEM_LIST
+                .setListener{
+                    val dataList: MutableList<MainItem> = mutableListOf()
+                    for(x in 0 until it.itemDto.size){
+                        dataList.add(MainItem(
+                            it.itemDto[x].photo,
+                            it.itemDto[x].court,
+                            it.itemDto[x].caseNumber,
+                            it.itemDto[x].location,
+                            it.itemDto[x].minimumBidPrice,
+                            it.itemDto[x].biddingPeriod
+                        ))
+                    }
+                    initRecycler(dataList)
+                    shimmerContainer.stopShimmer() // 스켈레톤 로딩 중지
+                    shimmerContainer.visibility = View.GONE // 스켈레톤 뷰 숨기기
                 }
-                initRecycler(dataList)
-                shimmerContainer.stopShimmer() // 스켈레톤 로딩 중지
-                shimmerContainer.visibility = View.GONE // 스켈레톤 뷰 숨기기
-            }
-            .setRequestHeaders(mutableMapOf("Authorization" to "Bearer " + PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_TOKEN)!!))
-            .build(requireContext())
-        }, 3000)  // 3000ms = 3초
-
+                .setRequestHeaders(mutableMapOf("Authorization" to "Bearer " + PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_TOKEN)!!))
+                .build(requireContext())
         (binding as FragmentMainlistBinding).mainlistRecyclerView.visibility = View.VISIBLE // 실제 데이터 뷰 보이기
     }
 

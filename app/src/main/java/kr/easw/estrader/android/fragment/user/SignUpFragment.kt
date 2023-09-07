@@ -154,7 +154,7 @@ class SignUpFragment : Fragment() {
                 validateUserId = userId
 
                 // 중복된 아이디 일 경우
-               if (!validate) {
+                if (!validate) {
                     binding.root.startAnimation(shakeAnimation)
                 }
 
