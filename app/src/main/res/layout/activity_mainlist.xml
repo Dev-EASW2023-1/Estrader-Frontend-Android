@@ -17,6 +17,6 @@
         android:layout_height="wrap_content"
         app:menu="@menu/bottom_navigation_menu"
         app:itemIconTint="@drawable/bottom_navigation_color"
-        app:itemTextColor="@drawable/bottom_navigation_color"/>
+        app:itemTextColor="@drawable/bottom_navigation_color" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>
