@@ -32,6 +32,7 @@ import kr.easw.estrader.android.databinding.ElementRealtorAwaitingBinding
 import kr.easw.estrader.android.databinding.FragmentRealtorAwaitingBinding
 import kr.easw.estrader.android.definitions.ApiDefinition
 import kr.easw.estrader.android.definitions.PREFERENCE_REALTOR_ID
+import kr.easw.estrader.android.definitions.PREFERENCE_REALTOR_TOKEN
 import kr.easw.estrader.android.extensions.startActivity
 import kr.easw.estrader.android.model.data.NotificationHolder
 import kr.easw.estrader.android.model.dto.FcmRequest
@@ -266,19 +267,21 @@ class RealtorAwaitingFragment : Fragment(), View.OnClickListener {
         dialog.show()
 
         ApiDefinition.REALTOR_SEND_FCM.setRequestParams(
-                FcmRequest(
-                    PreferenceUtil(requireContext()).init().start()
-                        .getString(PREFERENCE_REALTOR_ID)!!,
-                    dataList[position].targetId,
-                    dataList[position].itemImage,
-                    "2",
-                    "제목",
-                    "내용"
-                )
-            ).setListener {
-                showToast(it.message)
-                dialog.dismiss()
-            }.build(requireContext())
+            FcmRequest(
+                PreferenceUtil(requireContext()).init().start()
+                    .getString(PREFERENCE_REALTOR_ID)!!,
+                dataList[position].targetId,
+                dataList[position].itemImage,
+                "2",
+                "제목",
+                "내용"
+            )
+        ).setListener {
+            showToast(it.message)
+            dialog.dismiss()
+        }
+        .setRequestHeaders(mutableMapOf("Authorization" to "Bearer " + PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_REALTOR_TOKEN)!!))
+        .build(requireContext())
     }
 
     private fun showToast(message: String) {

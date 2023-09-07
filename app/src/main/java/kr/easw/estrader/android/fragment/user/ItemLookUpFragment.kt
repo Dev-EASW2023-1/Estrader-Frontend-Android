@@ -25,6 +25,7 @@ import kr.easw.estrader.android.databinding.FragmentItemlookupBinding
 import kr.easw.estrader.android.definitions.ApiDefinition
 import kr.easw.estrader.android.definitions.PREFERENCE_ID
 import kr.easw.estrader.android.activity.user.AwaitingActivity
+import kr.easw.estrader.android.definitions.PREFERENCE_TOKEN
 import kr.easw.estrader.android.extensions.startActivity
 import kr.easw.estrader.android.model.dto.FcmRequest
 import kr.easw.estrader.android.model.dto.LookUpItemRequest
@@ -151,7 +152,9 @@ class ItemLookUpFragment : Fragment() {
                                 flags = FLAG_ACTIVITY_SINGLE_TOP or FLAG_ACTIVITY_CLEAR_TOP
                             }
                         }
-                    }.build(requireContext())
+                    }
+                    .setRequestHeaders(mutableMapOf("Authorization" to "Bearer " + PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_TOKEN)!!))
+                    .build(requireContext())
             }
             .setNegativeButton("취소") { _, _ ->
             }
@@ -179,6 +182,7 @@ class ItemLookUpFragment : Fragment() {
                 toolbarTitle = it.caseNumber
                 dialog.dismiss()
             }
+            .setRequestHeaders(mutableMapOf("Authorization" to "Bearer " + PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_TOKEN)!!))
             .build(requireContext())
     }
 

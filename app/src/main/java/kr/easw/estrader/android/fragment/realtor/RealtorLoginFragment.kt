@@ -137,6 +137,7 @@ class RealtorLoginFragment : Fragment() {
                         .init().start()
                         .setString(PREFERENCE_REALTOR_ID, userId)
                         .setString(PREFERENCE_REALTOR_PW, userPw)
+                        .setString(PREFERENCE_REALTOR_TOKEN, it.token)
                         .setBoolean(PREFERENCE_CHECK, autologin.isChecked)
 
                     println(PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_REALTOR_ID)!!)

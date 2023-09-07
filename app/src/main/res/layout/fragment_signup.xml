@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/main_bgc"
-    >
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/name_plz"
@@ -17,153 +13,154 @@
         android:text="@string/name_prompt"
         android:textColor="@color/black"
         android:textSize="@dimen/subtitle_size"
-        android:layout_gravity="center"
-        android:visibility="visible"
-        />
-<androidx.appcompat.widget.LinearLayoutCompat
-    android:layout_width="wrap_content"
-    android:layout_height="320dp"
-    android:orientation="vertical"
-    android:layout_gravity="center"
-    >
+        android:layout_gravity="center" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/userPw"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        app:helperTextTextColor="#585757"
-        app:hintEnabled="true"
-        app:passwordToggleEnabled="true"
-        android:visibility="invisible"
-        >
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:orientation="vertical"
+        android:layout_gravity="center">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/userPw"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="3dp"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:paddingStart="10dp"
-            android:paddingEnd="0dp"
-            android:textSize="@dimen/hint_size"
-            android:background="@drawable/white_background_with_border"
-            />
+            app:passwordToggleEnabled="true"
+            android:visibility="invisible">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="3dp"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:paddingStart="10dp"
+                android:paddingEnd="0dp"
+                android:textSize="@dimen/hint_size"
+                android:background="@drawable/white_background_with_border" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/userPwRepeat"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        app:helperText="비밀번호가 맞는지 한번 더 입력해주세요."
-        app:helperTextEnabled="true"
-        app:helperTextTextColor="#585757"
-        app:hintEnabled="true"
-        app:passwordToggleEnabled="true"
-        android:visibility="invisible"
-        >
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/userPwRepeat"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="3dp"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:paddingStart="10dp"
-            android:paddingEnd="0dp"
-            android:textSize="@dimen/hint_size"
-            android:background="@drawable/white_background_with_border"
-            />
+            app:helperText="비밀번호를 한번 더 입력해주세요."
+            app:helperTextEnabled="true"
+            app:helperTextTextColor="#585757"
+            app:passwordToggleEnabled="true"
+            android:visibility="invisible">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="3dp"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:paddingStart="10dp"
+                android:paddingEnd="0dp"
+                android:textSize="@dimen/hint_size"
+                android:background="@drawable/white_background_with_border" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/userId"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        app:helperTextEnabled="true"
-        app:hintAnimationEnabled="true"
-        android:layout_marginBottom="3dp"
-        android:visibility="invisible"
-        app:hintEnabled="true">
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
+        <LinearLayout
+            android:id="@+id/userIdLayout"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:inputType="text"
-            android:maxLines="1"
-            android:paddingStart="10dp"
-            android:paddingEnd="0dp"
-            android:textSize="@dimen/hint_size"
-            android:background="@drawable/white_background_with_border"
-            />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="invisible">
 
-    </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/userphonenum"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="invisible"
-        android:hint=""
-        app:helperTextTextColor="#585757"
-        app:hintEnabled="true"
-        >
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/userId"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
 
-        <com.google.android.material.textfield.TextInputEditText
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:maxLines="1"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="0dp"
+                    android:textSize="@dimen/hint_size"
+                    android:background="@drawable/white_background_with_border" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/isIdDuplicated"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/login_button_rounded_corners"
+                android:text="Check"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/body_size"
+                android:textStyle="bold"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/userPhoneNum"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="3dp"
-            android:maxLines="1"
-            android:paddingStart="10dp"
-            android:paddingEnd="0dp"
-            android:textSize="@dimen/hint_size"
-            android:background="@drawable/white_background_with_border"
-            />
+            android:visibility="invisible">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="3dp"
+                android:maxLines="1"
+                android:paddingStart="10dp"
+                android:paddingEnd="0dp"
+                android:textSize="@dimen/hint_size"
+                android:background="@drawable/white_background_with_border" />
 
-    </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/username"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="300dp"
-        android:textColorHint="@color/white"
-        android:layout_height="wrap_content"
-        app:helperTextTextColor="#585757"
-        app:hintEnabled="true"
-        android:layout_gravity="center"
-        >
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/userName"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="3dp"
-            android:maxLines="1"
-            android:paddingStart="10dp"
-            android:paddingEnd="0dp"
-            android:textSize="@dimen/hint_size"
-            android:background="@drawable/white_background_with_border" />
+            android:layout_marginBottom="3dp">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingStart="10dp"
+                android:paddingEnd="0dp"
+                android:textSize="@dimen/hint_size"
+                android:background="@drawable/white_background_with_border" />
 
+        </com.google.android.material.textfield.TextInputLayout>
 
-    </com.google.android.material.textfield.TextInputLayout>
-</androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/nextButton"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/login_button_rounded_corners"
         android:text="다음"
@@ -171,30 +168,11 @@
         android:textColor="#ffffff"
         android:textSize="@dimen/subtitle_size"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:visibility="visible"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:layout_gravity="center"
-
-        />
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/sign_in"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/login_button_rounded_corners"
-        android:text="회원가입하기"
-        android:isScrollContainer="true"
-        android:textColor="#ffffff"
-        android:textSize="@dimen/subtitle_size"
-        android:textStyle="bold"
-        android:layout_gravity="center"
-        app:layout_constraintTop_toBottomOf="@+id/nextButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:visibility="invisible"
-        />
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_gravity="center" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>
 

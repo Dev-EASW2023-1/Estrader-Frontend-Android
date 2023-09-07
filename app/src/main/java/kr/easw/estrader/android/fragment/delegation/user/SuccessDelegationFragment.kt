@@ -16,8 +16,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kr.easw.estrader.android.activity.user.MainListActivity
 import kr.easw.estrader.android.databinding.FragmentRealtorSuccessDelegationBinding
 import kr.easw.estrader.android.definitions.ApiDefinition
+import kr.easw.estrader.android.definitions.PREFERENCE_TOKEN
 import kr.easw.estrader.android.extensions.startActivity
 import kr.easw.estrader.android.model.dto.ContractRequest
+import kr.easw.estrader.android.util.PreferenceUtil
 
 /**
  * 대리위임 신청 완료 Dialog
@@ -90,6 +92,7 @@ class SuccessDelegationFragment : Fragment() {
                 realtorName.text = it.name
                 dialog.dismiss()
             }
+            .setRequestHeaders(mutableMapOf("Authorization" to "Bearer " + PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_TOKEN)!!))
             .build(requireContext())
     }
 

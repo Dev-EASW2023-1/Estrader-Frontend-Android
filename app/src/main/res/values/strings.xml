@@ -28,10 +28,16 @@
     <string name="contractCompleted">대리위임이\n완료되었습니다.</string>
     <string name="confirm_button">수락할게요!</string>
     <string name="reject_button"><u>다음에 할게요.</u></string>
+    <string name="main_screen">메인 화면 이미지</string>
+    <string name="main_screen_introduce">새로운 부동산 O2O 경매 서비스</string>
+    <string name="main_screen_login">로그인 하기</string>
+    <string name="main_screen_sign_up">회원 가입</string>
+    <string name="main_screen_email">Email Address</string>
+    <string name="main_screen_password">Password</string>
+    <string name="main_screen_next_1">다음</string>
+    <string name="main_screen_next_2">Login</string>
+    <string name="main_screen_forgot_password_text">Forgot Password?</string>
+    <string name="name_prompt"><bord>이름을</bord> 입력해주세요.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
-    <string name="testmain">새로운 부동산 경매 서비스 O2O</string>
-    <string name="name_prompt"><bord>이름을</bord> 입력해주세요.</string>
-
 </resources>

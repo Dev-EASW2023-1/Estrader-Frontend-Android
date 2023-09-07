@@ -19,9 +19,11 @@ import kr.easw.estrader.android.R
 import kr.easw.estrader.android.activity.user.MainListActivity
 import kr.easw.estrader.android.databinding.FragmentAwaitingBinding
 import kr.easw.estrader.android.definitions.ApiDefinition
+import kr.easw.estrader.android.definitions.PREFERENCE_TOKEN
 import kr.easw.estrader.android.extensions.startActivity
 import kr.easw.estrader.android.model.dto.ContractRequest
 import kr.easw.estrader.android.model.dto.NotificationItem
+import kr.easw.estrader.android.util.PreferenceUtil
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -151,6 +153,7 @@ class AwaitingFragment : Fragment(), View.OnClickListener {
                 }
                 dialog.dismiss()
             }
+            .setRequestHeaders(mutableMapOf("Authorization" to "Bearer " + PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_TOKEN)!!))
             .build(requireContext())
     }
 

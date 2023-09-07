@@ -15,8 +15,10 @@ import com.bumptech.glide.Glide
 import kr.easw.estrader.android.activity.realtor.RealtorAwaitingActivity
 import kr.easw.estrader.android.databinding.FragmentRealtorItemlookupBinding
 import kr.easw.estrader.android.definitions.ApiDefinition
+import kr.easw.estrader.android.definitions.PREFERENCE_REALTOR_TOKEN
 import kr.easw.estrader.android.extensions.startActivity
 import kr.easw.estrader.android.model.dto.ItemInContractDto
+import kr.easw.estrader.android.util.PreferenceUtil
 
 /**
  * 대리인 전용 부동산 매각 상세정보 Fragment
@@ -115,7 +117,7 @@ class RealtorLookUpFragment : Fragment() {
                 note.text = it.note
                 dialog.dismiss()
             }
-
+            .setRequestHeaders(mutableMapOf("Authorization" to "Bearer " + PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_REALTOR_TOKEN)!!))
             .build(requireContext())
     }
 }

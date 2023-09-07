@@ -15,6 +15,7 @@ import kr.easw.estrader.android.R
 import kr.easw.estrader.android.databinding.FragmentRealtorMatchBinding
 import kr.easw.estrader.android.definitions.ApiDefinition
 import kr.easw.estrader.android.definitions.PREFERENCE_REALTOR_ID
+import kr.easw.estrader.android.definitions.PREFERENCE_REALTOR_TOKEN
 import kr.easw.estrader.android.extensions.replaceFragment
 import kr.easw.estrader.android.model.dto.FcmRequest
 import kr.easw.estrader.android.model.dto.LookUpItemRequest
@@ -95,6 +96,7 @@ class RealtorMatchFragment : Fragment() {
                         }
                         dialog.dismiss()
                     }
+                    .setRequestHeaders(mutableMapOf("Authorization" to "Bearer " + PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_REALTOR_TOKEN)!!))
                     .build(requireContext())
             }
             .create()
@@ -119,6 +121,7 @@ class RealtorMatchFragment : Fragment() {
                 auctionPeriod.text = it.biddingPeriod.replace("\n", "")
                 dialog.dismiss()
             }
+            .setRequestHeaders(mutableMapOf("Authorization" to "Bearer " + PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_REALTOR_TOKEN)!!))
             .build(requireContext())
     }
 

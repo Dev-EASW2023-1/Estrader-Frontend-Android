@@ -13,9 +13,11 @@ import kr.easw.estrader.android.R
 import kr.easw.estrader.android.databinding.ElementItemBinding
 import kr.easw.estrader.android.databinding.FragmentMainlistBinding
 import kr.easw.estrader.android.definitions.ApiDefinition
+import kr.easw.estrader.android.definitions.PREFERENCE_TOKEN
 import kr.easw.estrader.android.fragment.BaseFragment
 import kr.easw.estrader.android.model.data.MainHolder
 import kr.easw.estrader.android.model.dto.MainItem
+import kr.easw.estrader.android.util.PreferenceUtil
 import java.lang.ref.WeakReference
 
 /**
@@ -32,7 +34,6 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
         savedInstanceState: Bundle?
     ) {
         initialize()
-
     }
 
     override fun onDestroyView() {
@@ -42,7 +43,6 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
 
     // ViewHolder 에 사용할 DateList 초기화
     private fun initialize() {
-
         val shimmerContainer = (binding as FragmentMainlistBinding).shimmerViewContainer
         shimmerContainer.startShimmer() // 스켈레톤 로딩 시작
         Handler(Looper.getMainLooper()).postDelayed({
@@ -64,8 +64,10 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
                 shimmerContainer.stopShimmer() // 스켈레톤 로딩 중지
                 shimmerContainer.visibility = View.GONE // 스켈레톤 뷰 숨기기
             }
+            .setRequestHeaders(mutableMapOf("Authorization" to "Bearer " + PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_TOKEN)!!))
             .build(requireContext())
         }, 3000)  // 3000ms = 3초
+
         (binding as FragmentMainlistBinding).mainlistRecyclerView.visibility = View.VISIBLE // 실제 데이터 뷰 보이기
     }
 

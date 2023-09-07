@@ -1,16 +1,23 @@
 package kr.easw.estrader.android.fragment.realtor
 
+import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputLayout
+import kr.easw.estrader.android.activity.realtor.RealtorAwaitingActivity
 import kr.easw.estrader.android.databinding.FragmentRealtorRegisterBinding
-import kr.easw.estrader.android.definitions.PREFERENCE_REALTOR_FCM
+import kr.easw.estrader.android.definitions.*
+import kr.easw.estrader.android.extensions.startActivity
+import kr.easw.estrader.android.model.dto.RealtorRegisterDataRequest
+import kr.easw.estrader.android.model.dto.RealtorSignupCheckRequest
 import kr.easw.estrader.android.util.PreferenceUtil
 
 /**
@@ -21,17 +28,17 @@ class RealtorRegisterFragment : Fragment() {
     private var _binding: FragmentRealtorRegisterBinding? = null
     private val binding get() = _binding!!
     private var validate = false
-    private var validateUserId: String = ""
+    private var validateRealtorId: String = ""
     private val registerButton: Button by lazy {
         binding.btnNext
     }
     private val checkButton: Button by lazy {
         binding.isIdDuplicated
     }
-    private val userId: TextInputLayout by lazy {
+    private val realtorId: TextInputLayout by lazy {
         binding.userId
     }
-    private val userPw: TextInputLayout by lazy {
+    private val realtorPw: TextInputLayout by lazy {
         binding.userPw
     }
     private val userPwRepeat: TextInputLayout by lazy {
@@ -58,22 +65,24 @@ class RealtorRegisterFragment : Fragment() {
         initFields()
 
         checkButton.setOnClickListener {
-            val inputId = userId.editText!!.text.toString()
+            val inputId = realtorId.editText!!.text.toString()
             if (inputId.isEmpty()) {
                 return@setOnClickListener
             }
+
+            validateRealtorId(inputId)
         }
 
         registerButton.setOnClickListener {
-            val inputId = userId.editText!!.text.toString()
-            val inputPw = userPw.editText!!.text.toString()
+            val inputId = realtorId.editText!!.text.toString()
+            val inputPw = realtorPw.editText!!.text.toString()
             val inputCheckPassword = userPwRepeat.editText!!.text.toString()
 
             if (!validate) {
                 showToast("아이디 중복 확인해주세요.")
                 return@setOnClickListener
             }
-            if(validateUserId != inputId){
+            if (validateRealtorId != inputId){
                 showToast("아이디 중복 다시 확인해주세요.")
                 return@setOnClickListener
             }
@@ -89,15 +98,75 @@ class RealtorRegisterFragment : Fragment() {
                 showToast("회원가입에 실패했어요. 다시 한 번 시도해주세요.")
                 return@setOnClickListener
             }
+
+            registerRealtor(inputId, inputPw)
         }
     }
 
     private fun initFields() {
         registerButton
         checkButton
-        userId
-        userPw
+        realtorId
+        realtorPw
         userPwRepeat
+    }
+
+    private fun validateRealtorId(realtorId: String) {
+        val dialog = Dialog(requireContext())
+        dialog.setContentView(ProgressBar(requireContext()))
+        dialog.show()
+
+        ApiDefinition.REALTOR_CHECK_ID_DUPLICATED
+            .setRequestParams(RealtorSignupCheckRequest(realtorId))
+            .setListener {
+                showToast(it.message)
+                validate = it.isDuplicated
+                validateRealtorId = realtorId
+
+                dialog.dismiss()
+            }
+            .build(requireContext())
+    }
+
+    private fun registerRealtor(realtorId: String, realtorPw: String) {
+        val dialog = Dialog(requireContext())
+        dialog.setContentView(ProgressBar(requireContext()))
+        dialog.show()
+
+        ApiDefinition.REALTOR_REGISTER_PROCESS
+            .setRequestParams(
+                RealtorRegisterDataRequest(
+                    realtorId,
+                    realtorPw,
+                    "test",
+                    "test",
+                    "test",
+                    "test",
+                    "test",
+                    PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_REALTOR_FCM)!!,
+                    "test"
+                )
+            )
+            .setListener {
+                showToast(it.message)
+                if (it.isSuccess) {
+                    PreferenceUtil(requireContext()).init().start()
+                        .setString(PREFERENCE_REALTOR_ID, realtorId)
+                        .setString(PREFERENCE_REALTOR_PW, realtorPw)
+                        .setString(PREFERENCE_REALTOR_TOKEN, it.token)
+
+                    println(PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_REALTOR_ID)!!)
+                    println(PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_REALTOR_PW)!!)
+
+                    requireActivity().startActivity<RealtorAwaitingActivity> {
+                        flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    }
+                    requireActivity().finish()
+                }
+
+                dialog.dismiss()
+            }
+            .build(requireContext())
     }
 
     private fun showToast(message: String) {

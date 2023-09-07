@@ -18,6 +18,7 @@ import kr.easw.estrader.android.databinding.ActivityPdfBinding
 import kr.easw.estrader.android.databinding.FragmentPdfImageviewBinding
 import kr.easw.estrader.android.definitions.ApiDefinition
 import kr.easw.estrader.android.definitions.PDF_URL
+import kr.easw.estrader.android.definitions.PREFERENCE_REALTOR_TOKEN
 import kr.easw.estrader.android.extensions.replaceFragment
 import kr.easw.estrader.android.fragment.realtor.RealtorLookUpFragment
 import kr.easw.estrader.android.model.dto.ContractInfoRequest
@@ -27,6 +28,7 @@ import kr.easw.estrader.android.util.PDFUtil.createUri
 import kr.easw.estrader.android.util.PDFUtil.downloadReceiver
 import kr.easw.estrader.android.util.PDFUtil.getFileFromContentUri
 import kr.easw.estrader.android.util.PDFUtil.renderPdfToImageView
+import kr.easw.estrader.android.util.PreferenceUtil
 import java.io.File
 import java.io.IOException
 
@@ -109,7 +111,9 @@ class PDFActivity : AppCompatActivity() {
                     }
                     dialog.dismiss()
 
-                }.build(this)
+                }
+                .setRequestHeaders(mutableMapOf("Authorization" to "Bearer " + PreferenceUtil(this).init().start().getString(PREFERENCE_REALTOR_TOKEN)!!))
+                .build(this)
         } catch (e: IOException) {
             e.printStackTrace()
         }

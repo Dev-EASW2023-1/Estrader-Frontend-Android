@@ -7,19 +7,19 @@ import kr.easw.estrader.android.util.RestRequestTemplate
 object ApiDefinition {
     val LOGIN_PROCESS = RestRequestTemplate.Builder<SignInRequest, SignInResponse>()
         .setRequestHeaders(mutableMapOf("Content-Type" to "application/json"))
-        .setRequestUrl("$SERVER_URL/user/login")
+        .setRequestUrl("$SERVER_URL/auth/user/login")
         .setResponseParams(SignInResponse::class.java)
         .setRequestMethod(Request.Method.PATCH)
 
     val CHECK_ID_DUPLICATED = RestRequestTemplate.Builder<SignupCheckRequest, SignupCheckResponse>()
         .setRequestHeaders(mutableMapOf("Content-Type" to "application/json"))
-        .setRequestUrl("$SERVER_URL/user/account-exists")
+        .setRequestUrl("$SERVER_URL/auth/user/account-exists")
         .setResponseParams(SignupCheckResponse::class.java)
         .setRequestMethod(Request.Method.POST)
 
     val REGISTER_PROCESS = RestRequestTemplate.Builder<RegisterDataRequest, RegisterDataResponse>()
         .setRequestHeaders(mutableMapOf("Content-Type" to "application/json"))
-        .setRequestUrl("$SERVER_URL/user/register")
+        .setRequestUrl("$SERVER_URL/auth/user/register")
         .setResponseParams(RegisterDataResponse::class.java)
         .setRequestMethod(Request.Method.POST)
 
@@ -38,9 +38,21 @@ object ApiDefinition {
 
     val REALTOR_LOGIN_PROCESS = RestRequestTemplate.Builder<RealtorSignInRequest, RealtorSignInResponse>()
         .setRequestHeaders(mutableMapOf("Content-Type" to "application/json"))
-        .setRequestUrl("$SERVER_URL/realtor/login")
+        .setRequestUrl("$SERVER_URL/auth/realtor/login")
         .setResponseParams(RealtorSignInResponse::class.java)
         .setRequestMethod(Request.Method.PATCH)
+
+    val REALTOR_CHECK_ID_DUPLICATED = RestRequestTemplate.Builder<RealtorSignupCheckRequest, RealtorSignupCheckResponse>()
+        .setRequestHeaders(mutableMapOf("Content-Type" to "application/json"))
+        .setRequestUrl("$SERVER_URL/auth/realtor/account-exists")
+        .setResponseParams(RealtorSignupCheckResponse::class.java)
+        .setRequestMethod(Request.Method.POST)
+
+    val REALTOR_REGISTER_PROCESS = RestRequestTemplate.Builder<RealtorRegisterDataRequest, RealtorRegisterDataResponse>()
+        .setRequestHeaders(mutableMapOf("Content-Type" to "application/json"))
+        .setRequestUrl("$SERVER_URL/auth/realtor/register")
+        .setResponseParams(RealtorRegisterDataResponse::class.java)
+        .setRequestMethod(Request.Method.POST)
 
     val REALTOR_SEND_FCM = RestRequestTemplate.Builder<FcmRequest, FcmResponse>()
         .setRequestHeaders(mutableMapOf("Content-Type" to "application/json"))

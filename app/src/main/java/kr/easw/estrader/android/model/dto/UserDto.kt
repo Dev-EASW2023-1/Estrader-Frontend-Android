@@ -14,7 +14,8 @@ data class RegisterDataRequest(
 
 data class RegisterDataResponse(
     val isSuccess: Boolean,
-    val message: String
+    val message: String,
+    val token: String
 )
 
 data class SignupCheckRequest(
@@ -34,7 +35,8 @@ data class SignInRequest(
 
 data class SignInResponse(
     val isSuccess: Boolean,
-    val message: String
+    val message: String,
+    val token: String
 )
 
 data class FcmRequest(
