@@ -3,7 +3,9 @@ package kr.easw.estrader.android.fragment.user
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -200,8 +202,16 @@ class SignUpFragment : Fragment() {
     }
 
     private fun showKeyboard(view: View) {
-        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+        if(Build.VERSION.SDK_INT>32){
+            Log.d(":) | API_VERSION ", "showKeyboard: ${Build.VERSION.SDK_INT}")
+            val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+        }
+        else{
+            Log.d(":) | API_VERSION ", "showKeyboard: ${Build.VERSION.SDK_INT}")
+            val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
+        }
     }
 
     private fun showDialogWithProgressBar(
@@ -216,6 +226,7 @@ class SignUpFragment : Fragment() {
     private fun setUserInfoFromEditText(
         instructionText: String,
         textInputLayout: TextInputLayout
+
     ){
         instructionTextView.text = instructionText
         textInputLayout.apply {
@@ -223,6 +234,7 @@ class SignUpFragment : Fragment() {
             startAnimation(slideInUpAnimation)
             requestFocus()
             showKeyboard(this)
+            binding.userName.isEnabled = false;
         }
     }
 
@@ -236,6 +248,7 @@ class SignUpFragment : Fragment() {
             startAnimation(slideInUpAnimation)
             requestFocus()
             showKeyboard(this)
+            binding.userPhoneNum.isEnabled = false;
         }
     }
 
@@ -251,6 +264,7 @@ class SignUpFragment : Fragment() {
             startAnimation(slideInUpAnimation)
             requestFocus()
             showKeyboard(this)
+            binding.userId.isEnabled = false;
         }
         userPwRepeatInputLayout.apply {
             visibility = View.VISIBLE
