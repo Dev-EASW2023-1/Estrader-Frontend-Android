@@ -1,15 +1,19 @@
 package kr.easw.estrader.android.fragment.user
 
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -121,11 +125,13 @@ class LoginFragment : Fragment() {
                 // Animation 작동 후 뷰 제거
                 startAnimation(fadeOutAnimation)
                 visibility = View.GONE
+
             }
             userId.apply {
                 // 뷰가 나타난 후 Animation 작동
                 visibility = View.VISIBLE
                 startAnimation(fadeInAnimation)
+
             }
         }
     }
@@ -140,7 +146,22 @@ class LoginFragment : Fragment() {
             userPw.apply {
                 visibility = View.VISIBLE
                 startAnimation(fadeInAnimation)
+                requestFocus()
+                view?.postDelayed({
+                    showKeyboard(this)
+                }, 200)
             }
+        }
+    }
+    private fun showKeyboard(view: View) {
+        if(Build.VERSION.SDK_INT>32){
+            val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+        }
+        else{
+            Log.d("API ", "showKeyboard: ${Build.VERSION.SDK_INT}")
+            val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
         }
     }
 
