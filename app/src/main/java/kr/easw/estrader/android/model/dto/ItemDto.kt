@@ -9,7 +9,9 @@ data class ItemDto (
     val biddingPeriod: String,
     val itemType: String,
     val note: String,
-    val managementNumber: String
+    val managementNumber: String,
+    val xcoordinate : String,
+    val ycoordinate : String
 )
 
 data class ItemListDto (
