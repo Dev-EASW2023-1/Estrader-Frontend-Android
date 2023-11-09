@@ -1,9 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_initialize"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="햄버거2"
+        android:layout_margin="0dp"
+        android:visibility="gone" />
 
     <FrameLayout
         android:id="@+id/framelayout"
@@ -17,6 +25,7 @@
         android:layout_height="wrap_content"
         app:menu="@menu/bottom_navigation_menu"
         app:itemIconTint="@drawable/bottom_navigation_color"
-        app:itemTextColor="@drawable/bottom_navigation_color" />
+        app:itemTextColor="@drawable/bottom_navigation_color"
+        android:visibility="gone" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

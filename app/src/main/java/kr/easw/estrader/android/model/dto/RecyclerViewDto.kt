@@ -6,7 +6,9 @@ data class MainItem(
     val caseNumber: String,
     val location: String,
     val reservePrice: String,
-    val auctionPeriod: String
+    val auctionPeriod: String,
+    val xcoordinate : String,
+    val ycoordinate : String
 )
 
 data class DelegateItem(

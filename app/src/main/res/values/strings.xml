@@ -32,7 +32,7 @@
     <string name="main_screen_introduce">새로운 부동산 O2O 경매 서비스</string>
     <string name="main_screen_login">로그인 하기</string>
     <string name="main_screen_sign_up">회원 가입</string>
-    <string name="main_screen_email">Email Address</string>
+    <string name="main_screen_id">Input ID</string>
     <string name="main_screen_password">Password</string>
     <string name="main_screen_next_1">다음</string>
     <string name="main_screen_next_2">Login</string>

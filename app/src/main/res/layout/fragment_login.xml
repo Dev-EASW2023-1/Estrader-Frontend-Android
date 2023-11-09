@@ -19,7 +19,9 @@
             android:layout_height="400dp"
             android:layout_margin="30dp"
             android:src="@drawable/main_screen"
-            android:contentDescription="@string/main_screen" />
+            android:contentDescription="@string/main_screen"
+
+            />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/welcome"
@@ -70,12 +72,12 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:hint="@string/main_screen_email"
+            android:hint="@string/main_screen_id"
             android:paddingTop="20dp"
             android:paddingBottom="20dp"
             android:paddingStart="40dp"
             android:paddingEnd="40dp"
-            app:helperText="Write your email."
+            app:helperText="Write your id."
             app:helperTextEnabled="true"
             app:hintAnimationEnabled="true"
             app:hintEnabled="true"

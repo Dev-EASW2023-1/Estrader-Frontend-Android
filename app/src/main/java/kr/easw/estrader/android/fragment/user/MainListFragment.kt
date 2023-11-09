@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
@@ -17,6 +19,7 @@ import kr.easw.estrader.android.fragment.BaseFragment
 import kr.easw.estrader.android.model.data.MainHolder
 import kr.easw.estrader.android.model.dto.MainItem
 import kr.easw.estrader.android.util.PreferenceUtil
+import kr.easw.estrader.android.util.SharedViewModel
 import java.lang.ref.WeakReference
 
 /**
@@ -24,16 +27,18 @@ import java.lang.ref.WeakReference
  * 리스트 항목을 누르면 ItemLookUpFragment 로 이동
  */
 class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistBinding::inflate){
-
+    private val viewModel: SharedViewModel by activityViewModels()
     private var itemClickListener: WeakReference<OnItemClickListener>? = null
     private var recyclerBinding: ElementItemBinding? = null
     private lateinit var shimmerContainer: ShimmerFrameLayout
-
+    private var page = 5
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?
     ) {
-        initialize()
+        viewModel.districtLiveData.observe(viewLifecycleOwner, Observer { district ->
+            initialize(district)
+        })
     }
 
     override fun onDestroyView() {
@@ -42,10 +47,10 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
     }
 
     // ViewHolder 에 사용할 DateList 초기화
-    private fun initialize() {
+    private fun initialize(district: String) {
         shimmerContainer = (binding as FragmentMainlistBinding).shimmerViewContainer
         shimmerContainer.startShimmer() // 스켈레톤 로딩 시작
-            ApiDefinition.GET_ITEM_LIST
+        ApiDefinition.GET_ITEM_LIST(district, page,page)
                 .setListener{
                     val dataList: MutableList<MainItem> = mutableListOf()
                     for(x in 0 until it.itemDto.size){
@@ -55,7 +60,9 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
                             it.itemDto[x].caseNumber,
                             it.itemDto[x].location,
                             it.itemDto[x].minimumBidPrice,
-                            it.itemDto[x].biddingPeriod
+                            it.itemDto[x].biddingPeriod,
+                            it.itemDto[x].xcoordinate,
+                            it.itemDto[x].ycoordinate
                         ))
                     }
                     initRecycler(dataList)
@@ -92,7 +99,6 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
                 itemClickListener = WeakReference(listener)
             }
         }
-
         (binding as FragmentMainlistBinding).mainlistRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             adapter = recyclerAdapter
@@ -111,4 +117,5 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
             }
         })
     }
+
 }

@@ -81,7 +81,7 @@ class MainListActivity : AppCompatActivity() {
 
         // commit() 으로 Fragment Transaction 비동기 처리
         supportFragmentManager.commit {
-            replace(activityBinding.framelayout.id, MainListFragment())
+            replace(activityBinding.framelayout.id, MapFragment())
         }
     }
 
