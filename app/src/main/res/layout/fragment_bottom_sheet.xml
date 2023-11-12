@@ -7,7 +7,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:behavior_peekHeight="30dp"
-    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+    android:visibility="gone"
+    >
 
     <!-- 위로 당길 수 있을 듯한 느낌을 주는 라인 -->
     <View

@@ -21,10 +21,10 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import kr.easw.estrader.android.R
+import kr.easw.estrader.android.activity.user.AwaitingActivity
 import kr.easw.estrader.android.databinding.FragmentItemlookupBinding
 import kr.easw.estrader.android.definitions.ApiDefinition
 import kr.easw.estrader.android.definitions.PREFERENCE_ID
-import kr.easw.estrader.android.activity.user.AwaitingActivity
 import kr.easw.estrader.android.definitions.PREFERENCE_TOKEN
 import kr.easw.estrader.android.extensions.startActivity
 import kr.easw.estrader.android.model.dto.FcmRequest
@@ -192,13 +192,13 @@ class ItemLookUpFragment : Fragment() {
 
     private fun delegateReject() {
         requireActivity().supportFragmentManager.commit {
-            replace(R.id.framelayout, MainListFragment())
+            replace(R.id.framelayout, MapFragment())
         }
     }
 
     private fun toolbarNavClick() {
         requireActivity().supportFragmentManager.commit {
-            replace(R.id.framelayout, MainListFragment())
+            replace(R.id.framelayout, MapFragment())
         }
     }
 

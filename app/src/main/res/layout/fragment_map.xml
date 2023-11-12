@@ -1,32 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.naver.maps.map.MapView
+        android:id="@+id/mapView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/mapView" />
+        android:layout_height="match_parent" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_marginBottom="100dp"
-        android:orientation="horizontal"
         android:layout_gravity="top|center"
-        android:layout_marginTop="30dp"
-        >
+        android:layout_marginTop="90dp"
+        android:layout_marginBottom="100dp"
+        android:orientation="horizontal">
+
 
         <androidx.appcompat.widget.AppCompatButton
+
             android:id="@+id/reloadButton"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="이 지역 재검색"
-
-            android:background="@drawable/button_radius"
-            android:visibility="gone"
             android:layout_centerHorizontal="true"
+            android:background="@drawable/button_radius"
+            android:text="현 지도에서 검색"
+            android:visibility="gone"
 
             />
 
@@ -37,22 +36,111 @@
             android:orientation="horizontal" />
 
     </RelativeLayout>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            >
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/all"
+                android:layout_width="70dp"
+                android:layout_height="20dp"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/button_radius"
+                android:text="전체보기"
+                android:visibility="visible" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/apt"
+                android:layout_width="50dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_toRightOf="@id/all"
+                android:background="@drawable/button_radius"
+                android:text="임야"
+                android:visibility="visible"
+
+                />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/lim"
+                android:layout_width="50dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_toRightOf="@id/apt"
+                android:background="@drawable/button_radius"
+                android:text="임야"
+                android:visibility="visible"
+
+                />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/ju"
+                android:layout_width="50dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_toRightOf="@id/lim"
+                android:background="@drawable/button_radius"
+                android:text="주택"
+                android:visibility="visible" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/sang"
+                android:layout_width="70dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_toRightOf="@id/ju"
+                android:background="@drawable/button_radius"
+                android:text="상가점포"
+                android:visibility="visible" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/to"
+                android:layout_width="50dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_toRightOf="@id/sang"
+                android:background="@drawable/button_radius"
+                android:text="토지"
+                android:visibility="visible" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/gong"
+                android:layout_width="50dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_toRightOf="@id/to"
+                android:background="@drawable/button_radius"
+                android:text="공장"
+                android:visibility="visible" />
+
+
+        </RelativeLayout>
+    </HorizontalScrollView>
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_initialize"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="햄버거"
         android:layout_gravity="top|start"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp" />
+        android:text="매물보기" />
 
     <com.naver.maps.map.widget.LocationButtonView
+        android:id="@+id/currentLocationButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/currentLocationButton"
-        android:layout_margin="30dp"
+        android:layout_gravity="bottom|end"
 
-        android:layout_gravity="bottom|end" />
+        android:layout_margin="30dp" />
 
     <include layout="@layout/fragment_bottom_sheet" />
 

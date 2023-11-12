@@ -25,7 +25,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.CancellationToken
@@ -33,19 +32,12 @@ import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.gms.tasks.OnTokenCanceledListener
 import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.naver.maps.geometry.LatLng
-import com.naver.maps.geometry.LatLngBounds
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
-import com.naver.maps.map.overlay.InfoWindow
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.util.FusedLocationSource
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.databinding.ElementItemBinding
 import kr.easw.estrader.android.databinding.FragmentBottomSheetBinding
@@ -59,14 +51,12 @@ import kr.easw.estrader.android.model.data.MainHolder
 import kr.easw.estrader.android.model.dto.DistrictRequest
 import kr.easw.estrader.android.model.dto.ItemDto
 import kr.easw.estrader.android.model.dto.MainItem
+import kr.easw.estrader.android.util.MapUtil
 import kr.easw.estrader.android.util.PreferenceUtil
 import kr.easw.estrader.android.util.SharedViewModel
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
-import java.io.IOException
 import java.lang.ref.WeakReference
 import java.util.Locale
 
@@ -77,26 +67,22 @@ class MapFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistBindin
     OnMapReadyCallback {
 
     private lateinit var naverMap: NaverMap
-    private var flag = false
     private lateinit var currentLocationButton: com.naver.maps.map.widget.LocationButtonView
     private lateinit var locationSource: FusedLocationSource
     private var lastKnownLatLng: LatLng? = null
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private lateinit var locationCallback: LocationCallback
     private val viewModel: SharedViewModel by activityViewModels()
     private var cameraMoved = false
     private var recyclerBinding: ElementItemBinding? = null
     private var itemClickListener: WeakReference<OnItemClickListener>? = null
     private var bottomSheetBinding: FragmentBottomSheetBinding? = null
-    private val markers: MutableList<Marker> = mutableListOf()
-    private var totalPageNumber: Int = 0
+    private val markers = mutableListOf<Marker>()
     private var moredata = true
     private var currentPage = 0
     private var size = 5
     private var isLoading = false
     private val dataList: MutableList<MainItem> = mutableListOf()
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
-    private val visibleThreshold = 1
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
@@ -112,9 +98,7 @@ class MapFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistBindin
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_map, container, false)
         setupMapView(rootView)
@@ -149,62 +133,63 @@ class MapFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistBindin
         dialog.setContentView(ProgressBar(requireContext()))
         dialog.show()
         Handler(Looper.getMainLooper()).postDelayed({
-        ApiDefinition.GET_ITEM_LIST(district, page, size)
-            .setListener { response ->
-                isLoading = false
-                val newItems = response.itemDto
-                if (!newItems.isNullOrEmpty() && moredata) {
-                    val startPosition = dataList.size
-                    newItems.forEach { item ->
-                        dataList.add(
-                            MainItem(
-                                item.photo,
-                                item.court,
-                                item.caseNumber,
-                                item.location,
-                                item.minimumBidPrice,
-                                item.biddingPeriod,
-                                item.xcoordinate,
-                                item.ycoordinate
+            ApiDefinition.GET_ITEM_LIST(district, page, size).setListener { response ->
+                    isLoading = false
+                    val newItems = response.itemDto
+                    if (!newItems.isNullOrEmpty() && moredata) {
+                        val startPosition = dataList.size
+                        newItems.forEach { item ->
+                            dataList.add(
+                                MainItem(
+                                    item.photo,
+                                    item.court,
+                                    item.caseNumber,
+                                    item.location,
+                                    item.minimumBidPrice,
+                                    item.biddingPeriod,
+                                    item.xcoordinate,
+                                    item.ycoordinate
+                                )
                             )
-                        )
-                    }
-                    if (page == 0) {
-                        // 첫 페이지라면 RecyclerView를 초기 설정
-                        initRecycler(dataList, district)
+                            loadMarkersFromServer(district)
+
+                        }
+                        if (page == 0) {
+                            // 첫 페이지라면 RecyclerView를 초기 설정
+                            initRecycler(dataList, district)
+                        } else {
+                            bottomSheetBinding?.mainlistRecyclerView?.adapter?.notifyItemRangeInserted(
+                                startPosition, newItems.size
+                            )
+
+                        }
+
                     } else {
-                        bottomSheetBinding?.mainlistRecyclerView?.adapter?.notifyItemRangeInserted(
-                            startPosition,
-                            newItems.size
-                        )
+                        Toast.makeText(requireContext(), "데이터가 없습니다.", Toast.LENGTH_SHORT).show()
+                        moredata = false
                     }
+                    dialog.dismiss()
 
-                } else {
-                    Toast.makeText(requireContext(), "데이터가 없습니다.", Toast.LENGTH_SHORT).show()
-                    moredata = false
                 }
-                dialog.dismiss()
 
-            }
+                .setRequestHeaders(
+                    mutableMapOf(
+                        "Authorization" to "Bearer " + PreferenceUtil(requireContext()).init()
+                            .start().getString(PREFERENCE_TOKEN)!!
+                    )
 
-            .setRequestHeaders(
-                mutableMapOf(
-                    "Authorization" to "Bearer " + PreferenceUtil(requireContext()).init().start()
-                        .getString(PREFERENCE_TOKEN)!!
                 )
 
-            )
+                .build(requireContext())
+        }, 500) // 2000ms = 2초
 
-            .build(requireContext())
-        }, 2000) // 2000ms = 2초
     }
-
 
     private fun initialize(district: String, page: Int = 0) {
         Log.d("page", page.toString())
         Handler(Looper.getMainLooper()).postDelayed({
             apiItemlist(district, page)
-        }, 2000) // 2000ms = 2초
+        }, 2000)
     }
 
 
@@ -215,8 +200,7 @@ class MapFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistBindin
         val recyclerAdapter = object : RecyclerView.Adapter<MainHolder>() {
             val myActualItemList = mutableListOf<MainItem>()
 
-            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
-                    MainHolder {
+            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
                 recyclerBinding = ElementItemBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
@@ -228,8 +212,6 @@ class MapFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistBindin
                 holder: MainHolder, position: Int
             ) {
                 holder.bind(itemList[position])
-//                val animation = AnimationUtils.loadAnimation(holder.itemView.context, R.anim.item_animation_fall_down)
-//                holder.itemView.startAnimation(animation)
             }
 
             override fun getItemCount(): Int = itemList.size
@@ -298,18 +280,26 @@ class MapFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistBindin
         }
     }
 
-    override fun onMapReady(map: NaverMap) {
-        Log.d("MapFragment", "onMapReady called")
 
+    override fun onMapReady(map: NaverMap) {
+        MapUtil.printLog("MapFragment", "onMapReady called")
         naverMap = map
         naverMap.mapType = NaverMap.MapType.Basic
 
-        initializeMap()
+        MapUtil.moveCameraToPosition(naverMap, LatLng(36.6300312, 127.455085))
+        MapUtil.configureMapUiSettings(naverMap, false)
+
+        locationSource = FusedLocationSource(this@MapFragment, LOCATION_PERMISSION_REQUEST_CODE)
+        MapUtil.setLocationSource(naverMap, locationSource)
+
+        naverMap.addOnCameraChangeListener { _, _ ->
+            MapUtil.printLog("MapFragment", "CameraChangeListener called")
+            handleCameraChange()
+        }
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
 
         if (ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
+                requireContext(), Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             loadCurrentLocation()
@@ -330,63 +320,16 @@ class MapFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistBindin
         mapFragment.getMapAsync(this)
     }
 
-    private fun initializeMap() {
-        naverMap.moveCamera(CameraUpdate.scrollTo(LatLng(36.6300312, 127.455085)))
-        naverMap.uiSettings.isLocationButtonEnabled = false
-        currentLocationButton.map = naverMap
-
-        locationSource = FusedLocationSource(this@MapFragment, LOCATION_PERMISSION_REQUEST_CODE)
-        naverMap.locationSource = locationSource
-
-        naverMap.addOnCameraChangeListener { _, _ ->
-            Log.d("MapFragment", "CameraChangeListener called")
-            handleCameraChange()
-        }
-    }
-
-
     private fun handleCameraChange() {
-        if (cameraMoved) {
-            return
-        }
-
-        val currentLatLng = naverMap.cameraPosition.target
-        if (lastKnownLatLng != null) {
-            val distance = lastKnownLatLng!!.distanceTo(currentLatLng).toInt()
-            if (distance >= 1000) { // 1000 미터 이상 움직였을 때
-                Log.d("handleCameraChange", "호출한번만")
-                cameraMoved = true
-                showReloadButton()
-                lastKnownLatLng = currentLatLng  // 현재의 위치를 마지막 알려진 위치로 업데이트
-                cameraMoved = false  // 다시 false로 설정하여 다음 카메라 움직임도 체크
-            }
-        } else {
-            lastKnownLatLng = currentLatLng
-        }
-    }
-
-
-    fun getDistrictFromLocation(latLng: LatLng, callback: (String) -> Unit) {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://naveropenapi.apigw.ntruss.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        val service = retrofit.create(NaverGeocodingAPI::class.java)
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val response = service.reverseGeocode("${latLng.longitude},${latLng.latitude}")
-                val district = response.results[0].name
-                withContext(Dispatchers.Main) {
-                    callback(district)
-                }
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    e.printStackTrace()
-                    callback("상당구")  // 기본값으로 호출
-                }
-            }
-        }
+        MapUtil.handleCameraChange(naverMap, lastKnownLatLng, onCameraMoved = {
+            cameraMoved = true
+            showReloadButton()
+            cameraMoved = false
+        }, updateLastKnownLatLng = { newLatLng ->
+            lastKnownLatLng = newLatLng // 위치 업데이트
+        }, shouldUpdateCameraMovement = { shouldMove ->
+            cameraMoved = shouldMove // 카메라 움직임 업데이트
+        })
     }
 
 
@@ -394,8 +337,7 @@ class MapFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistBindin
     //https://manorgass.tistory.com/82
     private fun loadCurrentLocation() {
         if (ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
+                requireContext(), Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             val currentLocationTask: Task<Location> = fusedLocationClient.getCurrentLocation(
@@ -405,14 +347,12 @@ class MapFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistBindin
                         CancellationTokenSource().token
 
                     override fun isCancellationRequested() = false
-                }
-            )
+                })
 
             currentLocationTask.addOnSuccessListener { location ->
                 if (location != null) {
                     val currentLatLng = LatLng(location.latitude, location.longitude)
                     naverMap?.moveCamera(CameraUpdate.scrollTo(currentLatLng))
-                    processLocationData(currentLatLng)
                 }
             }.addOnFailureListener {
                 Log.e("ERROR", "Failed to get location")
@@ -425,74 +365,43 @@ class MapFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistBindin
     // https://beeyoo0o0ncha.tistory.com/25
 // 화면 가운데 좌표 -> 위치 알아내기
     private fun loadMarkersFromServer(district: String) {
-        Log.d("loadMarkersFromServer", "fsdffsdfdsf")
-        ApiDefinition.GET_ITEM_LIST(district, currentPage, size)
-            .setListener { response ->
+        ApiDefinition.GET_ITEM_LIST(district, currentPage, size).setListener { response ->
                 handleApiResults(response.itemDto)
-            }
-            .setRequestHeaders(
+            }.setRequestHeaders(
                 mutableMapOf(
                     "Authorization" to "Bearer " + PreferenceUtil(requireContext()).init().start()
                         .getString(PREFERENCE_TOKEN)!!
                 )
-            )
-            .build(requireContext())
+            ).build(requireContext())
     }
 
     fun sendAndRetrieveLocationInfo(district: String) {
         val requestData = DistrictRequest(district)
         initialize(district)
 
-        ApiDefinition.GET_LOCATION_INFO
-            .setRequestHeaders(
+        ApiDefinition.GET_LOCATION_INFO.setRequestHeaders(
                 mutableMapOf(
                     "Authorization" to "Bearer " + PreferenceUtil(requireContext()).init().start()
                         .getString(PREFERENCE_TOKEN)!!
                 )
-            )
-            .setRequestParams(requestData)
-            .setListener {
+            ).setRequestParams(requestData).setListener {
                 Log.d("sendAndRetrieveLocationInfo", "sendAndRetrieveLocationInfo")
                 loadMarkersFromServer(district)
 
-            }
-            .build(requireContext())
+            }.build(requireContext())
     }
 
-    private fun addMarkerToMap(lat: Double, lng: Double, item: MainItem) {
-        val marker = Marker().apply {
-            position = LatLng(lat, lng)
-            map = naverMap
-        }
-        markers.add(marker)
-        val infoWindow = InfoWindow().apply {
-            adapter = object : InfoWindow.DefaultTextAdapter(requireContext()) {
-                override fun getText(infoWindow: InfoWindow): CharSequence {
-                    return item.location
-                }
-            }
-        }
-
-        marker.setOnClickListener {
-            flag = !flag
-            if (flag) {
-                infoWindow.open(marker)
-            } else {
-                infoWindow.close()
-            }
-            true
-        }
-    }
+//    private fun addMarkerToMap(lat: Double, lng: Double, item: MainItem) {
+//        MapUtil.addmarkers(lat, lng, naverMap, item, requireContext())
+//    }
 
     private fun showReloadButton() {
         val reloadButton: Button = view?.findViewById(R.id.reloadButton) ?: return
         val geocoder = Geocoder(requireContext(), Locale.KOREAN)
 
         reloadButton.visibility = View.VISIBLE
-
         reloadButton.setOnClickListener {
-            toggleBottomSheetState()
-
+            bottomSheetBinding?.bottomSheetRootView?.visibility = View.VISIBLE
             cameraMoved = false  // Reload 버튼을 클릭했을 때 cameraMoved 플래그를 초기화
             reloadButton.visibility = View.GONE
             moredata = true
@@ -500,8 +409,7 @@ class MapFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistBindin
             val center = naverMap?.cameraPosition?.target
 
             if (center != null) {
-                getFromLocationAsync(
-                    geocoder,
+                MapUtil.getFromLocationAsync(geocoder,
                     center.latitude,
                     center.longitude,
                     object : GeocodeListener {
@@ -533,7 +441,6 @@ class MapFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistBindin
 
                             }
                         }
-
                         override fun onError(e: Exception) {
                             Log.d("위도/경도", "입출력 오류")
                         }
@@ -549,78 +456,10 @@ class MapFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistBindin
         fun onError(e: Exception)
     }
 
-    fun getFromLocationAsync(
-        geocoder: Geocoder,
-        latitude: Double,
-        longitude: Double,
-        listener: GeocodeListener
-    ) {
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val addresses = geocoder.getFromLocation(latitude, longitude, 1)
-                withContext(Dispatchers.Main) {
-                    listener.onGeocodeReceived(addresses)
-                }
-            } catch (e: IOException) {
-                withContext(Dispatchers.Main) {
-                    listener.onError(e)
-                }
-            }
-        }
-    }
-
-
-    private fun processLocationData(currentLatLng: LatLng) {
-        val geocoder = Geocoder(requireContext(), Locale.KOREAN)
-        getFromLocationAsync(
-            geocoder,
-            currentLatLng.latitude,
-            currentLatLng.longitude,
-            object : GeocodeListener {
-                override fun onGeocodeReceived(list: List<Address>?) {
-                    val district = list?.getOrNull(0)?.subLocality ?: "상당구"
-                    viewModel.districtLiveData.value = district
-                    loadMarkersFromServer(district)
-                }
-
-                override fun onError(e: Exception) {
-                    Log.d("위도/경도", "입출력 오류")
-                }
-            })
-    }
-
-
-    fun getCurrentBounds(): LatLngBounds? {
-        return naverMap.contentBounds
-    }
 
     private fun handleApiResults(itemDtoList: List<ItemDto>) {
-        for (marker in markers) {
-            marker.map = null
-        }
-        markers.clear()
+        MapUtil.handleApiResults(requireContext(), itemDtoList, naverMap)
 
-        val dataList: MutableList<MainItem> = mutableListOf()
-
-        for (itemDto in itemDtoList) {
-            dataList.add(
-                MainItem(
-                    itemDto.photo,
-                    itemDto.court,
-                    itemDto.caseNumber,
-                    itemDto.location,
-                    itemDto.minimumBidPrice,
-                    itemDto.biddingPeriod,
-                    itemDto.xcoordinate,
-                    itemDto.ycoordinate
-                )
-            )
-
-            val lat = itemDto.ycoordinate.toDoubleOrNull() ?: 0.0
-            val lng = itemDto.xcoordinate.toDoubleOrNull() ?: 0.0
-
-            addMarkerToMap(lat, lng, dataList.last())
-        }
     }
 
 
@@ -639,29 +478,12 @@ class MapFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistBindin
     data class ResultItem(val name: String, val code: Code)
     data class Code(val id: String, val type: String, val name: String)
 
-    private fun showBottomSheetDialog() {
-        val bottomSheetDialog = BottomSheetDialog(requireContext())
-        bottomSheetDialog.setContentView(R.layout.fragment_bottom_sheet)
+
+    override fun onDestroy() {
+        super.onDestroy()   // 화면이 종료될 때 모든 마커 제거
 
 
-        val confirmButton = bottomSheetDialog.findViewById<Button>(R.id.confirm_button)
-        val rejectButton = bottomSheetDialog.findViewById<Button>(R.id.reject_button)
-
-        confirmButton?.setOnClickListener {
-            bottomSheetDialog.dismiss()
-        }
-
-        rejectButton?.setOnClickListener {
-            bottomSheetDialog.dismiss()
-        }
-
-        val bottomSheet =
-            bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
-        bottomSheet?.let {
-            val behavior = BottomSheetBehavior.from(it)
-            behavior.state = BottomSheetBehavior.STATE_EXPANDED
-        }
-
-        bottomSheetDialog.show()
+        markers.clear()     // 마커 리스트 비움
     }
+
 }
