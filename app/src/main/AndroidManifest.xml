@@ -48,7 +48,10 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
+        <!--네이버 지도 SDK client 아이디 지정-->
+        <meta-data
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="@string/NAVER_CLIENT_ID" />
         <!-- 기본 알림 아이콘 및 색상 설정 -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
@@ -114,9 +117,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <meta-data
-            android:name="com.naver.maps.map.CLIENT_ID"
-            android:value="uc1k3vyemf" />
     </application>
 
 </manifest>
