@@ -17,6 +17,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
@@ -42,11 +43,13 @@ import kr.easw.estrader.android.R
 import kr.easw.estrader.android.databinding.ElementItemBinding
 import kr.easw.estrader.android.databinding.FragmentBottomSheetBinding
 import kr.easw.estrader.android.databinding.FragmentMainlistBinding
+import kr.easw.estrader.android.databinding.FragmentMapBinding
 import kr.easw.estrader.android.definitions.ApiDefinition
 import kr.easw.estrader.android.definitions.Client_ID
 import kr.easw.estrader.android.definitions.Client_Secret
 import kr.easw.estrader.android.definitions.PREFERENCE_TOKEN
 import kr.easw.estrader.android.fragment.BaseFragment
+import kr.easw.estrader.android.fragment.viewBinding
 import kr.easw.estrader.android.model.data.MainHolder
 import kr.easw.estrader.android.model.dto.DistrictRequest
 import kr.easw.estrader.android.model.dto.ItemDto
@@ -75,7 +78,6 @@ class MapFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistBindin
     private var cameraMoved = false
     private var recyclerBinding: ElementItemBinding? = null
     private var itemClickListener: WeakReference<OnItemClickListener>? = null
-    private var bottomSheetBinding: FragmentBottomSheetBinding? = null
     private val markers = mutableListOf<Marker>()
     private var moredata = true
     private var currentPage = 0
@@ -84,17 +86,13 @@ class MapFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistBindin
     private val dataList: MutableList<MainItem> = mutableListOf()
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
+    private val mapBinding by viewBinding(FragmentMapBinding::bind)
+    private var bottomSheetBinding: FragmentBottomSheetBinding? = null
+    private lateinit var bottomSheetLayout: ConstraintLayout
+    private lateinit var btnInitialize: AppCompatButton
+
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
-    }
-
-    private fun toggleBottomSheetState() {
-        bottomSheetBehavior.state =
-            if (bottomSheetBehavior.state != BottomSheetBehavior.STATE_EXPANDED) {
-                BottomSheetBehavior.STATE_EXPANDED
-            } else {
-                BottomSheetBehavior.STATE_COLLAPSED
-            }
     }
 
     override fun onCreateView(
@@ -102,16 +100,24 @@ class MapFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistBindin
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_map, container, false)
         setupMapView(rootView)
-        val bottomSheetLayout: ConstraintLayout = rootView.findViewById(R.id.bottomSheetRootView)
-        val btnInitialize: Button = rootView.findViewById(R.id.btn_initialize)
-        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout)
-        bottomSheetBinding = FragmentBottomSheetBinding.bind(bottomSheetLayout)
-        val displayMetrics = DisplayMetrics()
-        requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
-        val screenHeight = displayMetrics.heightPixels
-        val maxHeight = (screenHeight * 0.50).toInt() // 화면의 80%
+        return rootView
+    }
 
-        bottomSheetLayout.layoutParams.height = maxHeight
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initialize()
+    }
+
+    private fun initialize() {
+        bottomSheetLayout = mapBinding.bottomSheet.bottomSheetRootView
+        btnInitialize= mapBinding.btnInitialize
+        currentLocationButton= mapBinding.currentLocationButton
+        // BottomSheetLayout 에 View Binding 적용
+        bottomSheetBinding = FragmentBottomSheetBinding.bind(bottomSheetLayout)
+        // BottomSheetBehavior 에 layout 설정
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout)
+
+        // 작업 진행 중 View 다시 그릴 때 requestLayout() 사용
+        bottomSheetLayout.layoutParams.height = getMaxHeightBasedOnScreenHeight()
         bottomSheetLayout.requestLayout()
 
         btnInitialize.setOnClickListener {
@@ -122,10 +128,25 @@ class MapFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistBindin
             toggleBottomSheetState()
         }
 
+        // 일부분 layout 만 보여진 상태
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+    }
 
-        currentLocationButton = rootView.findViewById(R.id.currentLocationButton)
-        return rootView
+    private fun getMaxHeightBasedOnScreenHeight(): Int {
+        val displayMetrics = DisplayMetrics()
+        requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
+        val screenHeight = displayMetrics.heightPixels
+
+        return (screenHeight * 0.50).toInt()
+    }
+
+    private fun toggleBottomSheetState() {
+        bottomSheetBehavior.state =
+            if (bottomSheetBehavior.state != BottomSheetBehavior.STATE_EXPANDED) {
+                BottomSheetBehavior.STATE_EXPANDED
+            } else {
+                BottomSheetBehavior.STATE_COLLAPSED
+            }
     }
 
     private fun apiItemlist(district: String, page: Int) {
