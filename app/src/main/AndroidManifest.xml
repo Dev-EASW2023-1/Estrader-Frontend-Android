@@ -10,7 +10,6 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.LOCATION_PERMISSION_REQUEST_CODE"/>
 
-
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
@@ -101,11 +100,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<!--
-            android:name=".activity.user.IntroActivity"
-            android:name=".activity.realtor.RealtorIntroActivity"
 
--->
         <receiver
             android:name=".broadcast.FragmentChangeReceiver"
             android:exported="false" />
