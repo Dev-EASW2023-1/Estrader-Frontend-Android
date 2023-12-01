@@ -45,8 +45,6 @@ import kr.easw.estrader.android.databinding.FragmentBottomSheetBinding
 import kr.easw.estrader.android.databinding.FragmentMainlistBinding
 import kr.easw.estrader.android.databinding.FragmentMapBinding
 import kr.easw.estrader.android.definitions.ApiDefinition
-import kr.easw.estrader.android.definitions.Client_ID
-import kr.easw.estrader.android.definitions.Client_Secret
 import kr.easw.estrader.android.definitions.PREFERENCE_TOKEN
 import kr.easw.estrader.android.fragment.BaseFragment
 import kr.easw.estrader.android.fragment.viewBinding
@@ -57,12 +55,8 @@ import kr.easw.estrader.android.model.dto.MainItem
 import kr.easw.estrader.android.util.MapUtil
 import kr.easw.estrader.android.util.PreferenceUtil
 import kr.easw.estrader.android.util.SharedViewModel
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.Query
 import java.lang.ref.WeakReference
-import java.util.Locale
-
+import java.util.*
 
 //https://xetown.com/questions/1532680
 //지도당 속도
@@ -109,8 +103,8 @@ class MapFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistBindin
 
     private fun initialize() {
         bottomSheetLayout = mapBinding.bottomSheet.bottomSheetRootView
-        btnInitialize= mapBinding.btnInitialize
-        currentLocationButton= mapBinding.currentLocationButton
+        btnInitialize = mapBinding.btnInitialize
+        currentLocationButton = mapBinding.currentLocationButton
         // BottomSheetLayout 에 View Binding 적용
         bottomSheetBinding = FragmentBottomSheetBinding.bind(bottomSheetLayout)
         // BottomSheetBehavior 에 layout 설정
@@ -155,43 +149,43 @@ class MapFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistBindin
         dialog.show()
         Handler(Looper.getMainLooper()).postDelayed({
             ApiDefinition.GET_ITEM_LIST(district, page, size).setListener { response ->
-                    isLoading = false
-                    val newItems = response.itemDto
-                    if (!newItems.isNullOrEmpty() && moredata) {
-                        val startPosition = dataList.size
-                        newItems.forEach { item ->
-                            dataList.add(
-                                MainItem(
-                                    item.photo,
-                                    item.court,
-                                    item.caseNumber,
-                                    item.location,
-                                    item.minimumBidPrice,
-                                    item.biddingPeriod,
-                                    item.xcoordinate,
-                                    item.ycoordinate
-                                )
+                isLoading = false
+                val newItems = response.itemDto
+                if (!newItems.isNullOrEmpty() && moredata) {
+                    val startPosition = dataList.size
+                    newItems.forEach { item ->
+                        dataList.add(
+                            MainItem(
+                                item.photo,
+                                item.court,
+                                item.caseNumber,
+                                item.location,
+                                item.minimumBidPrice,
+                                item.biddingPeriod,
+                                item.xcoordinate,
+                                item.ycoordinate
                             )
-                            loadMarkersFromServer(district)
+                        )
+                        loadMarkersFromServer(district)
 
-                        }
-                        if (page == 0) {
-                            // 첫 페이지라면 RecyclerView를 초기 설정
-                            initRecycler(dataList, district)
-                        } else {
-                            bottomSheetBinding?.mainlistRecyclerView?.adapter?.notifyItemRangeInserted(
-                                startPosition, newItems.size
-                            )
-
-                        }
-
-                    } else {
-                        Toast.makeText(requireContext(), "데이터가 없습니다.", Toast.LENGTH_SHORT).show()
-                        moredata = false
                     }
-                    dialog.dismiss()
+                    if (page == 0) {
+                        // 첫 페이지라면 RecyclerView를 초기 설정
+                        initRecycler(dataList, district)
+                    } else {
+                        bottomSheetBinding?.mainlistRecyclerView?.adapter?.notifyItemRangeInserted(
+                            startPosition, newItems.size
+                        )
 
+                    }
+
+                } else {
+                    Toast.makeText(requireContext(), "데이터가 없습니다.", Toast.LENGTH_SHORT).show()
+                    moredata = false
                 }
+                dialog.dismiss()
+
+            }
 
                 .setRequestHeaders(
                     mutableMapOf(
@@ -387,13 +381,13 @@ class MapFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistBindin
 // 화면 가운데 좌표 -> 위치 알아내기
     private fun loadMarkersFromServer(district: String) {
         ApiDefinition.GET_ITEM_LIST(district, currentPage, size).setListener { response ->
-                handleApiResults(response.itemDto)
-            }.setRequestHeaders(
-                mutableMapOf(
-                    "Authorization" to "Bearer " + PreferenceUtil(requireContext()).init().start()
-                        .getString(PREFERENCE_TOKEN)!!
-                )
-            ).build(requireContext())
+            handleApiResults(response.itemDto)
+        }.setRequestHeaders(
+            mutableMapOf(
+                "Authorization" to "Bearer " + PreferenceUtil(requireContext()).init().start()
+                    .getString(PREFERENCE_TOKEN)!!
+            )
+        ).build(requireContext())
     }
 
     fun sendAndRetrieveLocationInfo(district: String) {
@@ -401,15 +395,15 @@ class MapFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistBindin
         initialize(district)
 
         ApiDefinition.GET_LOCATION_INFO.setRequestHeaders(
-                mutableMapOf(
-                    "Authorization" to "Bearer " + PreferenceUtil(requireContext()).init().start()
-                        .getString(PREFERENCE_TOKEN)!!
-                )
-            ).setRequestParams(requestData).setListener {
-                Log.d("sendAndRetrieveLocationInfo", "sendAndRetrieveLocationInfo")
-                loadMarkersFromServer(district)
+            mutableMapOf(
+                "Authorization" to "Bearer " + PreferenceUtil(requireContext()).init().start()
+                    .getString(PREFERENCE_TOKEN)!!
+            )
+        ).setRequestParams(requestData).setListener {
+            Log.d("sendAndRetrieveLocationInfo", "sendAndRetrieveLocationInfo")
+            loadMarkersFromServer(district)
 
-            }.build(requireContext())
+        }.build(requireContext())
     }
 
 //    private fun addMarkerToMap(lat: Double, lng: Double, item: MainItem) {
@@ -462,6 +456,7 @@ class MapFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistBindin
 
                             }
                         }
+
                         override fun onError(e: Exception) {
                             Log.d("위도/경도", "입출력 오류")
                         }
@@ -477,33 +472,13 @@ class MapFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistBindin
         fun onError(e: Exception)
     }
 
-
     private fun handleApiResults(itemDtoList: List<ItemDto>) {
         MapUtil.handleApiResults(requireContext(), itemDtoList, naverMap)
 
     }
 
-
-    // NaverGeocodingAPI
-    interface NaverGeocodingAPI {
-        @Headers("X-NCP-APIGW-API-KEY-ID: $Client_ID", "X-NCP-APIGW-API-KEY: $Client_Secret")
-        @GET("map-reversegeocode/v2/gc")
-        suspend fun reverseGeocode(
-            @Query("coords") coords: String,
-            @Query("orders") orders: String = "admcode",
-            @Query("output") output: String = "json"
-        ): GeocodingResponse
-    }
-
-    data class GeocodingResponse(val results: List<ResultItem>)
-    data class ResultItem(val name: String, val code: Code)
-    data class Code(val id: String, val type: String, val name: String)
-
-
     override fun onDestroy() {
         super.onDestroy()   // 화면이 종료될 때 모든 마커 제거
-
-
         markers.clear()     // 마커 리스트 비움
     }
 
