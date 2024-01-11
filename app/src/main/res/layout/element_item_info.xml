@@ -15,28 +15,28 @@
         android:fitsSystemWindows="true"
 
         >
-<!--        &lt;!&ndash; 위로 당길 수 있을 듯한 느낌을 주는 라인 &ndash;&gt;-->
-<!--        <View-->
-<!--            android:id="@+id/topLine"-->
-<!--            android:layout_width="30dp"-->
-<!--            android:layout_height="3dp"-->
-<!--            android:layout_gravity="center_horizontal"-->
-<!--            android:layout_marginTop="8dp"-->
-<!--            android:background="#cccccc"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
+        <!--        &lt;!&ndash; 위로 당길 수 있을 듯한 느낌을 주는 라인 &ndash;&gt;-->
+        <!--        <View-->
+        <!--            android:id="@+id/topLine"-->
+        <!--            android:layout_width="30dp"-->
+        <!--            android:layout_height="3dp"-->
+        <!--            android:layout_gravity="center_horizontal"-->
+        <!--            android:layout_marginTop="8dp"-->
+        <!--            android:background="#cccccc"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
 
-<!--        &lt;!&ndash; 구분선 &ndash;&gt;-->
-<!--        <View-->
-<!--            android:id="@+id/divider"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="1dp"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            android:background="#cccccc"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/topLine" />-->
+        <!--        &lt;!&ndash; 구분선 &ndash;&gt;-->
+        <!--        <View-->
+        <!--            android:id="@+id/divider"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="1dp"-->
+        <!--            android:layout_marginTop="20dp"-->
+        <!--            android:background="#cccccc"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/topLine" />-->
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_layout"
@@ -216,38 +216,7 @@
                     android:layout_margin="10dp"
                     android:background="#aaa" />
 
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:gravity="center"
-                    android:orientation="horizontal">
 
-                    <android.widget.Button
-                        android:id="@+id/confirm_button"
-                        android:layout_width="130dp"
-                        android:layout_height="50dp"
-                        android:layout_gravity="start"
-                        android:layout_marginEnd="30dp"
-                        android:background="@drawable/awaitingbid_button"
-                        android:backgroundTint="@color/color_main"
-                        android:text="취소"
-                        android:textColor="#FFFFFF"
-                        android:textSize="@dimen/subtitle_size" />
-
-                    <android.widget.Button
-                        android:id="@+id/confirm_button2"
-                        android:layout_width="130dp"
-                        android:layout_height="50dp"
-                        android:layout_gravity="end"
-                        android:layout_marginStart="30dp"
-                        android:background="@drawable/awaitingbid_button"
-                        android:backgroundTint="@color/color_main"
-                        android:text="대리위임"
-                        android:textColor="#FFFFFF"
-                        android:textSize="@dimen/subtitle_size" />
-
-                </androidx.appcompat.widget.LinearLayoutCompat>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
