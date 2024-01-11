@@ -101,9 +101,6 @@ class ItemLookUpFragment : Fragment() {
         cancle.setOnClickListener {
             delegateReject()
         }
-        binding.toolbar.setNavigationOnClickListener {
-            toolbarNavClick()
-        }
     }
 
     override fun onDestroyView() {
@@ -114,7 +111,7 @@ class ItemLookUpFragment : Fragment() {
     private fun initFields() {
         collapsingToolbarLayout = binding.collapsingLayout
         appBarLayout = binding.appbarLayout
-        toolbar = binding.toolbar
+//        toolbar = binding.toolbar
         delegate
         cancle
         caseNumber
