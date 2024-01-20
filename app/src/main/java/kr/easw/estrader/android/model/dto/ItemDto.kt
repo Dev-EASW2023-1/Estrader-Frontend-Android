@@ -10,8 +10,14 @@ data class ItemDto (
     val itemType: String,
     val note: String,
     val managementNumber: String,
-    val xcoordinate : String,
-    val ycoordinate : String
+    val xcoordinate: String,
+    val ycoordinate: String,
+    val district: String
+)
+data class ItemPageRequestDTO (
+    val district: String,
+    val page: Int,
+    val size: Int
 )
 
 data class ItemListDto (
