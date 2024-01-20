@@ -11,7 +11,7 @@ import androidx.fragment.app.commit
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.databinding.ActivityMainlistBinding
 import kr.easw.estrader.android.fragment.user.MainListFragment
-import kr.easw.estrader.android.fragment.user.MapFragment
+import kr.easw.estrader.android.fragment.user.MapViewFragment
 
 
 /**
@@ -68,7 +68,7 @@ class MainListActivity : AppCompatActivity() {
 
                 R.id.navigation_map -> {
                     supportFragmentManager.commit {
-                        replace(activityBinding.framelayout.id, MapFragment())
+                        replace(activityBinding.framelayout.id, MapViewFragment())
                     }
                     currentSelectedItemId = item.itemId
                     true
@@ -81,7 +81,7 @@ class MainListActivity : AppCompatActivity() {
 
         // commit() 으로 Fragment Transaction 비동기 처리
         supportFragmentManager.commit {
-            replace(activityBinding.framelayout.id, MapFragment())
+            replace(activityBinding.framelayout.id, MapViewFragment())
         }
     }
 

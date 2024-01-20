@@ -1,5 +1,6 @@
 package kr.easw.estrader.android.model.data
 
+import android.content.Context
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kr.easw.estrader.android.application.GlideApp
@@ -44,6 +45,29 @@ class MainHolder(
         reservePrice.text = item.reservePrice
         auctionPeriod.text = item.auctionPeriod
     }
+}
+
+
+fun bindMainItemToView(
+    context: Context,
+    binding: ElementItemBinding,
+    item: MainItem
+) {
+    val auctionHouse: TextView = binding.auctionhouse
+    val caseNumber: TextView = binding.casenumber
+    val location: TextView = binding.location
+    val reservePrice: TextView = binding.reserveprice
+    val auctionPeriod: TextView = binding.auctionperiod
+
+    GlideApp.with(context)
+        .load(item.iconDrawable)
+        .override(100, 100)
+        .into(binding.image)
+    auctionHouse.text = item.auctionHouse
+    caseNumber.text = item.caseNumber
+    location.text = item.location
+    reservePrice.text = item.reservePrice
+    auctionPeriod.text = item.auctionPeriod
 }
 
 class DelegateHolder(

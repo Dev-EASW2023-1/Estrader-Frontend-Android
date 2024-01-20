@@ -189,13 +189,13 @@ class ItemLookUpFragment : Fragment() {
 
     private fun delegateReject() {
         requireActivity().supportFragmentManager.commit {
-            replace(R.id.framelayout, MapFragment())
+            replace(R.id.framelayout, MapViewFragment())
         }
     }
 
     private fun toolbarNavClick() {
         requireActivity().supportFragmentManager.commit {
-            replace(R.id.framelayout, MapFragment())
+            replace(R.id.framelayout, MapViewFragment())
         }
     }
 
