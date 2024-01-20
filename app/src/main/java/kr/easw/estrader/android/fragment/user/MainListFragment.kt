@@ -17,6 +17,7 @@ import kr.easw.estrader.android.definitions.ApiDefinition
 import kr.easw.estrader.android.definitions.PREFERENCE_TOKEN
 import kr.easw.estrader.android.fragment.BaseFragment
 import kr.easw.estrader.android.model.data.MainHolder
+import kr.easw.estrader.android.model.dto.ItemPageRequestDTO
 import kr.easw.estrader.android.model.dto.MainItem
 import kr.easw.estrader.android.util.PreferenceUtil
 import kr.easw.estrader.android.util.SharedViewModel
@@ -50,27 +51,29 @@ class MainListFragment : BaseFragment<FragmentMainlistBinding>(FragmentMainlistB
     private fun initialize(district: String) {
         shimmerContainer = (binding as FragmentMainlistBinding).shimmerViewContainer
         shimmerContainer.startShimmer() // 스켈레톤 로딩 시작
-        ApiDefinition.GET_ITEM_LIST(district, page,page)
-                .setListener{
-                    val dataList: MutableList<MainItem> = mutableListOf()
-                    for(x in 0 until it.itemDto.size){
-                        dataList.add(MainItem(
-                            it.itemDto[x].photo,
-                            it.itemDto[x].court,
-                            it.itemDto[x].caseNumber,
-                            it.itemDto[x].location,
-                            it.itemDto[x].minimumBidPrice,
-                            it.itemDto[x].biddingPeriod,
-                            it.itemDto[x].xcoordinate,
-                            it.itemDto[x].ycoordinate
-                        ))
-                    }
-                    initRecycler(dataList)
-                    shimmerContainer.stopShimmer() // 스켈레톤 로딩 중지
-                    shimmerContainer.visibility = View.GONE // 스켈레톤 뷰 숨기기
-                }
-                .setRequestHeaders(mutableMapOf("Authorization" to "Bearer " + PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_TOKEN)!!))
-                .build(requireContext())
+        ApiDefinition.GET_ITEM_LIST.setRequestParams(
+            ItemPageRequestDTO(district, page, page)
+        ).setListener {
+            val dataList: MutableList<MainItem> = mutableListOf()
+            for(x in 0 until it.itemDto.size){
+                dataList.add(MainItem(
+                    it.itemDto[x].photo,
+                    it.itemDto[x].court,
+                    it.itemDto[x].caseNumber,
+                    it.itemDto[x].location,
+                    it.itemDto[x].minimumBidPrice,
+                    it.itemDto[x].biddingPeriod,
+                    it.itemDto[x].xcoordinate,
+                    it.itemDto[x].ycoordinate,
+                    it.itemDto[x].district
+                ))
+            }
+            initRecycler(dataList)
+            shimmerContainer.stopShimmer() // 스켈레톤 로딩 중지
+            shimmerContainer.visibility = View.GONE // 스켈레톤 뷰 숨기기
+        }
+            .setRequestHeaders(mutableMapOf("Authorization" to "Bearer " + PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_TOKEN)!!))
+            .build(requireContext())
         (binding as FragmentMainlistBinding).mainlistRecyclerView.visibility = View.VISIBLE // 실제 데이터 뷰 보이기
     }
 

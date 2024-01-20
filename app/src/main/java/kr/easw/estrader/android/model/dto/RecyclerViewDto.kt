@@ -1,14 +1,15 @@
 package kr.easw.estrader.android.model.dto
 
 data class MainItem(
-    val iconDrawable: String,
-    val auctionHouse: String,
-    val caseNumber: String,
-    val location: String,
-    val reservePrice: String,
-    val auctionPeriod: String,
-    val xcoordinate : String,
-    val ycoordinate : String
+    val iconDrawable: String = "",
+    val auctionHouse: String = "",
+    val caseNumber: String = "",
+    val location: String = "",
+    val reservePrice: String = "",
+    val auctionPeriod: String = "",
+    val xcoordinate: String = "",
+    val ycoordinate: String = "",
+    val district: String = ""
 )
 
 data class DelegateItem(
