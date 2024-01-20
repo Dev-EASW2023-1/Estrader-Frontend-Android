@@ -142,6 +142,6 @@
 
     <include
         android:id="@+id/bottom_sheet"
-        layout="@layout/fragment_bottom_sheet" />
+        layout="@layout/fragment_bottom_sheet_recycler_view" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
