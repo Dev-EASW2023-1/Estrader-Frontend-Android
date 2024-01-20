@@ -1,30 +1,7 @@
 package kr.easw.estrader.android.definitions
 
 import com.android.volley.Request
-import kr.easw.estrader.android.model.dto.ContractInfoRequest
-import kr.easw.estrader.android.model.dto.ContractInfoResponse
-import kr.easw.estrader.android.model.dto.ContractRequest
-import kr.easw.estrader.android.model.dto.ContractResponse
-import kr.easw.estrader.android.model.dto.DistrictRequest
-import kr.easw.estrader.android.model.dto.DistrictResponse
-import kr.easw.estrader.android.model.dto.FcmRequest
-import kr.easw.estrader.android.model.dto.FcmResponse
-import kr.easw.estrader.android.model.dto.ItemDto
-import kr.easw.estrader.android.model.dto.ItemInContractDto
-import kr.easw.estrader.android.model.dto.ItemListDto
-import kr.easw.estrader.android.model.dto.LookUpItemRequest
-import kr.easw.estrader.android.model.dto.RealtorRegisterDataRequest
-import kr.easw.estrader.android.model.dto.RealtorRegisterDataResponse
-import kr.easw.estrader.android.model.dto.RealtorSignInRequest
-import kr.easw.estrader.android.model.dto.RealtorSignInResponse
-import kr.easw.estrader.android.model.dto.RealtorSignupCheckRequest
-import kr.easw.estrader.android.model.dto.RealtorSignupCheckResponse
-import kr.easw.estrader.android.model.dto.RegisterDataRequest
-import kr.easw.estrader.android.model.dto.RegisterDataResponse
-import kr.easw.estrader.android.model.dto.SignInRequest
-import kr.easw.estrader.android.model.dto.SignInResponse
-import kr.easw.estrader.android.model.dto.SignupCheckRequest
-import kr.easw.estrader.android.model.dto.SignupCheckResponse
+import kr.easw.estrader.android.model.dto.*
 import kr.easw.estrader.android.util.RestRequestTemplate
 
 object ApiDefinition {
@@ -46,13 +23,11 @@ object ApiDefinition {
         .setResponseParams(RegisterDataResponse::class.java)
         .setRequestMethod(Request.Method.POST)
 
-    fun GET_ITEM_LIST(district: String, page: Int, size: Int) = RestRequestTemplate.Builder<Void, ItemListDto>()
+    val GET_ITEM_LIST = RestRequestTemplate.Builder<ItemPageRequestDTO, ItemListDto>()
         .setRequestHeaders(mutableMapOf("Content-Type" to "application/json"))
-        .setRequestUrl("$SERVER_URL/item/show-list?district=$district&page=$page&size=$size")
-        .setRequestParams(null)
+        .setRequestUrl("$SERVER_URL/item/show-list")
         .setResponseParams(ItemListDto::class.java)
-        .setRequestMethod(Request.Method.GET)
-
+        .setRequestMethod(Request.Method.POST)
 
     val SEND_FCM = RestRequestTemplate.Builder<FcmRequest, FcmResponse>()
         .setRequestHeaders(mutableMapOf("Content-Type" to "application/json"))
