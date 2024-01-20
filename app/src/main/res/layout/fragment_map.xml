@@ -4,6 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--
+        com.naver.maps.map.MapView, com.naver.maps.map.widget.LocationButtonView
+        동작은 잘 되지만, 커스텀 뷰 및 외부 라이브러리 이므로 Preview 표시 오류 존재
+    -->
+
     <com.naver.maps.map.MapView
         android:id="@+id/mapView"
         android:layout_width="match_parent"
