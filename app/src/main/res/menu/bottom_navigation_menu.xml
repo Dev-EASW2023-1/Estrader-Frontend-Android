@@ -7,10 +7,14 @@
         />
     <item
         android:id="@+id/navigation_map"
-        android:title="@string/navigation_map"
+        android:title="@string/navigation_search"
         android:icon="@drawable/ic_map" />
     <item
         android:id="@+id/navigation_more"
         android:title="@string/navigation_more"
         android:icon="@drawable/ic_more" />
+    <item
+        android:id="@+id/navigation_myinfo"
+        android:title="@string/navigation_myinfo"
+        android:icon="@drawable/ic_add" />
 </menu>

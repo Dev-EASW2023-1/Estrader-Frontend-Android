@@ -16,7 +16,7 @@
 
     <ImageView
         android:id="@+id/icon_background"
-        android:layout_width="50dp"
+        android:layout_width="40dp"
         android:layout_height="50dp"
         android:src="@drawable/realtor_awaiting_thumbnail"
         android:layout_alignStart="@id/realtor_icon"
@@ -55,13 +55,12 @@
             android:textStyle="bold"/>
 
 
-
         <TextView
             android:id="@+id/location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="부동산 주소"
+            android:text="충청북도 청주시 서원구"
             android:textColor="#000"
             android:textSize="@dimen/body_size" />
 
@@ -70,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="제시금액 얼마얼마 "
+            android:text="수수료 금액 "
             android:textColor="#000"
             android:textSize="20dp" />
 
@@ -83,7 +82,7 @@
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:gravity="center"
-        android:text="상세보기"
+        android:text=">"
         android:textColor="#000"
         android:textSize="@dimen/heading_size" />
 
