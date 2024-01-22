@@ -5,7 +5,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 abstract class BaseBottomSheetLayout(
-    Button: AppCompatButton,
     private val bottomSheetLayout: ConstraintLayout
 ) {
     abstract val height: Int
@@ -17,9 +16,6 @@ abstract class BaseBottomSheetLayout(
 
     // 버튼 이벤트 설정
     init {
-        Button.setOnClickListener {
-            initializeBehavior()
-        }
         bottomSheetLayout.setOnClickListener {
             initializeBehavior()
         }

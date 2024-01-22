@@ -15,28 +15,28 @@
         android:fitsSystemWindows="true"
 
         >
-<!--        &lt;!&ndash; 위로 당길 수 있을 듯한 느낌을 주는 라인 &ndash;&gt;-->
-<!--        <View-->
-<!--            android:id="@+id/topLine"-->
-<!--            android:layout_width="30dp"-->
-<!--            android:layout_height="3dp"-->
-<!--            android:layout_gravity="center_horizontal"-->
-<!--            android:layout_marginTop="8dp"-->
-<!--            android:background="#cccccc"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
+        <!--        &lt;!&ndash; 위로 당길 수 있을 듯한 느낌을 주는 라인 &ndash;&gt;-->
+        <!--        <View-->
+        <!--            android:id="@+id/topLine"-->
+        <!--            android:layout_width="30dp"-->
+        <!--            android:layout_height="3dp"-->
+        <!--            android:layout_gravity="center_horizontal"-->
+        <!--            android:layout_marginTop="8dp"-->
+        <!--            android:background="#cccccc"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
 
-<!--        &lt;!&ndash; 구분선 &ndash;&gt;-->
-<!--        <View-->
-<!--            android:id="@+id/divider"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="1dp"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            android:background="#cccccc"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/topLine" />-->
+        <!--        &lt;!&ndash; 구분선 &ndash;&gt;-->
+        <!--        <View-->
+        <!--            android:id="@+id/divider"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="1dp"-->
+        <!--            android:layout_marginTop="20dp"-->
+        <!--            android:background="#cccccc"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/topLine" />-->
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_layout"
@@ -110,23 +110,9 @@
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <TextView
-                    android:id="@+id/itemType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="다가구주택"
-                    android:textColor="#000000"
-                    android:textSize="@dimen/title_size"
-                    android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/location"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="대구광역시 중구 공평로8길 53-4"
-                    android:textColor="#000000"
-                    android:textSize="@dimen/heading_size" />
+
+
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -141,25 +127,61 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:text="상세정보"
+                    android:text="매물정보"
                     android:textColor="#000000"
                     android:textSize="@dimen/title_size"
                     android:textStyle="bold" />
+
 
                 <GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:columnCount="2"
                     android:rowCount="1">
-
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_columnWeight="0.5"
                         android:layout_gravity="center_vertical"
-                        android:text="감정평가액 \n최저매각가격"
+                        android:text="위치"
+                        android:textColor="#000000"
+                        android:textSize="@dimen/heading_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/location"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="0.5"
+                        android:layout_gravity="center_vertical"
+                        android:text="대구광역시 중구 공평로8길 53-4"
+                        android:textColor="#000000"
+                        android:textSize="@dimen/heading_size" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="0.5"
+                        android:layout_gravity="center_vertical"
+                        android:text="종류"
+                        android:textColor="#000000"
+                        android:textSize="@dimen/heading_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/itemType"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="0.5"
+                        android:layout_gravity="center_vertical"
+                        android:text="다가구주택"
+                        android:textColor="#000000"
+                        android:textSize="@dimen/heading_size" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="0.5"
+                        android:layout_gravity="center_vertical"
+                        android:text="최저입찰가"
                         android:textColor="#000000"
                         android:textSize="@dimen/heading_size"
                         android:textStyle="bold" />
@@ -207,7 +229,25 @@
                         android:text="-일괄매각 -감정서에 의하면 본건 기호(가)1층 사무소 증축부분은 건물등기사항전부증명서 상 미등재된 상태로서 일반건축물대장과 상이하나, 물적동일성의 기준이 되는 건축물대장을 기준으로 1층 증축 부분(22.68㎡)을 정상적으로 평가하였으며 매각에 포함 "
                         android:textColor="#000000"
                         android:textSize="@dimen/heading_size" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="0.5"
+                        android:layout_gravity="center_vertical"
+                        android:text="자세히 보러가기"
+                        android:textColor="#000000"
+                        android:textSize="@dimen/heading_size"
+                        android:textStyle="bold" />
 
+                    <TextView
+                        android:id="@+id/site"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="0.5"
+                        android:layout_gravity="center_vertical"
+                        android:text="자세히 보러가기"
+                        android:textColor="#000000"
+                        android:textSize="@dimen/heading_size" />
                 </GridLayout>
 
                 <View

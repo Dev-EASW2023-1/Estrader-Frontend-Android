@@ -17,8 +17,12 @@
     <string name="sign_in"><u>Sign In</u></string>
     <string name="sign_up"><u>Sign Up</u></string>
     <string name="navigation_home">홈</string>
-    <string name="navigation_map">지도</string>
+    <string name="navigation_search">검색</string>
     <string name="navigation_more">더보기</string>
+    <string name="navigation_myinfo">내정보</string>
+    <string name="navigation_searchregion">지역별 검색</string>
+    <string name="navigation_new">신규매물</string>
+    <string name="navigation_case">사건별 검색</string>
     <string name="property_photo">매물 사진</string>
     <string name="property_name">매물 명칭</string>
     <string name="intro">인트로</string>
@@ -31,6 +35,8 @@
     <string name="main_screen">메인 화면 이미지</string>
     <string name="main_screen_introduce">새로운 부동산 O2O 경매 서비스</string>
     <string name="main_screen_login">로그인 하기</string>
+    <string name="main_screen_findid">아이디 찾기</string>
+    <string name="main_screen_findpw">비밀번호 찾기</string>
     <string name="main_screen_sign_up">회원 가입</string>
     <string name="main_screen_id">Input ID</string>
     <string name="main_screen_password">Password</string>

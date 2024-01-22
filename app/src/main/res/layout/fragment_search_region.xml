@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintBaseline_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="MissingConstraints">
+
+
+
+        <com.naver.maps.map.MapView
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="7"
+            android:visibility="visible" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/seoul"
+                style="@style/RegionTextStyle"
+                android:text="서울특별시" />
+
+            <TextView
+                android:id="@+id/busan"
+                style="@style/RegionTextStyle"
+                android:text="부산광역시" />
+
+            <TextView
+                android:id="@+id/daegu"
+                style="@style/RegionTextStyle"
+                android:text="대구광역시" />
+
+            <TextView
+                android:id="@+id/incheon"
+                style="@style/RegionTextStyle"
+                android:text="인천광역시" />
+
+            <TextView
+                android:id="@+id/gwangju"
+                style="@style/RegionTextStyle"
+                android:text="광주광역시" />
+
+            <TextView
+                android:id="@+id/daejeon"
+                style="@style/RegionTextStyle"
+                android:text="대전광역시" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/ulsan"
+                style="@style/RegionTextStyle"
+                android:text="울산광역시" />
+
+
+            <TextView
+                android:id="@+id/sejong"
+                style="@style/RegionTextStyle"
+                android:text="세종특별\n자치시" />
+
+            <TextView
+                android:id="@+id/gyeonggi"
+                style="@style/RegionTextStyle"
+                android:text="경기도" />
+
+            <TextView
+                android:id="@+id/gangwon"
+                style="@style/RegionTextStyle"
+                android:text="강원특별자치도" />
+
+            <TextView
+                android:id="@+id/chungbuk"
+                style="@style/RegionTextStyle"
+                android:text="충청북도" />
+
+            <TextView
+                android:id="@+id/chungnam"
+                style="@style/RegionTextStyle"
+                android:text="충청남도" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/jeonbuk"
+                style="@style/RegionTextStyle"
+                android:text="전라북도" />
+
+            <TextView
+                android:id="@+id/jeonnam"
+                style="@style/RegionTextStyle"
+                android:text="전라남도" />
+
+            <TextView
+                android:id="@+id/gyeongbuk"
+                style="@style/RegionTextStyle"
+                android:text="경상북도" />
+
+            <TextView
+                android:id="@+id/gyeongnam"
+                style="@style/RegionTextStyle"
+                android:text="경상남도" />
+
+            <TextView
+                android:id="@+id/jeju"
+                style="@style/RegionTextStyle"
+                android:text="제주특별자치도" />
+        </LinearLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
