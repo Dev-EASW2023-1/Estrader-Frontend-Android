@@ -10,6 +10,9 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.databinding.FragmentEnterPriceBinding
+import kr.easw.estrader.android.databinding.FragmentProxyselBinding
+import kr.easw.estrader.android.fragment.delegation.user.SuccessDelegationFragment
+import kr.easw.estrader.android.fragment.user.ProxyselFragment
 import java.text.NumberFormat
 import java.util.Locale
 
@@ -79,7 +82,16 @@ class EnterPriceFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.next.setOnClickListener {
-            Log.d("dfsdfsdfdsfdsfdsf", price)
+            val realtorInfoFragment = ProxyselFragment()
+
+            parentFragmentManager.beginTransaction().apply {
+                replace(
+                    R.id.fragment_container,
+                    realtorInfoFragment
+                )
+                addToBackStack(null)
+                commit()
+            }
 
 
         }
