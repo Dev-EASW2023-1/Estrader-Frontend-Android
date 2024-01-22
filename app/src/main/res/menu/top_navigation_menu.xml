@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_new"
+        android:title="@string/navigation_new"
+        android:icon="@drawable/ic_map" />
+    <item
+        android:id="@+id/navigation_searchregion"
+        android:title="@string/navigation_searchregion"
+        android:icon="@drawable/ic_more" />
+    <item
+        android:id="@+id/navigation_case"
+        android:title="@string/navigation_case"
+        android:icon="@drawable/ic_add" />
+</menu>
