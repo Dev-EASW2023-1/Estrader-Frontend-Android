@@ -2,12 +2,17 @@ package kr.easw.estrader.android.fragment.user
 
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebViewFragment
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -30,6 +35,8 @@ import kr.easw.estrader.android.extensions.startActivity
 import kr.easw.estrader.android.model.dto.FcmRequest
 import kr.easw.estrader.android.model.dto.LookUpItemRequest
 import kr.easw.estrader.android.util.PreferenceUtil
+import java.net.URLEncoder
+import java.nio.charset.Charset
 
 /**
  * 사용자 전용 부동산 매각 상세정보 Fragment
@@ -101,6 +108,10 @@ class ItemLookUpFragment : Fragment() {
         cancle.setOnClickListener {
             delegateReject()
         }
+
+        binding.site.setOnClickListener {
+            siteurl()
+        }
     }
 
     override fun onDestroyView() {
@@ -159,6 +170,55 @@ class ItemLookUpFragment : Fragment() {
             .show()
     }
 
+    private fun startWebViewDialogBtn(newUrl : String) {
+        val url = newUrl
+        val mWebView = MyWebView(requireContext(), url)
+        Log.d("url",url)
+        val webViewDialog = Dialog(requireContext()).apply {
+
+            window?.attributes?.apply {
+                width = ViewGroup.LayoutParams.MATCH_PARENT
+                height = ViewGroup.LayoutParams.MATCH_PARENT
+            }
+            setContentView(mWebView)
+
+            setOnKeyListener { _, keyCode, _ ->
+                if(keyCode == KeyEvent.KEYCODE_BACK && mWebView.canGoBack()) {
+                    mWebView.goBack()
+                    true
+                } else {
+                    false
+                }
+            }
+        }
+
+        webViewDialog.show()
+    }
+    fun modifyUrl(originalUrl: String, jiwonNm: String, caseNumber: String): String {
+        val eucKrCharset = Charset.forName("EUC-KR")
+        val encodedJiwonNm = jiwonNm.toByteArray(eucKrCharset)
+            .joinToString(separator = "") { "%${it.toInt().and(0xff).toString(16).uppercase()}" }
+
+        val (saYear, saSer) = caseNumber.split("타경").let { it[0].trim() to it[1].trim() }
+
+        val urlParts = originalUrl.split("&").toMutableList()
+        urlParts[0] = urlParts[0].substringBefore("jiwonNm=") + "jiwonNm=$encodedJiwonNm"
+        urlParts[1] = "saYear=$saYear"
+        urlParts[2] = "saSer=$saSer"
+
+        return urlParts.joinToString("&")
+    }
+
+
+    private fun siteurl() {
+        val originalUrl = "https://www.courtauction.go.kr/RetrieveRealEstDetailInqSaList.laf?jiwonNm=&saYear=&saSer=&_CUR_SRNID=PNO102014&_CUR_CMD=InitMulSrch.laf&_SRCH_SRNID=PNO102014&_NEXT_CMD=RetrieveRealEstDetailInqSaList.laf"
+        val jiwonNmValue = "의정부지방법원"
+        val textViewText = "2022타경 77053"
+
+        val newUrl = modifyUrl(originalUrl, jiwonNmValue, textViewText)
+        startWebViewDialogBtn(newUrl)
+
+    }
     private fun showItem() {
         val dialog = Dialog(requireContext())
         dialog.setContentView(ProgressBar(requireContext()))
