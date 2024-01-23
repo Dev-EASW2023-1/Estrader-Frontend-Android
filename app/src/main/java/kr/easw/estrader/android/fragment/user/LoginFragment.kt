@@ -21,7 +21,9 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputLayout
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.activity.user.MainListActivity
+import kr.easw.estrader.android.activity.user.NavigationActivity
 import kr.easw.estrader.android.databinding.FragmentLoginBinding
+import kr.easw.estrader.android.databinding.FragmentLoginRev1Binding
 import kr.easw.estrader.android.definitions.*
 import kr.easw.estrader.android.extensions.replaceFragment
 import kr.easw.estrader.android.extensions.startActivity
@@ -29,7 +31,7 @@ import kr.easw.estrader.android.model.dto.SignInRequest
 import kr.easw.estrader.android.util.PreferenceUtil
 
 class LoginFragment : Fragment() {
-    private var _binding: FragmentLoginBinding? = null
+    private var _binding: FragmentLoginRev1Binding? = null
     private val binding get() = _binding!!
     private val userId: TextInputLayout by lazy {
         binding.userId
@@ -37,15 +39,10 @@ class LoginFragment : Fragment() {
     private val userPw: TextInputLayout by lazy {
         binding.userPw
     }
-    private val userIdNextButton: Button by lazy {
-        binding.btnNext1
-    }
     private val userPwNextButton: Button by lazy {
         binding.btnNext2
     }
-    private val loginButton: Button by lazy {
-        binding.loginNext
-    }
+
     private val signUpButton: Button by lazy {
         binding.signIn
     }
@@ -70,7 +67,7 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        _binding = FragmentLoginRev1Binding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -81,11 +78,9 @@ class LoginFragment : Fragment() {
     }
 
     private fun initFields() {
-        loginButton
         signUpButton
         userId
         userPw
-        userIdNextButton
         userPwNextButton
         fadeInAnimation
         fadeOutAnimation
@@ -96,16 +91,6 @@ class LoginFragment : Fragment() {
             navigateToSignUpFragment()
         }
 
-        loginButton.setOnClickListener {
-            showUserIdInput()
-        }
-
-        userIdNextButton.setOnClickListener {
-            val inputId = binding.userId.editText?.text.toString()
-            if (inputId.isNotEmpty()) {
-                showUserPasswordInput()
-            }
-        }
 
         userPwNextButton.setOnClickListener {
             loginUser()
@@ -119,51 +104,7 @@ class LoginFragment : Fragment() {
         )
     }
 
-    private fun showUserIdInput() {
-        binding.apply {
-            welcome.apply {
-                // Animation 작동 후 뷰 제거
-                startAnimation(fadeOutAnimation)
-                visibility = View.GONE
 
-            }
-            userId.apply {
-                // 뷰가 나타난 후 Animation 작동
-                visibility = View.VISIBLE
-                startAnimation(fadeInAnimation)
-
-            }
-        }
-    }
-
-    private fun showUserPasswordInput() {
-        binding.apply {
-            userId.apply {
-                startAnimation(fadeOutAnimation)
-                visibility = View.GONE
-            }
-
-            userPw.apply {
-                visibility = View.VISIBLE
-                startAnimation(fadeInAnimation)
-                requestFocus()
-                view?.postDelayed({
-                    showKeyboard(this)
-                }, 200)
-            }
-        }
-    }
-    private fun showKeyboard(view: View) {
-        if(Build.VERSION.SDK_INT>32){
-            val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
-        }
-        else{
-            Log.d("API ", "showKeyboard: ${Build.VERSION.SDK_INT}")
-            val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
-        }
-    }
 
     private fun loginUser() {
         val inputId = binding.userId.editText?.text.toString()
@@ -193,7 +134,7 @@ class LoginFragment : Fragment() {
                     .setString(PREFERENCE_PW, inputPw)
                     .setString(PREFERENCE_TOKEN, it.token)
 
-                requireActivity().startActivity<MainListActivity> {
+                requireActivity().startActivity<NavigationActivity> {
                     flags = FLAG_ACTIVITY_SINGLE_TOP or FLAG_ACTIVITY_CLEAR_TOP
                 }
                 requireActivity().finish()
