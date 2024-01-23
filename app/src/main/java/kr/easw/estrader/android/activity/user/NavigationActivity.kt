@@ -12,7 +12,7 @@ import kr.easw.estrader.android.databinding.ActivityNavigationBinding
 import kr.easw.estrader.android.extensions.replaceFragment
 import kr.easw.estrader.android.fragment.user.HomeFragment
 import kr.easw.estrader.android.fragment.user.ItemLookUpFragment
-import kr.easw.estrader.android.fragment.user.MapViewFragment
+import kr.easw.estrader.android.fragment.user.MyprofileFragment
 import kr.easw.estrader.android.fragment.user.SearchnewFragment
 import kr.easw.estrader.android.fragment.user.SearchregionFragment
 
@@ -68,10 +68,10 @@ class NavigationActivity : AppCompatActivity() {
                 }
 
                 R.id.navigation_myinfo -> {
-                    binding.tabLayout.visibility = View.VISIBLE
+                    binding.tabLayout.visibility = View.GONE
 
 
-                    supportFragmentManager.replaceFragment<MapViewFragment>(
+                    supportFragmentManager.replaceFragment<MyprofileFragment>(
                         binding.containerView.id, null
                     )
                     true
