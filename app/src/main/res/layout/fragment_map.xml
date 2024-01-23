@@ -57,68 +57,68 @@
                 android:layout_height="20dp"
                 android:layout_alignParentLeft="true"
                 android:background="@drawable/button_radius"
-                android:text="전체보기"
+                android:text="대충 종류"
                 android:visibility="visible" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/apt"
-                android:layout_width="50dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="10dp"
-                android:layout_toRightOf="@id/all"
-                android:background="@drawable/button_radius"
-                android:text="임야"
-                android:visibility="visible" />
+<!--            <androidx.appcompat.widget.AppCompatButton-->
+<!--                android:id="@+id/apt"-->
+<!--                android:layout_width="50dp"-->
+<!--                android:layout_height="20dp"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                android:layout_toRightOf="@id/all"-->
+<!--                android:background="@drawable/button_radius"-->
+<!--                android:text="임야"-->
+<!--                android:visibility="visible" />-->
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/lim"
-                android:layout_width="50dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="10dp"
-                android:layout_toRightOf="@id/apt"
-                android:background="@drawable/button_radius"
-                android:text="임야"
-                android:visibility="visible" />
+<!--            <androidx.appcompat.widget.AppCompatButton-->
+<!--                android:id="@+id/lim"-->
+<!--                android:layout_width="50dp"-->
+<!--                android:layout_height="20dp"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                android:layout_toRightOf="@id/apt"-->
+<!--                android:background="@drawable/button_radius"-->
+<!--                android:text="임야"-->
+<!--                android:visibility="visible" />-->
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/ju"
-                android:layout_width="50dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="10dp"
-                android:layout_toRightOf="@id/lim"
-                android:background="@drawable/button_radius"
-                android:text="주택"
-                android:visibility="visible" />
+<!--            <androidx.appcompat.widget.AppCompatButton-->
+<!--                android:id="@+id/ju"-->
+<!--                android:layout_width="50dp"-->
+<!--                android:layout_height="20dp"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                android:layout_toRightOf="@id/lim"-->
+<!--                android:background="@drawable/button_radius"-->
+<!--                android:text="주택"-->
+<!--                android:visibility="visible" />-->
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/sang"
-                android:layout_width="70dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="10dp"
-                android:layout_toRightOf="@id/ju"
-                android:background="@drawable/button_radius"
-                android:text="상가점포"
-                android:visibility="visible" />
+<!--            <androidx.appcompat.widget.AppCompatButton-->
+<!--                android:id="@+id/sang"-->
+<!--                android:layout_width="70dp"-->
+<!--                android:layout_height="20dp"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                android:layout_toRightOf="@id/ju"-->
+<!--                android:background="@drawable/button_radius"-->
+<!--                android:text="상가점포"-->
+<!--                android:visibility="visible" />-->
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/to"
-                android:layout_width="50dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="10dp"
-                android:layout_toRightOf="@id/sang"
-                android:background="@drawable/button_radius"
-                android:text="토지"
-                android:visibility="visible" />
+<!--            <androidx.appcompat.widget.AppCompatButton-->
+<!--                android:id="@+id/to"-->
+<!--                android:layout_width="50dp"-->
+<!--                android:layout_height="20dp"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                android:layout_toRightOf="@id/sang"-->
+<!--                android:background="@drawable/button_radius"-->
+<!--                android:text="토지"-->
+<!--                android:visibility="visible" />-->
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/gong"
-                android:layout_width="50dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="10dp"
-                android:layout_toRightOf="@id/to"
-                android:background="@drawable/button_radius"
-                android:text="공장"
-                android:visibility="visible" />
+<!--            <androidx.appcompat.widget.AppCompatButton-->
+<!--                android:id="@+id/gong"-->
+<!--                android:layout_width="50dp"-->
+<!--                android:layout_height="20dp"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                android:layout_toRightOf="@id/to"-->
+<!--                android:background="@drawable/button_radius"-->
+<!--                android:text="공장"-->
+<!--                android:visibility="visible" />-->
 
         </RelativeLayout>
 

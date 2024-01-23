@@ -2,17 +2,14 @@ package kr.easw.estrader.android.fragment.user
 
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebViewFragment
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -35,7 +32,6 @@ import kr.easw.estrader.android.extensions.startActivity
 import kr.easw.estrader.android.model.dto.FcmRequest
 import kr.easw.estrader.android.model.dto.LookUpItemRequest
 import kr.easw.estrader.android.util.PreferenceUtil
-import java.net.URLEncoder
 import java.nio.charset.Charset
 
 /**
