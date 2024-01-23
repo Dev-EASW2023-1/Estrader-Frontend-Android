@@ -43,10 +43,9 @@ object ViewUtil {
 
     fun setupBottomSheetForMapView(
         fragment: Fragment,
-        Button: AppCompatButton,
         bottomSheetLayout: ConstraintLayout
     ): BaseBottomSheetLayout {
-        val bottomSheet = object : BaseBottomSheetLayout(Button, bottomSheetLayout) {
+        val bottomSheet = object : BaseBottomSheetLayout(bottomSheetLayout) {
             override val height: Int get() = getMaxHeightBasedOnScreenHeight(fragment)
             // BottomSheetBehavior 의 state 를 접혀 있는 상태 설정
             override val state: Int get() = BottomSheetBehavior.STATE_COLLAPSED

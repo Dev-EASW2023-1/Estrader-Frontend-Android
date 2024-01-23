@@ -29,7 +29,6 @@ import kr.easw.estrader.android.R
 import kr.easw.estrader.android.abstracts.BasePagingAdapter
 import kr.easw.estrader.android.abstracts.PaginationScrollListener
 import kr.easw.estrader.android.databinding.ElementItemBinding
-import kr.easw.estrader.android.databinding.FragmentBottomSheetBinding
 import kr.easw.estrader.android.databinding.FragmentBottomSheetRecyclerViewBinding
 import kr.easw.estrader.android.databinding.FragmentMapBinding
 import kr.easw.estrader.android.definitions.ApiDefinition
@@ -133,12 +132,24 @@ class MapViewFragment : Fragment(R.layout.fragment_map), OnMapReadyCallback {
 
     private fun initializeUIComponents() {
         bottomSheetLayout = mapBinding.bottomSheet.root
-        btnInitialize = mapBinding.btnInitialize
+        val toggleButton = mapBinding.btnInitialize
         // BottomSheetLayout 에 View Binding 적용
         // fragment_map.xml 안에 include 한 layout 도 따로 view Binding 적용 해야 한다.
         // 참고 : https://stackoverflow.com/questions/58730127/view-binding-how-do-i-get-a-binding-for-included-layouts
         bottomSheetBinding = FragmentBottomSheetRecyclerViewBinding.bind(bottomSheetLayout)
-        setupBottomSheetForMapView(this, btnInitialize, bottomSheetLayout)
+        setupBottomSheetForMapView(this, bottomSheetLayout)
+//        toggleButton.setOnCheckedChangeListener { _, isChecked ->
+//            if (isChecked) {
+//                // ToggleButton이 "On" 상태일 때의 작업
+//                mapBinding.mapView.visibility = View.GONE
+//                mapBinding.reloadButton.visibility = View.GONE
+//                mapBinding.mainlist.visibility = View.VISIBLE
+//            } else {
+//                // ToggleButton이 "Off" 상태일 때의 작업
+//                mapBinding.mapView.visibility = View.VISIBLE
+//                mapBinding.mainlist.visibility = View.GONE
+//            }
+//        }
     }
 
     private fun initSearchButtonListener() {
@@ -254,7 +265,7 @@ class MapViewFragment : Fragment(R.layout.fragment_map), OnMapReadyCallback {
     // Geocoder getFromLocation deprecated 로 인한 버전 핸들링 추가
     // 위도, 경도를 이용해 Geocoder 로 국내 주소 구하기
     // 참고 링크 : https://www.inflearn.com/questions/911936/geocoder-getfromlocation-%EC%97%90%EB%9F%AC
-    private fun getDetailedAddress(center: LatLng){
+    private fun getDetailedAddress(center: LatLng) {
         CoroutineScope(Main).launch {
             runCatching {
                 val fetchDistrict = withContext(IO) {
