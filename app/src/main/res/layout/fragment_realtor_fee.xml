@@ -25,7 +25,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
             android:fontFamily="@font/nanumgothictext"
-            android:text="판매 희망가"
+            android:text="매수대리신청 수수료 제안"
             android:textSize="16dp" />
 
         <TextView
