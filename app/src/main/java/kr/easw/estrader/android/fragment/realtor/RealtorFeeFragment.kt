@@ -2,22 +2,19 @@ package kr.easw.estrader.android.fragment.realtor
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import kr.easw.estrader.android.R
-import kr.easw.estrader.android.databinding.FragmentEnterPriceBinding
-import kr.easw.estrader.android.databinding.FragmentProxyselBinding
-import kr.easw.estrader.android.fragment.delegation.user.SuccessDelegationFragment
-import kr.easw.estrader.android.fragment.user.ProxyselFragment
+import kr.easw.estrader.android.databinding.FragmentRealtorFeeBinding
+import kr.easw.estrader.android.fragment.user.ProxyselectFragment
 import java.text.NumberFormat
 import java.util.Locale
 
-class EnterPriceFragment : Fragment() {
-    private var _binding: FragmentEnterPriceBinding? = null
+class RealtorFeeFragment : Fragment() {
+    private var _binding: FragmentRealtorFeeBinding? = null
     private val binding get() = _binding!!
     private var price = ""
     private lateinit var buttons: Array<Button>
@@ -26,7 +23,7 @@ class EnterPriceFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentEnterPriceBinding.inflate(inflater, container, false)
+        _binding = FragmentRealtorFeeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -82,7 +79,7 @@ class EnterPriceFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.next.setOnClickListener {
-            val realtorInfoFragment = ProxyselFragment()
+            val realtorInfoFragment = ProxyselectFragment()
 
             parentFragmentManager.beginTransaction().apply {
                 replace(

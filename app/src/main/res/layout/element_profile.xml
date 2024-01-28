@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/LinearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="20dp"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="기본정보"
+            android:textColor="#000000"
+            android:textSize="@dimen/heading_size"
+            android:textStyle="bold" />
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:rowCount="1"
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="0.5"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="20dp"
+                android:text="이름"
+                android:textColor="#000000"
+                android:textSize="@dimen/heading_size" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="0.5"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="20dp"
+                android:text="홍길동"
+                android:textColor="#000000"
+                android:textSize="@dimen/heading_size" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="0.5"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="20dp"
+                android:text="휴대폰번호"
+                android:textColor="#000000"
+                android:textSize="@dimen/heading_size" />
+
+            <TextView
+                android:id="@+id/phonenum"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="0.5"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="20dp"
+                android:text="010-****-1234"
+                android:textColor="#000000"
+                android:textSize="@dimen/heading_size" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="0.5"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="20dp"
+                android:text="이메일"
+                android:textColor="#000000"
+                android:textSize="@dimen/heading_size" />
+
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="0.5"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="20dp"
+                android:text="email@gmail.com"
+                android:textColor="#000000"
+                android:textSize="@dimen/heading_size" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="0.5"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="20dp"
+                android:text="주소"
+                android:textColor="#000000"
+                android:textSize="@dimen/heading_size" />
+
+            <TextView
+                android:id="@+id/addr"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="0.5"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="20dp"
+                android:text="충청북도 청주시 서원구 성봉로 123동"
+                android:textColor="#000000"
+                android:textSize="@dimen/heading_size" />
+
+        </GridLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

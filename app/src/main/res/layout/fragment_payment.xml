@@ -25,7 +25,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
             android:fontFamily="@font/nanumgothictext"
-            android:text="판매 희망가"
+            android:text="입찰신청 가격 제안"
             android:textSize="16dp" />
 
         <TextView

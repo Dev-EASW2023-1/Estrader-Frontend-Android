@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import kr.easw.estrader.android.R
-import kr.easw.estrader.android.databinding.FragmentProxyselBinding
+import kr.easw.estrader.android.databinding.FragmentProxyselectBinding
 
-class ProxyselFragment : Fragment() {
-    private var _binding: FragmentProxyselBinding? = null
+class ProxyselectFragment : Fragment() {
+    private var _binding: FragmentProxyselectBinding? = null
     private val binding get() = _binding!!
 
 
@@ -23,7 +23,7 @@ class ProxyselFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentProxyselBinding.inflate(inflater, container, false)
+        _binding = FragmentProxyselectBinding.inflate(inflater, container, false)
         return binding.root
     }
 
