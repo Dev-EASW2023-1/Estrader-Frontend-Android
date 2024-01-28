@@ -28,6 +28,7 @@ import kr.easw.estrader.android.databinding.FragmentItemlookupBinding
 import kr.easw.estrader.android.definitions.ApiDefinition
 import kr.easw.estrader.android.definitions.PREFERENCE_ID
 import kr.easw.estrader.android.definitions.PREFERENCE_TOKEN
+import kr.easw.estrader.android.extensions.replaceFragment
 import kr.easw.estrader.android.extensions.startActivity
 import kr.easw.estrader.android.model.dto.FcmRequest
 import kr.easw.estrader.android.model.dto.LookUpItemRequest
@@ -133,32 +134,38 @@ class ItemLookUpFragment : Fragment() {
             .setTitle("대리 위임 동의")
             .setMessage("대리 위임을 신청하시겠습니까?")
             .setPositiveButton("확인") { _, _ ->
-                val dialog = Dialog(requireContext())
-                dialog.setContentView(ProgressBar(requireContext()))
-                dialog.show()
+                requireActivity().supportFragmentManager.replaceFragment<PaymentFragment>(
+                    R.id.container_view,
+                    null
+                )
 
-                ApiDefinition.SEND_FCM
-                    .setRequestParams(
-                        FcmRequest(
-                            PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_ID)!!,
-                            "test4",
-                            arguments?.getString(ARG_POSITION).toString(),
-                            "1",
-                            "제목",
-                            "내용"
-                        )
-                    )
-                    .setListener {
-                        showToast(it.message)
-                        dialog.dismiss()
-                        if(it.isSuccess){
-                            requireActivity().startActivity<AwaitingActivity> {
-                                flags = FLAG_ACTIVITY_SINGLE_TOP or FLAG_ACTIVITY_CLEAR_TOP
-                            }
-                        }
-                    }
-                    .setRequestHeaders(mutableMapOf("Authorization" to "Bearer " + PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_TOKEN)!!))
-                    .build(requireContext())
+
+//                val dialog = Dialog(requireContext())
+//                dialog.setContentView(ProgressBar(requireContext()))
+//                dialog.show()
+//
+//                ApiDefinition.SEND_FCM
+//                    .setRequestParams(
+//                        FcmRequest(
+//                            PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_ID)!!,
+//                            "test4",
+//                            arguments?.getString(ARG_POSITION).toString(),
+//                            "1",
+//                            "제목",
+//                            "내용"
+//                        )
+//                    )
+//                    .setListener {
+//                        showToast(it.message)
+//                        dialog.dismiss()
+//                        if(it.isSuccess){
+//                            requireActivity().startActivity<AwaitingActivity> {
+//                                flags = FLAG_ACTIVITY_SINGLE_TOP or FLAG_ACTIVITY_CLEAR_TOP
+//                            }
+//                        }
+//                    }
+//                    .setRequestHeaders(mutableMapOf("Authorization" to "Bearer " + PreferenceUtil(requireContext()).init().start().getString(PREFERENCE_TOKEN)!!))
+//                    .build(requireContext())
             }
             .setNegativeButton("취소") { _, _ ->
             }
