@@ -6,11 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
+import kr.easw.estrader.android.abstracts.BasePagingAdapter
+import kr.easw.estrader.android.databinding.ElementItemBinding
+import kr.easw.estrader.android.databinding.ElementProfileBinding
 import kr.easw.estrader.android.databinding.FragmentMyprofileBinding
+import kr.easw.estrader.android.definitions.ApiDefinition
+import kr.easw.estrader.android.model.dto.MainItem
 
 class MyprofileFragment : Fragment() {
     private var _binding: FragmentMyprofileBinding? = null
     private val binding get() = _binding!!
+    private lateinit var pagingAdapter: BasePagingAdapter<MainItem, ElementProfileBinding>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requireActivity().window.setSoftInputMode(
@@ -31,11 +38,13 @@ class MyprofileFragment : Fragment() {
         _binding = FragmentMyprofileBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
 
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
