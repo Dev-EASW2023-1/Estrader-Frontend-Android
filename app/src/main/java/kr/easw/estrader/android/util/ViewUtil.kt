@@ -12,6 +12,7 @@ import kr.easw.estrader.android.abstracts.BasePagingAdapter
 import kr.easw.estrader.android.abstracts.Inflate
 import kr.easw.estrader.android.abstracts.OnItemClickListener
 import kr.easw.estrader.android.databinding.ElementItemBinding
+import kr.easw.estrader.android.fragment.user.ItemDetailFragment
 import kr.easw.estrader.android.fragment.user.ItemLookUpFragment
 import kr.easw.estrader.android.model.data.bindMainItemToView
 import kr.easw.estrader.android.model.dto.MainItem
@@ -30,6 +31,54 @@ object ViewUtil {
                     fragment.requireActivity().supportFragmentManager.commit {
                         replace(
                             R.id.framelayout,
+                            ItemLookUpFragment.indexImage(dataList[position].iconDrawable)
+                        )
+                    }
+                }
+            }
+            override fun onBindItem(binding: ElementItemBinding, item: MainItem) {
+                bindMainItemToView(fragment.requireContext(), binding, item)
+            }
+        }
+    }
+
+    fun setupNewItemListAdapter(
+        fragment: Fragment,
+        dataList: MutableList<MainItem>
+    ) : BasePagingAdapter<MainItem, ElementItemBinding> {
+        return object: BasePagingAdapter<MainItem, ElementItemBinding>(dataList) {
+            override val setupItemBinding: Inflate<ElementItemBinding> get() = ElementItemBinding::inflate
+            // recyclerView 아이템 클릭 이벤트 설정
+            override val setOnItemClickListener: OnItemClickListener get() = object : OnItemClickListener {
+                override fun onItemClick(position: Int) {
+                    // Bundle 을 이용해 position 에 해당 이미지 URL 넘기기
+                    fragment.requireActivity().supportFragmentManager.commit {
+                        replace(
+                            R.id.container_view,
+                            ItemDetailFragment.indexImage(dataList[position].iconDrawable)
+                        )
+                    }
+                }
+            }
+            override fun onBindItem(binding: ElementItemBinding, item: MainItem) {
+                bindMainItemToView(fragment.requireContext(), binding, item)
+            }
+        }
+    }
+
+    fun setupScheduledItemListAdapter(
+        fragment: Fragment,
+        dataList: MutableList<MainItem>
+    ) : BasePagingAdapter<MainItem, ElementItemBinding> {
+        return object: BasePagingAdapter<MainItem, ElementItemBinding>(dataList) {
+            override val setupItemBinding: Inflate<ElementItemBinding> get() = ElementItemBinding::inflate
+            // recyclerView 아이템 클릭 이벤트 설정
+            override val setOnItemClickListener: OnItemClickListener get() = object : OnItemClickListener {
+                override fun onItemClick(position: Int) {
+                    // Bundle 을 이용해 position 에 해당 이미지 URL 넘기기
+                    fragment.requireActivity().supportFragmentManager.commit {
+                        replace(
+                            R.id.container_view,
                             ItemLookUpFragment.indexImage(dataList[position].iconDrawable)
                         )
                     }

@@ -1,34 +1,20 @@
 package kr.easw.estrader.android.fragment.user
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
+import kr.easw.estrader.android.R
 import kr.easw.estrader.android.databinding.FragmentHomeBinding
+import kr.easw.estrader.android.fragment.BaseFragment
+import kr.easw.estrader.android.fragment.delegation.user.ItemListFragment
 
-class HomeFragment : Fragment() {
-    private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-
+class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        binding.manual1.setOnClickListener {
-            //해당 설명 만들고 누르면 호출
+        super.onViewCreated(view, savedInstanceState)
+        binding.progressCardView.setOnClickListener {
+            this.parentFragmentManager.commit {
+                replace(R.id.container_view, ItemListFragment())
+            }
         }
     }
 }

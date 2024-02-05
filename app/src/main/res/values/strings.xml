@@ -11,6 +11,11 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="hello_login">안녕하세요!</string>
     <string name="hello_guide">부동산 경매 서비스를 편하게 이용하세요.</string>
+    <string name="item_guide">부동산 경매 물건 검색</string>
+    <string name="delegation_guide">대리 위임 시작</string>
+    <string name="how_to_use_guide">사용 방법</string>
+    <string name="looking_for_guide">어느 지역을 찾으시나요?</string>
+    <string name="recent_search">최근 검색</string>
     <string name="status_bar">상태 바</string>
     <string name="item_image">물건 사진</string>
     <string name="header_logo">상단 로고</string>
@@ -20,11 +25,15 @@
     <string name="navigation_search">검색</string>
     <string name="navigation_more">더보기</string>
     <string name="navigation_myinfo">내정보</string>
+    <string name="navigation_list">리스트</string>
+    <string name="navigation_map">지도</string>
     <string name="navigation_searchregion">지역별 검색</string>
+    <string name="hamburger_menu">햄버거 메뉴</string>
     <string name="navigation_new">신규매물</string>
     <string name="navigation_case">사건별 검색</string>
     <string name="property_photo">매물 사진</string>
     <string name="property_name">매물 명칭</string>
+    <string name="hyperlink"><u>눌러서 자세히 보기</u></string>
     <string name="intro">인트로</string>
     <string name="thumbnail">썸네일</string>
     <string name="floating">플로팅 액션 버튼</string>

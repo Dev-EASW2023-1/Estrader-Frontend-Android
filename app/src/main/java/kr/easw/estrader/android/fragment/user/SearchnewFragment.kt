@@ -26,9 +26,6 @@ class SearchnewFragment : Fragment() {
     private val dataList: MutableList<MainItem> = mutableListOf()
     private var currentPage: Int = 0
     private var size: Int = 5
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,17 +44,11 @@ class SearchnewFragment : Fragment() {
 
     private fun initRecycler() {
         pagingAdapter = ViewUtil.setupAdapterForMapView(this, dataList)
-        binding.newrecyclerView.apply {
+        binding.newRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             itemAnimator = DefaultItemAnimator()
             adapter = pagingAdapter
-
-
-
-
-
         }
-
     }
 
     private fun prepareListItem() {
@@ -77,12 +68,9 @@ class SearchnewFragment : Fragment() {
                         item.ycoordinate,
                         item.district
                     )
-
                     dataList.add(
                         newItem
                     )
-
-
                 }
                 pagingAdapter.notifyItemChanged(0)
 

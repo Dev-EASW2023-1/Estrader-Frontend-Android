@@ -15,7 +15,7 @@ typealias Inflate<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
 
 abstract class BaseFragment<VB : ViewBinding>(private val inflate: Inflate<VB>) : Fragment() {
 
-    private var _binding: ViewBinding? = null
+    private var _binding: VB? = null
     val binding get() = _binding!!
 
     // recyclerView 에 사용할 커스텀 리스너 interface 정의
