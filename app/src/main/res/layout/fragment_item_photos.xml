@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    android:scrollbarFadeDuration="0"
+    android:scrollbars="vertical">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentStart="true"
+                android:gravity="center"
+                android:text="관련 이미지"
+                android:textColor="#000000"
+                android:textSize="@dimen/title_size"
+                android:textStyle="bold" />
+
+            <android.widget.Button
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:gravity="center"
+                android:background="@drawable/agentdelegation_border"
+                android:text="지도로 보기"
+                android:textColor="#95A1AC"
+                android:textSize="@dimen/heading_size" />
+
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/photo_image_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginBottom="20dp"
+                    android:contentDescription="@string/property_photo"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/photo_image_1" />
+
+                <android.widget.Button
+                    android:layout_width="130dp"
+                    android:layout_height="30dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignBottom="@+id/photo_image_1"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/status_survey_button"
+                    android:text="현황조사, 전경도"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/heading_size"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/photo_image_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginBottom="20dp"
+                    android:contentDescription="@string/property_photo"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/photo_image_2" />
+
+                <android.widget.Button
+                    android:layout_width="130dp"
+                    android:layout_height="30dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignBottom="@+id/photo_image_2"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/status_survey_button"
+                    android:text="현황조사, 전경도"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/heading_size"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/photo_image_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginBottom="20dp"
+                    android:contentDescription="@string/property_photo"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/photo_image_3" />
+
+                <android.widget.Button
+                    android:layout_width="130dp"
+                    android:layout_height="30dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignBottom="@+id/photo_image_3"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/status_survey_button"
+                    android:text="현황조사, 전경도"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/heading_size"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.core.widget.NestedScrollView>
