@@ -2,19 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/navigation_home"
+        android:enabled="true"
         android:title="@string/navigation_home"
-        android:icon="@drawable/ic_home"
-        />
+        android:icon="@drawable/ic_home" />
     <item
         android:id="@+id/navigation_map"
-        android:title="@string/navigation_search"
-        android:icon="@drawable/ic_map" />
+        android:enabled="true"
+        android:title="@string/navigation_list"
+        android:icon="@drawable/list_icon" />
     <item
         android:id="@+id/navigation_more"
-        android:title="@string/navigation_more"
-        android:icon="@drawable/ic_more" />
+        android:enabled="true"
+        android:title="@string/navigation_map"
+        android:icon="@drawable/ic_map" />
     <item
         android:id="@+id/navigation_myinfo"
+        android:enabled="true"
         android:title="@string/navigation_myinfo"
-        android:icon="@drawable/ic_add" />
+        android:icon="@drawable/person_icon" />
 </menu>

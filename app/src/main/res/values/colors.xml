@@ -13,4 +13,6 @@
     <color name="main_bgc">#F3F3F3</color>
     <color name="btn_pressed">#8CD8FF</color>
     <color name="btn_border">#E2E2E2</color>
+    <color name="card_view_background">#F8F9FA</color>
+    <color name="line_color">#CED4DA</color>
 </resources>

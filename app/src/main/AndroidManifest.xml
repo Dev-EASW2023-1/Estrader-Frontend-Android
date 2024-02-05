@@ -89,6 +89,9 @@
             android:name=".activity.realtor.RealtorIntroActivity"
             android:exported="false" />
         <activity
+            android:name=".activity.user.NavigationActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.user.IntroActivity"
             android:exported="true"
             android:label="@string/app_name"
