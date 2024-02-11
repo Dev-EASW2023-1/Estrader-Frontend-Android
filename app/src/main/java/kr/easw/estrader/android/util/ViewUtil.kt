@@ -76,6 +76,7 @@ object ViewUtil {
         }
     }
 
+    // tab 담은 List 를 recyclerView Adapter 에 전달
     fun setupDetailItemTabAdapter(
         fragment: Fragment,
         dataList: MutableList<TitleItem>,
@@ -84,6 +85,7 @@ object ViewUtil {
         return object: BaseRecyclerViewAdapter<TitleItem, ElementTabItemBinding>(dataList) {
             var selectedTitlePosition = 0
             override val setupItemBinding: Inflate<ElementTabItemBinding> get() = ElementTabItemBinding::inflate
+            // 특정 tab 눌렀을 때, tab 에 맞게 scrollTo 하는 함수
             override val setOnItemClickListener: OnItemClickListener
                 get() = object: OnItemClickListener {
                     override fun onItemClick(position: Int) {
@@ -99,6 +101,7 @@ object ViewUtil {
                         }
                     }
                 }
+            // scroll 위치가 특정 tab 일 때, 글자 색상을 Blue 로 바꾸는 함수
             override fun onBindItem(binding: ElementTabItemBinding, item: TitleItem) {
                 binding.titleText.text = item.titleName
                 if(item.isSelected) {
@@ -107,6 +110,8 @@ object ViewUtil {
                     binding.titleText.setTextColor(fragment.requireActivity().getColorCompat(R.color.color_sub))
                 }
             }
+
+            // tab 바뀔 때, notify 하여 update 하는 함수
             override fun setTitleSelected(position: Int) {
                 for((index, data) in dataList.withIndex()) {
                     data.isSelected = position == index
@@ -114,6 +119,7 @@ object ViewUtil {
                 notifyItemRangeChanged(0, dataList.size)
             }
 
+            // scroll 위치에 맞게 tab 을 바꾸는 함수
             override fun triggerScrollEventOnPass() {
                 val scrollBounds = Rect()
                 recyclerViewBinding.itemDetailScroll.getHitRect(scrollBounds)
