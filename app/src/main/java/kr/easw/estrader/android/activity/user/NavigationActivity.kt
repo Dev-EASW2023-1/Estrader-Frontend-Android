@@ -8,9 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import kr.easw.estrader.android.R
 import kr.easw.estrader.android.databinding.ActivityNavigationBinding
 import kr.easw.estrader.android.extensions.replaceFragment
+import kr.easw.estrader.android.fragment.delegation.user.NewItemListFragment
 import kr.easw.estrader.android.fragment.user.HomeFragment
 import kr.easw.estrader.android.fragment.user.MyprofileFragment
-import kr.easw.estrader.android.fragment.user.SearchnewFragment
 import kr.easw.estrader.android.fragment.user.SearchregionFragment
 
 class NavigationActivity : AppCompatActivity() {
@@ -49,7 +49,7 @@ class NavigationActivity : AppCompatActivity() {
 //                    binding.tabLayout.visibility = View.VISIBLE
 
 
-                    supportFragmentManager.replaceFragment<SearchnewFragment>(
+                    supportFragmentManager.replaceFragment<NewItemListFragment>(
                         binding.containerView.id, null
                     )
                     true
@@ -131,7 +131,7 @@ class NavigationActivity : AppCompatActivity() {
 //    }
 
     private fun initFragment() {
-        supportFragmentManager.replaceFragment<SearchregionFragment>(
+        supportFragmentManager.replaceFragment<HomeFragment>(
             binding.containerView.id, null
         )
     }

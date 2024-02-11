@@ -2,7 +2,6 @@
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
@@ -15,6 +14,7 @@
         android:hint="Email Address"
         app:helperText="Write your email."
         app:helperTextEnabled="true"
+        app:helperTextTextColor="@color/default_color"
         app:hintAnimationEnabled="true"
         app:hintEnabled="true">
 
@@ -28,7 +28,6 @@
             android:paddingEnd="0dp"
             android:textSize="@dimen/hint_size" />
 
-
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnNext2"
             android:layout_width="match_parent"
@@ -40,36 +39,33 @@
             android:textColor="#ffffff"
             android:textSize="@dimen/subtitle_size"
             android:textStyle="bold"
-            android:visibility="visible"
+            android:visibility="visible" />
 
-            />
     </com.google.android.material.textfield.TextInputLayout>
-<com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/userPw"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Password"
-        app:helperText="Write your password."
-        app:helperTextEnabled="true"
-        app:helperTextTextColor="#585757"
-        app:hintEnabled="true"
-        app:passwordToggleEnabled="true"
-        android:visibility="gone"
 
-
-        >
-
-        <com.google.android.material.textfield.TextInputEditText
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/userPw"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="3dp"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:paddingStart="10dp"
-            android:paddingEnd="0dp"
-            android:textSize="@dimen/hint_size" />
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            app:helperText="Write your password."
+            app:helperTextEnabled="true"
+            app:helperTextTextColor="@color/default_color"
+            app:hintEnabled="true"
+            app:passwordToggleEnabled="true"
+            android:visibility="gone">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="3dp"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:paddingStart="10dp"
+                android:paddingEnd="0dp"
+                android:textSize="@dimen/hint_size" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -96,8 +92,7 @@
         android:textColor="#ffffff"
         android:textSize="@dimen/subtitle_size"
         android:textStyle="bold"
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -106,7 +101,7 @@
         android:layout_marginTop="6dp"
         android:layout_marginBottom="30dp"
         android:text="Forgot Password?"
-        android:textColor="#585757"
+        android:textColor="@color/default_color"
         android:textSize="@dimen/subtitle_size"
         android:textStyle="bold" />
 

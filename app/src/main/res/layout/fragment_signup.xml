@@ -54,7 +54,7 @@
             android:layout_gravity="center"
             app:helperText="비밀번호를 한번 더 입력해주세요."
             app:helperTextEnabled="true"
-            app:helperTextTextColor="#585757"
+            app:helperTextTextColor="@color/default_color"
             app:passwordToggleEnabled="true"
             android:visibility="invisible">
 

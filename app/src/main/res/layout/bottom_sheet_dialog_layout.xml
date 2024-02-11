@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="담당법원 : "
-                android:textColor="#585657"
+                android:textColor="@color/default_color"
                 android:fontFamily="@font/chosungu"
                 android:textSize="@dimen/subtitle_size"
                 app:drawableStartCompat="@drawable/court_icon_resize"
@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="대구지방법원 경매 3계"
-                android:textColor="#585657"
+                android:textColor="@color/default_color"
                 android:fontFamily="@font/chosungu"
                 android:textSize="@dimen/subtitle_size" />
 
@@ -71,7 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="소재지 : "
-                android:textColor="#585657"
+                android:textColor="@color/default_color"
                 android:fontFamily="@font/chosungu"
                 android:textSize="@dimen/subtitle_size"
                 app:drawableStartCompat="@drawable/location_icon_resize"
@@ -82,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="대구광역시 중구"
-                android:textColor="#585657"
+                android:textColor="@color/default_color"
                 android:fontFamily="@font/chosungu"
                 android:textSize="@dimen/subtitle_size" />
 
@@ -99,7 +99,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="최저가 : "
-                android:textColor="#585657"
+                android:textColor="@color/default_color"
                 android:fontFamily="@font/chosungu"
                 android:textSize="@dimen/subtitle_size"
                 app:drawableStartCompat="@drawable/contract_resize"
@@ -110,7 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1,489,129,980"
-                android:textColor="#585657"
+                android:textColor="@color/default_color"
                 android:fontFamily="@font/chosungu"
                 android:textSize="@dimen/subtitle_size" />
 
@@ -127,7 +127,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="입찰기일 : "
-                android:textColor="#585657"
+                android:textColor="@color/default_color"
                 android:fontFamily="@font/chosungu"
                 android:textSize="@dimen/subtitle_size"
                 app:drawableStartCompat="@drawable/bidding_period_icon_resize"
@@ -138,7 +138,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2023년 03월 27일 ~ \n2023년 04월 07일"
-                android:textColor="#585657"
+                android:textColor="@color/default_color"
                 android:fontFamily="@font/chosungu"
                 android:textSize="@dimen/subtitle_size" />
 
@@ -169,7 +169,7 @@
                 android:layout_gravity="center"
                 android:background="@color/white"
                 android:text="@string/reject_button"
-                android:textColor="#585657"
+                android:textColor="@color/default_color"
                 android:textSize="@dimen/subtitle_size"
                 android:fontFamily="@font/chosungu"
                 android:textStyle="bold" />

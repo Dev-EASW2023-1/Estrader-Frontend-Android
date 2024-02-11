@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/hello_login"
-                android:textColor="#585757"
+                android:textColor="@color/default_color"
                 android:textSize="@dimen/subtitle_size"
                 android:textStyle="bold" />
 
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:text="@string/hello_guide"
-                android:textColor="#585757"
+                android:textColor="@color/default_color"
                 android:textSize="@dimen/heading_size" />
 
             <LinearLayout
@@ -74,7 +74,7 @@
                     android:layout_marginEnd="10dp"
                     android:text="@string/sign_in"
                     android:textSize="@dimen/subtitle_size"
-                    android:textColor="#585757" />
+                    android:textColor="@color/default_color" />
 
                 <TextView
                     android:id="@+id/sign_up"
@@ -83,7 +83,7 @@
                     android:layout_marginStart="10dp"
                     android:text="@string/sign_up"
                     android:textSize="@dimen/subtitle_size"
-                    android:textColor="#585757" />
+                    android:textColor="@color/default_color" />
 
             </LinearLayout>
 

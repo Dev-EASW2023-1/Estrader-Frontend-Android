@@ -8,6 +8,7 @@
 
     <dimen name="title_size">24dp</dimen>
     <dimen name="subtitle_size">20dp</dimen>
+    <dimen name="medium_text">18dp</dimen>
     <dimen name="heading_size">16dp</dimen>
     <dimen name="body_size">14dp</dimen>
     <dimen name="hint_size">12dp</dimen>

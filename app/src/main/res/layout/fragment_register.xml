@@ -21,6 +21,7 @@
             android:hint="Email Address"
             app:helperText="Write your email."
             app:helperTextEnabled="true"
+            app:helperTextTextColor="@color/default_color"
             app:hintAnimationEnabled="true"
             app:hintEnabled="true">
 
@@ -57,11 +58,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Password"
-        app:helperTextTextColor="#585757"
         app:hintEnabled="true"
         app:passwordToggleEnabled="true"
-        android:visibility="gone"
-        >
+        android:visibility="gone">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -84,11 +83,10 @@
         android:hint="Confirm Password"
         app:helperText="Write your password."
         app:helperTextEnabled="true"
-        app:helperTextTextColor="#585757"
+        app:helperTextTextColor="@color/default_color"
         app:hintEnabled="true"
         app:passwordToggleEnabled="true"
-        android:visibility="gone"
-        >
+        android:visibility="gone">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"

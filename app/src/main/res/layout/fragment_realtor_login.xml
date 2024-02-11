@@ -14,6 +14,7 @@
         android:hint="Email Address"
         app:helperText="Write your email."
         app:helperTextEnabled="true"
+        app:helperTextTextColor="@color/default_color"
         app:hintAnimationEnabled="true"
         app:hintEnabled="true">
 
@@ -37,7 +38,7 @@
         android:hint="Password"
         app:helperText="Write your password."
         app:helperTextEnabled="true"
-        app:helperTextTextColor="#585757"
+        app:helperTextTextColor="@color/default_color"
         app:hintEnabled="true"
         app:passwordToggleEnabled="true">
 
@@ -59,11 +60,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
-        android:buttonTint="#595757"
+        android:buttonTint="@color/default_color"
         android:checked="true"
         android:text="자동 로그인"
         android:textAlignment="center"
-        android:textColor="#4d7149"
+        android:textColor="@color/default_color"
         android:textSize="14dp" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -85,7 +86,7 @@
         android:layout_marginTop="6dp"
         android:layout_marginBottom="30dp"
         android:text="Forgot Password?"
-        android:textColor="#585757"
+        android:textColor="@color/default_color"
         android:textSize="@dimen/subtitle_size"
         android:textStyle="bold" />
 

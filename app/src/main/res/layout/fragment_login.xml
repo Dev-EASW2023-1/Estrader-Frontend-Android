@@ -19,9 +19,7 @@
             android:layout_height="400dp"
             android:layout_margin="30dp"
             android:src="@drawable/main_screen"
-            android:contentDescription="@string/main_screen"
-
-            />
+            android:contentDescription="@string/main_screen" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/welcome"
@@ -61,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/main_screen_sign_up"
-                android:textColor="#585757"
+                android:textColor="@color/default_color"
                 android:textSize="@dimen/subtitle_size"
                 android:textStyle="bold" />
 
@@ -79,6 +77,7 @@
             android:paddingEnd="40dp"
             app:helperText="Write your id."
             app:helperTextEnabled="true"
+            app:helperTextTextColor="@color/default_color"
             app:hintAnimationEnabled="true"
             app:hintEnabled="true"
             android:visibility="gone">
@@ -117,6 +116,7 @@
             android:paddingEnd="40dp"
             app:helperText="Write your password."
             app:helperTextEnabled="true"
+            app:helperTextTextColor="@color/default_color"
             app:hintAnimationEnabled="true"
             app:hintEnabled="true"
             app:passwordToggleEnabled="true"
@@ -130,6 +130,7 @@
                 android:paddingStart="10dp"
                 android:paddingEnd="0dp"
                 android:textSize="@dimen/hint_size" />
+
             <requestFocus />
 
             <androidx.appcompat.widget.AppCompatButton
