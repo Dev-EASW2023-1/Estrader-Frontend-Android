@@ -11,7 +11,7 @@ abstract class BaseViewHolder <T: Any>(
     init {
         if(listener != null) {
             view.setOnClickListener {
-                val pos = adapterPosition
+                val pos = absoluteAdapterPosition
                 if (pos != RecyclerView.NO_POSITION) {
                     listener.onItemClick(pos)
                 }

@@ -34,6 +34,9 @@
     <string name="property_photo">매물 사진</string>
     <string name="property_name">매물 명칭</string>
     <string name="hyperlink"><u>눌러서 자세히 보기</u></string>
+    <string name="ask_about_auction_interest">해당 경매에 관심이 있으신가요?</string>
+    <string name="accept_contract">대리 위임 요청하기</string>
+    <string name="reject_contract"><u>취 소</u></string>
     <string name="intro">인트로</string>
     <string name="thumbnail">썸네일</string>
     <string name="floating">플로팅 액션 버튼</string>

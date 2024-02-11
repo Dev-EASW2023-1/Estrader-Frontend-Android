@@ -37,4 +37,8 @@ abstract class BaseRecyclerViewAdapter <T: Any, VB: ViewBinding> (
     }
 
     override fun getItemCount(): Int = dataSet.size
+
+    open fun setTitleSelected(position: Int) {}
+
+    open fun triggerScrollEventOnPass() {}
 }

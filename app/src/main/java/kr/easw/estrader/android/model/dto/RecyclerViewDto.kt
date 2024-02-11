@@ -9,7 +9,14 @@ data class MainItem(
     val auctionPeriod: String = "",
     val xcoordinate: String = "",
     val ycoordinate: String = "",
-    val district: String = ""
+    val district: String = "",
+    val itemType: String = "",
+    val note: String = ""
+)
+
+data class TitleItem(
+    val titleName: String = "",
+    var isSelected: Boolean = false
 )
 
 data class DelegateItem(
