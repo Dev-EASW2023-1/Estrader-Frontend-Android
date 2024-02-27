@@ -293,6 +293,7 @@ class MapViewFragment : Fragment(R.layout.fragment_map), OnMapReadyCallback {
         mapView.onDestroy()
         mapFragment = null
         naverMap = null
+        bottomSheetBinding.mainlistRecyclerView.adapter = null
         super.onDestroyView()
     }
     override fun onLowMemory() {
