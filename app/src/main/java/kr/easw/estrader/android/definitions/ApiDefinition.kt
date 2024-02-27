@@ -95,4 +95,22 @@ object ApiDefinition {
         .setRequestUrl("$SERVER_URL/item/map")
         .setResponseParams(DistrictResponse::class.java)
         .setRequestMethod(Request.Method.POST)
+
+    val USER_HOPE_PRICE = RestRequestTemplate.Builder<UserHopePriceDto, String>()
+        .setRequestHeaders(mutableMapOf("Content-Type" to "application/json"))
+        .setRequestUrl("$SERVER_URL/temp/addhope")
+        .setResponseParams(String::class.java)
+        .setRequestMethod(Request.Method.POST)
+
+    val REALTOR_FEE = RestRequestTemplate.Builder<RealtorfeeDto, String>()
+        .setRequestHeaders(mutableMapOf("Content-Type" to "application/json"))
+        .setRequestUrl("$SERVER_URL/temp/addfee")
+        .setResponseParams(String::class.java)
+        .setRequestMethod(Request.Method.POST)
+
+    val DELEGATED = RestRequestTemplate.Builder<DelegatedDto, String>()
+        .setRequestHeaders(mutableMapOf("Content-Type" to "application/json"))
+        .setRequestUrl("$SERVER_URL/temp/adddel")
+        .setResponseParams(String::class.java)
+        .setRequestMethod(Request.Method.POST)
 }
