@@ -10,8 +10,8 @@ import kr.easw.estrader.android.databinding.ActivityNavigationBinding
 import kr.easw.estrader.android.extensions.replaceFragment
 import kr.easw.estrader.android.fragment.delegation.user.NewItemListFragment
 import kr.easw.estrader.android.fragment.user.HomeFragment
+import kr.easw.estrader.android.fragment.user.MapViewFragment
 import kr.easw.estrader.android.fragment.user.MyprofileFragment
-import kr.easw.estrader.android.fragment.user.SearchregionFragment
 
 class NavigationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNavigationBinding
@@ -59,7 +59,7 @@ class NavigationActivity : AppCompatActivity() {
 //                    binding.tabLayout.visibility = View.VISIBLE
 
 
-                    supportFragmentManager.replaceFragment<SearchregionFragment>(
+                    supportFragmentManager.replaceFragment<MapViewFragment>(
                         binding.containerView.id, null
                     )
                     true

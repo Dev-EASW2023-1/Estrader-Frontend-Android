@@ -90,6 +90,7 @@
             android:exported="false" />
         <activity
             android:name=".activity.user.NavigationActivity"
+            android:launchMode="singleTop"
             android:exported="false" />
         <activity
             android:name=".activity.user.IntroActivity"
