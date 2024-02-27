@@ -11,12 +11,12 @@ import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.MapFragment
+import com.naver.maps.map.MapView
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.util.MarkerIcons
@@ -63,9 +63,9 @@ class MapViewFragment : Fragment(R.layout.fragment_map), OnMapReadyCallback {
     private lateinit var bottomSheetLayout: ConstraintLayout
     private lateinit var btnInitialize: AppCompatButton
     private lateinit var reloadButton: Button
-
-    private lateinit var naverMap: NaverMap
-    private lateinit var mapFragment: MapFragment
+    private lateinit var mapView: MapView
+    private var naverMap: NaverMap? = null
+    private var mapFragment: MapFragment? = null
     private lateinit var pagingAdapter: BasePagingAdapter<MainItem, ElementItemBinding>
 
     private val mapBinding by viewBinding(FragmentMapBinding::bind)
@@ -82,32 +82,22 @@ class MapViewFragment : Fragment(R.layout.fragment_map), OnMapReadyCallback {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setupMapView()
+        super.onViewCreated(view, savedInstanceState)
+        mapView = view.findViewById(R.id.mapView)
+        mapView.onCreate(savedInstanceState)
         initializeUIComponents()
         initRecycler()
     }
 
     // childFragmentManager 를 사용해 MapFragment id를 이용해 찾은 후에 FragmentTransaction 로 지도를 화면에 표시
     // MapFragment 를 다른 fragment 내에 배치할 경우 supportFragmentManager 대신 childFragmentManager 사용
-    private fun setupMapView() {
-        Log.d("X3 | setupMapView()", "지도 view 가져오기")
-        val fm = childFragmentManager
-        mapFragment = (fm.findFragmentById(mapBinding.mapView.id) as MapFragment?)
-            ?: MapFragment.newInstance().also {
-                fm.commit {
-                    add(mapBinding.mapView.id, it)
-                }
-            }
-        mapFragment.getMapAsync(this)
-    }
-
     override fun onMapReady(map: NaverMap) {
         Log.d("X3 | onMapReady()", "onMapReady 콜백 메서드 호출")
         naverMap = map
 
         // map UI 설정
         configureMapUiSettings(
-            naverMap,
+            naverMap!!,
             NaverMap.MapType.Basic,
             isBuildingEnabled = true,
             isTrafficEnabled = true,
@@ -120,14 +110,11 @@ class MapViewFragment : Fragment(R.layout.fragment_map), OnMapReadyCallback {
         initSearchButtonListener()
 
         // 카메라 움직임 멈추면 검색 버튼 visible
-        setupCameraIdleListener(
-            naverMap,
-            action = { reloadButton.visibility = View.VISIBLE }
-        )
+        setupCameraIdleListener(naverMap!!, action = { reloadButton.visibility = View.VISIBLE })
 
         // 통합 위치 제공자 초기화 및 위치 요청
         initLocationClient(this)
-        loadCurrentLocation(this, naverMap)
+        loadCurrentLocation(this, naverMap!!)
     }
 
     private fun initializeUIComponents() {
@@ -138,18 +125,6 @@ class MapViewFragment : Fragment(R.layout.fragment_map), OnMapReadyCallback {
         // 참고 : https://stackoverflow.com/questions/58730127/view-binding-how-do-i-get-a-binding-for-included-layouts
         bottomSheetBinding = FragmentBottomSheetRecyclerViewBinding.bind(bottomSheetLayout)
         setupBottomSheetForMapView(this, bottomSheetLayout)
-//        toggleButton.setOnCheckedChangeListener { _, isChecked ->
-//            if (isChecked) {
-//                // ToggleButton이 "On" 상태일 때의 작업
-//                mapBinding.mapView.visibility = View.GONE
-//                mapBinding.reloadButton.visibility = View.GONE
-//                mapBinding.mainlist.visibility = View.VISIBLE
-//            } else {
-//                // ToggleButton이 "Off" 상태일 때의 작업
-//                mapBinding.mapView.visibility = View.VISIBLE
-//                mapBinding.mainlist.visibility = View.GONE
-//            }
-//        }
     }
 
     private fun initSearchButtonListener() {
@@ -161,7 +136,7 @@ class MapViewFragment : Fragment(R.layout.fragment_map), OnMapReadyCallback {
             clearDataList()
 
             // 화면의 중심 좌표
-            val center = naverMap.cameraPosition.target
+            val center = naverMap!!.cameraPosition.target
             Log.d("X3 | showReloadButton()", "center 값 확인 $center")
 
             getDetailedAddress(center)
@@ -232,7 +207,7 @@ class MapViewFragment : Fragment(R.layout.fragment_map), OnMapReadyCallback {
                     // 위도, 경도 값이 null 일 경우 마커 추가 이벤트 무시
                     val lat = item.ycoordinate.toDoubleOrNull() ?: return@forEach
                     val lng = item.xcoordinate.toDoubleOrNull() ?: return@forEach
-                    addMarker(requireContext(), lat, lng, MarkerIcons.GREEN, naverMap, newItem)
+                    addMarker(requireContext(), lat, lng, MarkerIcons.GREEN, naverMap!!, newItem)
                 }
 
                 // 최대 상한인 totalPage 와 currentPage 비교 후 로딩 뷰 추가
@@ -252,14 +227,12 @@ class MapViewFragment : Fragment(R.layout.fragment_map), OnMapReadyCallback {
             }
 
             dialog.dismiss()
-        }
-            .setRequestHeaders(
+        }.setRequestHeaders(
                 mutableMapOf(
-                    "Authorization" to "Bearer " + PreferenceUtil(requireContext()).init()
-                        .start().getString(PREFERENCE_TOKEN)!!
+                    "Authorization" to "Bearer " + PreferenceUtil(requireContext()).init().start()
+                        .getString(PREFERENCE_TOKEN)!!
                 )
-            )
-            .build(requireContext())
+            ).build(requireContext())
     }
 
     // Geocoder getFromLocation deprecated 로 인한 버전 핸들링 추가
@@ -271,15 +244,11 @@ class MapViewFragment : Fragment(R.layout.fragment_map), OnMapReadyCallback {
                 val fetchDistrict = withContext(IO) {
                     if (Build.VERSION.SDK_INT < 33) {
                         MapUtil.getCurrentAddress(
-                            requireContext(),
-                            center.latitude,
-                            center.longitude
+                            requireContext(), center.latitude, center.longitude
                         )
                     } else {
                         MapUtil.getCurrentAddressForTiramisu(
-                            requireContext(),
-                            center.latitude,
-                            center.longitude
+                            requireContext(), center.latitude, center.longitude
                         )
                     }
                 }
@@ -298,7 +267,38 @@ class MapViewFragment : Fragment(R.layout.fragment_map), OnMapReadyCallback {
         isLastPage = false
         pagingAdapter.clear()
     }
+    override fun onStart() {
+        super.onStart()
+        mapView.onStart()
+    }
 
+    override fun onResume() {
+        super.onResume()
+        mapView.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mapView.onPause()
+    }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        mapView.onSaveInstanceState(outState)
+    }
+    override fun onStop() {
+        super.onStop()
+        mapView.onStop()
+    }
+    override fun onDestroyView() {
+        mapView.onDestroy()
+        mapFragment = null
+        naverMap = null
+        super.onDestroyView()
+    }
+    override fun onLowMemory() {
+        super.onLowMemory()
+        mapView.onLowMemory()
+    }
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
